@@ -1,0 +1,19 @@
+{
+  "name": "floatingdoctors",
+  "version": "1.0.0",
+  "description": "Interactive data visualization.",
+  "main": "app.js",
+  "dependencies": {
+    "mongodb": "^2.2.11",
+    "mongojs": "^2.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "infovis"
+  ],
+  "author": "",
+  "license": "ISC"
+}

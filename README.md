@@ -8,8 +8,7 @@ The Floating Doctors data visualization project.
 ```
 npm install
 npm start
-open http://localhost:3000
 ```
-
-Now edit `src/App.js`.  
+Now open http://localhost:3000 in your browser
+and then edit `src/App.js`.  
 Your changes will appear without reloading the browser like in.

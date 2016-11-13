@@ -1,0 +1,47 @@
+Allergy Treatment, Systemic	ALLS
+Allergy Treatment, Topical	ALLT
+Analgesic	ANAL
+Antacid	ACID
+Antibiotics, Systemic	ABSS
+Antibiotics, Topical	ABST
+Anti-Arrhythmic	RTHM
+Anti-Coagulation	COAG
+Anti-Fungal, Systemic	FNGS
+Anti-Fungal, Topical	FNGT
+Anti-Helminthic	WORM
+Anti-Hypertensive	HIBP
+Anti-Inflammatory	INFM
+Anti-Malarial Meds	MALA
+Anti-Pyretic	FEVR
+Anti-Seizure (Neuroleptic)	SEZR
+Contraception	CONT
+Cough Suppressant	COGH
+Counseling	CNSL
+Dental Procedure	DNTL
+Diabetes Medication	DMDS
+Ear Syringing/Cleaning	EARS
+Eye Drops (Lubricant)	LUBE
+Eye Procedure	EYES
+Education	EDCT
+Glasses	GLAS
+Hormone Therapy	HRTS
+IV Fluids	IVTX
+Laxative	LAXA
+Night Sedation	SEDA
+Nutrition	NUTR
+Oral Rehydration	ORST
+Orthopedic Support	ORTH
+Orthopedic Immobilzation	IMOB
+Other Treatment	OTHR
+Palliative Care	PALI
+Physiotherapy	PHYS
+Psychiatric Medication	PSYC
+Referral to Specialist	REFE
+Reassurance	REAS
+Scabicidal	SCAB
+Soap	SOAP
+Steroids	STER
+Surgerical Procedure	SURG
+Triple Therapy	HELI
+Wound Care	WNDC
+Vitamins	VITA

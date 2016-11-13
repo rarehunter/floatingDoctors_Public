@@ -1,0 +1,496 @@
+Abdominal Aortic Aneurism	CV01
+Aneurism	CV02
+Aortic Regurgitation	CV03
+Aortic Stenosis	CV04
+Arteritis, Unspecified	CV05
+Atherosclerosis	CV06
+Atrial Fibrillation	CV07
+Atrial Fibrillation, Paroxysmal	CV08
+AV Block	CV09
+Cardiomegaly	CV10
+Cardiomyopathy	CV11
+Cardiovascular Disease, Unspecific	CV12
+Cerebro-Vascular Accident	CV13
+Chagas	CV14
+Conduction Disorders	CV15
+Cor Pulmonale	CV16
+Deep Vein Thrombosis	CV17
+Dehydration	CV18
+Dextrocardia	CV19
+Dysrythmia	CV20
+Endocarditis	CV21
+Haemorrhage	CV22
+Haemorrhoids	CV23
+Heart Failure	CV24
+Hemopericardium	CV25
+Hyperlipidemia	CV26
+Hypertension	CV27
+Hypotension	CV28
+Intra-Cerebral Hemmorhage	CV29
+Left Bundle Branch Block	CV30
+Mitral Valve Disease	CV31
+Myocardial Infarction	CV32
+Naevus, Non-Neoplastic	CV33
+Orthostatic Hypotension	CV34
+Other Heart Block	CV35
+Other Heart Problem	CV36
+Pacemaker	CV37
+Pericarditis	CV38
+Peripheral Vascular Disease	CV39
+Phlebitis	CV40
+Portal Vein Thrombosis	CV41
+Pulmonary Embolism	CV42
+Pulmonary Hypertension	CV43
+Renal Artery Stenosis	CV44
+Reynaud's Syndrome	CV45
+Right Bundle Branch Block	CV46
+Rheumatic Fever	CV47
+Sub-Arachnoid Hemmorhage	CV48
+Temporal Arteritis	CV49
+Tricuspid Valve Disease	CV50
+Valve Replacement	CV51
+Anencephallus	CA01
+Blindness, Complete	CA02
+Blindness, Color	CA03
+Blindness, Sees Light and Dark	CA04
+Blindness, Sees Shapes	CA05
+Choanal Atresia	CA06
+Cleft Lip	CA07
+Cleft Palate	CA08
+Congenital Catract	CA09
+Congenital Heart Anomaly	CA10
+Deformity	CA11
+Digestive Tract Anomaly	CA12
+Genital Abnormalities	CA13
+Hearing Impairment, Total	CA14
+Hearing Impairment, Partial	CA15
+Hirschsprung's Disease	CA16
+Hydrocephalus	CA17
+Hypospadius or Epispadias	CA18
+Indeterminate Sex	CA19
+Lung Abnormality	CA20
+Meckel's Diverticulum	CA21
+Micropthalmus	CA22
+Other Congenital Anomaly	CA23
+Patent Ductus Arteriosis	CA24
+Polydactyly	CA25
+Spina Bifida	CA26
+Spine Abnormality	CA27
+Syndactyly	CA28
+Tetralogy Of Fallot	CA29
+Lower Limb Reduction Deformity	CA30
+Upper Limb Reduction Deformity	CA31
+Lung Abnormality	CA32
+Tongue Tie	CA33
+Traceho-Esophageal Fistula	CA34
+Transposition of Great Arteries	CA35
+Webbing of Neck	CA36
+Anemia, Iron-Deficient	HM01
+Anemia, Pernicious 	HM02
+Anemia, Sickle-Cell 	HM03
+Anemia, Unspecified	HM04
+Coagulation Defect	HM05
+Eosinophelia	HM06
+Hemmorhagic Condition	HM07
+HIV	HM08
+Hypersplenism	HM09
+Malaria	HM10
+Purpura, Allergic	HM11
+Sepsis	HM12
+Thrombocytopenia	HM13
+Vitamin K Deficiency	HM14
+Abuse, History of	MH01
+Acute Confusional State	MH02
+Acute Mania	MH03
+Alcoholic Psychosis	MH04
+Alcohol Abuse	MH05
+Anorexia	MH06
+Anxiety, Acute	MH07
+Anxiety, Chronic	MH08
+Autism	MH09
+Bi-Polar	MH10
+Delayed Development	MH11
+Dementia w/ Acute Confusion	MH12
+Dementia w/ Depression/Paranoia	MH13
+Depression	MH14
+Down's Syndrome	MH15
+Drug Abuse, Cannabis	MH16
+Drug Abuse, Opiates	MH17
+Drug Abuse, Cocaine	MH18
+Drug Abuse, Other	MH19
+Drug Psychosis	MH20
+Hypochondria	MH21
+Hyperactivity	MH22
+Insomnia	MH23
+Obsessive-Compulsive Disorders	MH24
+Other Mental Handicap	MH25
+Phobia	MH26
+Post-Traumatic Stress 	MH27
+Relationship Problems	MH28
+Schizophremia	MH29
+Senile and Presenile Dementia	MH30
+Sexual Deviation	MH31
+Sexual Dysfunction	MH32
+Sleep Disorder	MH33
+Stress	MH34
+Abortion, Complications From	PC01
+Abortion, Induced	PC02
+Abortion, Spontaneous	PC03
+Antepartum Hemmorhage	PC04
+Birth Trauma, Unspecified	PC05
+Breech Birth	PC06
+Complicated Pregnancy, Unspecific	PC07
+Cord Around Neck	PC08
+Cord Prolapse	PC09
+Diabetes of Pregnancy	PC10
+Ectopic Pregnancy	PC11
+Embolism, Unspecified	PC12
+Feeding Problems	PC13
+Fetal Abnormality, Unspecified	PC14
+Fetal Death	PC15
+Fetal Distress	PC16
+Gonorrheal Conjunctivitis	PC17
+Hydatiform Mole	PC18
+Intrauterine Death	PC19
+Jaundice, Perinatal	PC20
+Lactation Disorder, Unspecified	PC21
+Malposition of Fetus	PC22
+Maternal Distress/Shock	PC23
+Morning Sickness	PC24
+Other Pregnancy Problem,Unspecific	PC25
+Placenta Praevia	PC26
+Polyhydramnios	PC27
+Post-Partum Depression	PC28
+Post-Partum Hemmorhage	PC29
+Pre-Eclampsia	PC30
+Pre-labor Contraction	PC31
+Premature Delivery	PC32
+Prolonged Labour	PC33
+Retained Placenta	PC34
+Small for Dates	PC35
+Twins	PC36
+Varicose Veins	PC37
+Amenorrhea	GB01
+Bartholin's Cyst	GB02
+Bacterial Vaginosis	GB03
+Benign Prostatic Hyperplasia	GB04
+Calculus	GB05
+Cervical Pathology (Unspecified)	GB06
+Cystitis	GB07
+Dysmenorrhea	GB08
+Dyspareunia	GB09
+Epididymitis	GB10
+Endometriosis	GB11
+Fistula	GB12
+Hydrocoele	GB13
+Incontinence	GB14
+Alzheimer's Disease	NS01
+Amnesia	NS02
+Anosmia	NS03
+Ataxia	NS04
+Bell's Palsy	NS05
+Blindness, partial	NS06
+Blindness, total	NS07
+Blindness, unilateral	NS08
+Cataract	NS09
+Cauda Equina Syndrome	NS10
+Carpal Tunnel	NS11
+Cerebellar Disease	NS12
+Cerebral Edema	NS13
+Cerebral Palsy	NS14
+Chalazion	NS15
+Cluster Headache	NS16
+Color Blindness	NS17
+Concussion	NS18
+Conjunctivitis	NS19
+Corneal Abrasion	NS20
+Cranial Nerve Pathology, Unspecific	NS21
+Diabetic Neuropathy	NS22
+Diplopia	NS23
+Dry Eye	NS24
+Earwax	NS25
+Encephalitis	NS26
+Epilepsy, Petit-Mal 	NS27
+Epilepsy, Grand-Mal 	NS28
+Epilepsy, Other	NS29
+Exopthalmus	NS30
+Febrile Seizures	NS31
+Glaucoma	NS32
+Headache	NS33
+Hearing Impairment, partial	NS34
+Hearing Impairment, total	NS35
+Heatstroke	NS36
+Hemiplegia	NS37
+Hydrocephalus	NS38
+Mastoiditis	NS39
+Meningitis, Bacterial	NS340
+Meningitis, Viral	NS41
+Migraine	NS42
+Motor Neurone Disease	NS43
+Multiple Sclerosis	NS44
+Muscle Atrophy	NS45
+Muscular Dystrophy	NS46
+Myoclonus	NS47
+Myopia	NS48
+Neuralgia	NS49
+Neuropathy	NS50
+Other Nerve Pathology	NS51
+Other Sense Organ Pathology	NS52
+Otitis Externa	NS53
+Amputation	MS01
+Arthritis, Osteo	MS02
+Arthritis, Rheumatoid	MS03
+Arthritis, Septic	MS04
+Arthritis, Unspecified	MS05
+Bursitis	MS06
+Cachexia	MS07
+Cervical Trauma	MS08
+Compression Syndrome	MS09
+Contracture	MS10
+Crush Injury	MS11
+Deformity, Unspecified	MS12
+Dislocation	MS13
+Fasciitis	MS14
+Fracture, Lower Limb	MS15
+Fracture, Upper Limb	MS16
+Fracture, Skull	MS17
+Fracture, Vertebral	MS18
+Fracture, Unspecified	MS19
+Ganglion Cyst	MS20
+Gout	MS21
+Hammer Toe	MS22
+Kyphosis	MS23
+Myalgia	MS24
+Lower Back Pain	MS25
+Osteomalacia	MS26
+Osteomyelitis	MS27
+Osteoporosis	MS28
+Other Musculoskeletal Problem	MS29
+Poorly Healed Fracture	MS30
+Prolapsed Disc	MS31
+Ricketts	MS32
+Scoliosis	MS33
+Sprain, Lower Limb	MS34
+Sprain, Upper Limb	MS35
+Strain, Lower Limb	MS36
+Strain, Upper Limb	MS37
+Systemic Lupues Erythematosus	MS38
+Trigger Finger	MS39
+Carcinoid Syndrome	EN01
+Cushing's Syndrome	EN02
+Diabetes Type I	EN03
+Diabetes Type II	EN04
+Goitre	EN05
+Hyperaldosteronism	EN06
+Hyperthyroidism	EN07
+Hypothyroidism	EN08
+Other Endocrine Dysfunction	EN09
+Thyroiditis	EN10
+Thyrotoxicosis	EN11
+Sex Hormone Dysfunction	EN12
+Abcess, Liver	GI01
+Abcess, Oral Cavity	GI02
+Abcess, Unspecified	GI03
+Adhesions	GI04
+Anal Fissure	GI05
+Anal Fistula	GI06
+Appendicitis	GI07
+Cholecystis, Acute	GI08
+Cholecystitis, Chronic	GI09
+Cholera	GI10
+Chrohn's Disease	GI11
+Constipation	GI12
+Diarrhea	GI13
+Diverticular Disease	GI14
+Food Poisoning	GI15
+Gallstones	GI16
+Gastritis	GI17
+Gastroenteritis	GI18
+Giardia	GI19
+Glossitis	GI20
+Dental Abcess	GI21
+Helicobacter Pylori	GI22
+Hepatic Obstruction	GI23
+Hematemesis	GI24
+Hepatitis, Viral	GI25
+Hepatomegaly	GI26
+Hernia, Femoral	GI27
+Hernia, Inguinal	GI28
+Hernia, Umbilical	GI29
+Intussusception	GI30
+Malabsorption	GI31
+Melaena	GI32
+Miliary Tuberculosis	GI33
+Obstruction, Acute	GI34
+Oesophageal Varices	GI35
+Overdose	GI36
+Paralytic Ileus	GI37
+Perforation	GI38
+Peritonitis	GI39
+Poisoning, Ingestion	GI40
+Portal Hypertension	GI41
+Prolapse	GI42
+Ulcer	GI43
+Ulcerative Colitis	GI44
+Unspecific Abdominal Pain	GI45
+Unspecific Gastrointestinal Pathology	GI46
+Sialoadenitis	GI47
+Splenomegaly	GI48
+Vomiting	GI49
+Volvulus	GI50
+Worms	GI51
+Infertility	GB15
+Irregular Menses	GB16
+Mammary Duct Ectasia	GB17
+Mastitis	GB18
+Menopause	GB19
+Nephrotic Syndrome	GB20
+Pelvic Inflammatory Disease	GB21
+Phimosis	GB22
+Polycystic Ovarian Syndrome	GB23
+Prolapse	GB24
+Prostatitis	GB25
+Oophoritis / Salpingitis	GB26
+Other Genital Problem	GB27
+Other Urinary Problem	GB28
+Ovarian Cyst	GB29
+Renal Abcess	GB30
+Renal Colic	GB31
+Renal Failure, Acute	GB32
+Renal Failure, Chronic	GB33
+STD	GB34
+Torsion of Testis	GB35
+Urethral Stricture	GB36
+Urinary Tract Infection, Acute	GB37
+Urinary Tract Infection, Chronic	GB38
+Urithritis	GB39
+Uterine Fibroma	GB40
+Uterine Malformation	GB41
+Adrenal Neoplasm	NP01
+Bone Neoplasm	NP02
+Bladder Neoplasm	NP03
+Brain Neoplasm	NP04
+Breast Neoplasm, Benign	NP05
+Breast Neoplasm, Malignant	NP06
+Cervical Neoplasm	NP07
+Colon Neoplasm	NP08
+Haemangioma or Lymphangioma	NP09
+Hepatic Neoplasm	NP10
+Kidney Neoplasm	NP11
+Leukemia	NP12
+Lung Neoplasm	NP13
+Lymphatic/Heamopoeitic Neoplasm	NP14
+Neurofibromatosis	NP15
+Oesophageal Neoplasm	NP16
+Orophayrngeal Neoplasm	NP17
+Ovarian Neoplasm	NP18
+Pancreatic Neoplasm	NP19
+Prostate Neoplasm, Benign	NP20
+Prostate Neoplasm, Malignant	NP21
+Testicular Cancer, Benign	NP22
+Testicular Cancer, Malignant	NP23
+Thyroid Neoplasm	NP24
+Unspecified Benign Neoplasm	NP25
+Unspecified Malignant Neoplasm	NP26
+Uterine Neoplasm	NP27
+Otitis Interna	NS54
+Otitis Media	NS55
+Paraplesia	NS56
+Parkinsonism	NS57
+Parkinson's Disease	NS58
+Palsy, Unspecified	NS59
+Perforation	NS60
+Polio	NS61
+Pterygium	NS62
+Ptosis	NS63
+Quadriplegia	NS64
+Retinal Detachment	NS65
+Sciatica	NS66
+Sinusitis	NS67
+Strabismus	NS68
+Stye	NS69
+Tinnitus	NS70
+Trigeminal Nerve Pathology	NS71
+Visual Defect, Unspecified	NS72
+Vertigo	NS73
+Allergies	RS01
+Aspergillosis	RS02
+Asthma	RS03
+Barotrauma	RS04
+Bronchitis	RS05
+Carbon Monoxide Poisoning	RS06
+Chemical Injury	RS07
+COPD	RS08
+Diptheria	RS09
+Empyema	RS10
+Epistaxis	RS11
+Influenza	RS12
+Foreign Body	RS13
+Pharyngitis	RS14
+Pleural Effusion	RS15
+Pleuritis	RS16
+Sinusitis	RS17
+Laryngitis 	RS18
+Measles	RS19
+Nasal Polyps	RS20
+Other Respiratory Disease	RS21
+Pneumonia, Bacterial	RS22
+Pneumonia, Viral	RS23
+Pneumothorax	RS24
+Pulmonary Edema	RS25
+Pulmonary Fibrosis	RS26
+Smoke Inhalation	RS27
+Tonsillitis	RS28
+Tuberculosis	RS29
+Whooping Cough	RS30
+Abcess	DM01
+Abrasion	DM02
+Acne	DM03
+Allergic Reaction, Unspecified	DM04
+Alopecia	DM05
+Animal Bite	DM06
+Atopic Dermatitis	DM07
+Botfly	DM08
+Burn, 2nd Degree or Less	DM09
+Burn, 3rd Degree	DM10
+Blister	DM11
+Chemical Irritation	DM12
+Contact Dermatitis	DM13
+Contusion	DM14
+Corns and Callouses, Unspecified	DM15
+Erythema Multiforme	DM16
+Erythema Nodusum	DM17
+Excoriated Insect Bites	DM18
+Foreign Body	DM19
+Fungal Infection, Unspecified	DM20
+Gangrene	DM21
+Heat Rash	DM22
+Impetigo	DM23
+Ingrown Nail	DM24
+Insect Bites	DM25
+Herpes	DM26
+Keloid	DM27
+Laceration	DM28
+Leishmaniasis	DM29
+Nail Disease	DM30
+Other Skin Problem, Unspecified	DM31
+Pemphigoid	DM32
+Pilo-Nidal Sinus	DM33
+Pressure Sore	DM34
+Pruritis	DM35
+Psoriasis	DM36
+Rosacea	DM37
+Scabies	DM38
+Sebacious Cyst	DM39
+Squamoos Cell Carcinoma	DM40
+Skin Cancer, SCC or BCC	DM41
+Skin Cancer, Melanoma 	DM42
+Skin Cancer, Unspecified	DM43
+Skin Tag	DM44
+Spider Bite	DM45
+Squamoos Cell Carcinoma	DM46
+Sweat Gland Disorder	DM47
+Taenia Capatus/Pedis/Corpus	DM48
+Ulcer, Diabetic	DM49
+Ulcer, Unspecified	DM50
+Ulcer, Tropical	DM51

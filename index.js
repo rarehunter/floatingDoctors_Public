@@ -5,12 +5,24 @@ var firebase = require("firebase");
 var fs = require('fs-extra');
 var readline = require('readline');
 
+var webpack = require('webpack');
+var devMiddleware = require('webpack-dev-middleware');
+var hotMiddleware = require('webpack-hot-middleware');
+var config = require('./webpack.config');
+
+var compiler = webpack(config);
 var app = express();
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
+app.use(devMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  historyApiFallback: true,
+}));
+
+app.use(hotMiddleware(compiler));
 
 
 // Initialize Firebase

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import ScatterPlot from './components/scatter-plot.jsx';
 
 const styles = {
 	width: 500,
@@ -27,10 +29,11 @@ export default class Chart extends React.Component {
 	render() {
 		return <div>
 			<h1>React & D3</h1>
+			<ScatterPlot {...this.state} {...styles} />
 			<div className="controls">
-				<button className="btn randomize" onClick={() => this.randomizeData()}>
+				<Button className="randomize" onClick={() => this.randomizeData()}>
 					Randomize data
-				</button>
+				</Button>
 			</div>
 		</div>
 	}

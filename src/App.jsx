@@ -1,17 +1,14 @@
-import styles from './app.css';
+import './css/main.css';
 import React, { Component } from 'react';
-import Layout from './Layout.jsx';
-import Counter from './Counter.jsx';
-import Chart from './chart.jsx';
+import MainView from './MainView.jsx';
+
 
 export default class App extends Component {
-  render() {
-    return (
-      <Layout>
-       
-        <Chart />
-      </Layout>
-    );
-  }
+	
+	render() {
+		return (
+			<MainView />
+		);
+	}
 }
 

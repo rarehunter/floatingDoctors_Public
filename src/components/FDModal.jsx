@@ -41,6 +41,7 @@ export default class FDModal extends React.Component {
                     <Modal.Body>
                         <h4>Some header here</h4>
                         <p>Place stuff here</p>
+                        
                     </Modal.Body>
 
                     <Modal.Footer>

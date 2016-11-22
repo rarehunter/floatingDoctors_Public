@@ -9,7 +9,7 @@ const yMax = (data) => d3.max(data, (d) => d[1]);
 const xScale = (props) => {
 	return d3.scaleLinear()
 		.domain([0, xMax(props.data)])
-		.range([props.padding, props.width - props.padding * 2]);
+		.range([props.padding, props.width - props.padding]);
 };
 
 const yScale = (props) => {

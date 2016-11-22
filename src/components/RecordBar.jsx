@@ -3,9 +3,11 @@ import RecordSquare from '../components/RecordSquare.jsx';
 
 export default function RecordBar(props) {
 	return (
-		// {props.records && props.records.map((r, i) => {
-		// 	<RecordSquare key={i} size="4" x={props.x} y={props.height - i * 5}/>
-		// })}	
-		<h1>Hello</h1>
+		<g>
+		{props.records && props.records.map((r,i) => {
+			return <RecordSquare key={i} size="4" x={props.x} y={props.height - (i+1) * 5 - 4} />;
+		})};
+		</g>
 	);
+	
 }

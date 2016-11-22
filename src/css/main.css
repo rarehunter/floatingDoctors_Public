@@ -84,11 +84,11 @@ body {
 	cursor: pointer;
 }
 
-.label:hover {
+.label:hover, .label.highlighted {
 	font-size: 14px;
 	color: #FE5A5A;
 	fill: #FE5A5A;
-	font-weight: 700;
+	font-weight: 500;
 }
 
 .btn {
@@ -127,5 +127,13 @@ body {
     text-align: right;
 }
 .recordSquare {
-	fill: rgba(254,90,90,0.2);
+	transition: all 0.2s ease-in-out;
+}
+
+.tick line {
+	visibility: hidden;
+}
+
+.axisDot {
+	fill: #999;
 }

@@ -20,6 +20,14 @@ const labelGroupData1 = [
 	"Renal Colic"
 ];
 
+const diagnosisData = [
+	{"id":0, "name":"Worms", "state":0},
+	{"id":1, "name":"Prolapse", "state":0},
+	{"id":2, "name":"Schizophremia", "state":0},
+	{"id":3, "name":"Prostatitis", "state":0},
+	{"id":4, "name":"Renal", "state":0},	
+];
+
 const communityData = [
 	{"abr": "BG", "name":"BAHIA GRANDE"},
 	{"abr": "BH", "name":"BAHIA HONDA"},
@@ -34,18 +42,58 @@ export default class MainView extends React.Component {
 		this.state = {
 			width: window.innerWidth,
 			height: window.innerHeight,
-			activeSquare: '',
+			activeRecord: '',
 			activeLabel: '',
+			selectedRecord: '',
+			selectedLabels: [],
+			highlightedRecords: [],
+			highlightedCommunities: [],
+			diagnosis: [],
+			highlightedTreatments: [],
+			highlightedWaterSources: [],
+			highlightedBano: [],
 			lines: [],
-			squares: [],
-			labels: [],
 		};
+		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
 	}
 
 	componentDidMount() {
 		const height = this.state.height - this.props.y;
 		this.setState({
-			height: height
+			height: height,
+			diagnosis: diagnosisData
+		});
+	}
+
+	handleLabelInteraction(type, id, state) {
+		if (type === "diagnosis") {
+			const diagnosis = this.state.diagnosis.slice();
+			diagnosis.map((d) => {
+				if (d.id === id) {
+					d.state = state;
+				}
+			});
+			this.setState({
+				diagnosis: diagnosis
+			});
+		}
+	}
+
+	handleRecordMouseOver(type, id) {
+		(type === "record") ? (
+			this.setState({
+				activeSquare: id
+			})
+		) : (
+			this.setState({
+				activeLabel: id
+			})
+		);
+	}
+
+	handleClick(type, id) {
+		this.setState({
+
 		});
 	}
 
@@ -65,16 +113,57 @@ export default class MainView extends React.Component {
 			<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
 				<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX} 
 					left = {[
-						<LabelGroup key="0" direction='v' title="Diagnosis" labels={labelGroupData1} x="0" y="0"/>,
-						<LabelGroup key="1" direction='v' title="Water Sources"  x="0" y={height/2}/>
+						<LabelGroup key="0" 
+							type="diagnosis" 
+							direction='v' 
+							title="Diagnosis" 
+							labels={labelGroupData1}
+							data={this.state.diagnosis} 
+							highlightedLabels={this.state.highlightedDiagnosis} 
+							onLabelInteraction={this.handleLabelInteraction}
+							x="0" y="0"/>,
+						<LabelGroup key="1" 
+							type="watersources" 
+							direction='v' 
+							title="Water Sources" 
+							labels={labelGroupData1}
+							data={this.state.diagnosis} 
+							highlightedLabels={this.state.highlightedWaterSources}
+							onLabelInteraction={this.handleLabelInteraction}
+							x="0" y={height/2}/>
 					]}
-					center = {[
+					center = {[	
 						<MainChart key="0" />,
-						<LabelGroup key="1" direction='h' title="Community" labels={communityName} x="0" y={height-96}/>
+						<LabelGroup key="1" 
+							type="community" 
+							direction='h' 
+							title="Community" 
+							labels={communityName} 
+							data={this.state.diagnosis} 
+							highlightedLabels={this.state.highlightedCommunities} 
+							onLabelInteraction={this.handleLabelInteraction}
+							x="0" y={height-96}/>
 					]}
 					right = {[
-						<LabelGroup key="0" direction='v' title="Treatment" x="0" y="0"/>,
-						<LabelGroup key="1" direction='v' title="Bano" x="0" y={height/2}/>
+						<LabelGroup key="0" 
+							type="treatment" 
+							direction='v' 
+							title="Treatment" 
+							labels={labelGroupData1}
+							data={this.state.diagnosis}  
+							highlightedLabels={this.state.highlightedTreatments} 
+							onLabelInteraction={this.handleLabelInteraction}
+							x="0" y="0"/>,
+						<LabelGroup key="1" 
+							type="bano" 
+							direction='v' 
+							title="Bano" 
+							x="0" 
+							labels={labelGroupData1} 
+							data={this.state.diagnosis} 
+							highlightedLabels={this.state.highlightedBano} 
+							onLabelInteraction={this.handleLabelInteraction}
+							x="0" y={height/2}/>
 					]}
 				/>
 				<LinkGroup />

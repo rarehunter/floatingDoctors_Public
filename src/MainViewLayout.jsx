@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function MainViewLayout(props) {
-	console.log(props.col);
 	return (
 		<g className="Panes">
 			<g key="0" className="Pane-left" transform={`translate(${props.leftX}, 0)`}>

@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import RecordBar from '../components/RecordBar.jsx';
 import {getAttributeFromObejcts} from '../Helper.jsx';
 import MainAxis from '../components/MainAxis.jsx';
+import * as Meta from '../Metadata.jsx';
 
 const xMax = (data) => d3.max(data, (d) => d[0]);
 const yMax = (data) => d3.max(data, (d) => d[1]);
@@ -180,13 +181,13 @@ const visitDates = getAttributeFromObejcts(visits, "date");
 const xScale = () => {
 	return d3.scalePoint()
 		.domain(visitDates)
-		.range([0,800]);
+		.range([0,Meta.MAIN_CHART_WIDTH]);
 }
 export default class MainChart extends React.Component {
 	render() {
 		const scaleX = xScale();
 		const xSettings = {
-			translate: `translate(0, 640)`,
+			translate: `translate(0, ${Meta.MAIN_CHART_HEIGHT})`,
 			scale: scaleX,
 			orient: 'bottom',
 			dates: visitDates
@@ -194,7 +195,7 @@ export default class MainChart extends React.Component {
 		return (
 		<g className="mainChart">
 			{visitDates.map((d, i) => {
-				return <RecordBar key={i} records={records} x={scaleX(d)} height="640" />;
+				return <RecordBar key={i} records={records} x={scaleX(d)} height={Meta.MAIN_CHART_HEIGHT}/>;
 			})};
 			<MainAxis {...xSettings} />
 		</g>

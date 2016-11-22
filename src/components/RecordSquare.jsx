@@ -1,35 +1,49 @@
 import React from 'react';
 import styles from '../css/main.css';
+import * as Meta from '../Metadata.jsx';
 
 export default class RecordSquare extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			scale: 1,
-			fill: "rgba(254,90,90,0.2)",
+			scale: 1
 		};
+		this.handleMouseOver = this.handleMouseOver.bind(this);
+		this.handleMouseOut = this.handleMouseOut.bind(this);
+		this.checkSquareState = this.checkSquareState.bind(this);
+	}
+	handleMouseOver() {
+		this.setState({
+			scale: 1.2
+		})
+	}
+	handleMouseOut() {
+		this.setState({
+			scale: 1
+		})
+	}
+	checkSquareState() {
+		let classy = "";
+		if (this.state.scale === 1) {
+			classy = `${styles.recordSquare}`;
+		} else {
+			classy = `${styles.recordSquare} ${styles.highlighted}`;
+		}
+		return classy;
 	}
 	render() {
-		const size = this.props.size * this.state.scale;
 		const translateX = this.props.x;
-		const translateY = this.props.y + this.props.size / 2;
+		const translateY = this.props.y + Meta.SQUARE_SIZE / 2;
 		return (
 			<rect 
-				width={this.props.size} 
-				height={this.props.size} 
-				x={this.props.x - this.props.size / 2} 
+				width={Meta.SQUARE_SIZE} 
+				height={Meta.SQUARE_SIZE} 
+				x={this.props.x - Meta.SQUARE_SIZE / 2} 
 				y={this.props.y} 
-				fill={this.state.fill}
 				transform={`translate(${translateX}, ${translateY}) scale(${this.state.scale}) translate(-${translateX}, -${translateY})`}
-				className={styles.recordSquare}
-				onMouseOver = {() => {this.setState({
-					scale: 1.2,
-					fill: "rgba(254,90,90,1)"
-				});}}
-				onMouseOut = {() => {this.setState({
-					scale: 1,
-					fill: "rgba(254,90,90,0.2)"
-				});}}
+				className={this.checkSquareState()}
+				onMouseOver = {this.handleMouseOver}
+				onMouseOut = {this.handleMouseOut}
 			/>
 		)
 	}

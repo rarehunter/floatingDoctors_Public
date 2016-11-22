@@ -1,6 +1,7 @@
 import React from 'react';
 import Label from '../components/Label.jsx';
 import styles from '../css/main.css';
+import * as Meta from '../Metadata.jsx';
 
 export default class LabelGroup extends React.Component {
 	constructor() {
@@ -28,7 +29,7 @@ export default class LabelGroup extends React.Component {
 									x={this.props.x} 
 									state={d.state} 
 									onLabelInteraction={this.handleLabelInteraction}
-									dy="32"/>
+									dy={Meta.LABEL_DY_L}/>
 							) : (
 								<Label key={d.id} 
 									id={d.id} 
@@ -36,7 +37,7 @@ export default class LabelGroup extends React.Component {
 									x={this.props.x} 
 									state={d.state} 
 									onLabelInteraction={this.handleLabelInteraction}
-									dy="20"/>
+									dy={Meta.LABEL_DY}/>
 							)
 						) : (
 							<Label key={d.id} 
@@ -45,7 +46,7 @@ export default class LabelGroup extends React.Component {
 								y={this.props.y} 
 								state={d.state} 
 								onLabelInteraction={this.handleLabelInteraction}
-								dx="16"/>
+								dx={Meta.LABEL_DX}/>
 						)
 					);
 				})}

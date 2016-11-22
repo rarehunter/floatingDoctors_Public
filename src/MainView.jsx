@@ -4,12 +4,8 @@ import MainViewLayout from './MainViewLayout.jsx';
 import LabelGroup from './components/LabelGroup.jsx';
 import MainChart from './components/MainChart.jsx';
 import LinkGroup from './components/LinkGroup.jsx';
-
-const PADDING = 32;
-const PANE_SPAN = 12;
-const PANE_LEFT_SPAN = 2;
-const PANEL_CENTER_SPAN = 8;
-const PANEL_RIGHT_SPAN = 2;
+import * as Meta from './Metadata.jsx';
+import * as Helper from './Helper.jsx';
 
 // Dummy data
 const labelGroupData1 = [
@@ -46,15 +42,16 @@ export default class MainView extends React.Component {
 			activeLabel: '',
 			selectedRecord: '',
 			selectedLabels: [],
-			highlightedRecords: [],
-			highlightedCommunities: [],
+			records: [],
+			communities: [],
 			diagnosis: [],
-			highlightedTreatments: [],
-			highlightedWaterSources: [],
-			highlightedBano: [],
+			treatments: [],
+			waterSources: [],
+			bano: [],
 			lines: [],
 		};
 		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
+		this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
 	}
 
 	componentDidMount() {
@@ -79,35 +76,26 @@ export default class MainView extends React.Component {
 		}
 	}
 
-	handleRecordMouseOver(type, id) {
-		(type === "record") ? (
-			this.setState({
-				activeSquare: id
-			})
-		) : (
-			this.setState({
-				activeLabel: id
-			})
-		);
-	}
-
-	handleClick(type, id) {
+	handleRecordInteraction(id, state) {
+		const records = this.state.records.slice();
+		records.map((r) => {
+			if (r.id === id) r.state = state;
+		});
 		this.setState({
-
+			records: records
 		});
 	}
 
 	render() {
 		const { width, height } = this.state;
 		const paneLeftX = 0;
-		const paneLeftWidth = (width - PADDING * 2) / PANE_SPAN * PANE_LEFT_SPAN;
+		const paneLeftWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANE_LEFT_SPAN;
 		const paneCenterX = paneLeftWidth;
-		const paneCenterWidth = (width - PADDING * 2) / PANE_SPAN * PANEL_CENTER_SPAN;
+		const paneCenterWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_CENTER_SPAN;
 		const paneRightX = paneLeftWidth + paneCenterWidth;
-		const paneRightWidth = (width - PADDING * 2) / PANE_SPAN * PANEL_RIGHT_SPAN;
+		const paneRightWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_RIGHT_SPAN;
 
-		const communityName = getAttributeFromObejcts(communityData, "abr");
-
+		const communityName = Helper.getAttributeFromObejcts(communityData, "abr");
 		console.log("Height is "+height);
 		return (
 			<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
@@ -117,41 +105,36 @@ export default class MainView extends React.Component {
 							type="diagnosis" 
 							direction='v' 
 							title="Diagnosis" 
-							labels={labelGroupData1}
 							data={this.state.diagnosis} 
-							highlightedLabels={this.state.highlightedDiagnosis} 
 							onLabelInteraction={this.handleLabelInteraction}
 							x="0" y="0"/>,
 						<LabelGroup key="1" 
 							type="watersources" 
 							direction='v' 
 							title="Water Sources" 
-							labels={labelGroupData1}
 							data={this.state.diagnosis} 
-							highlightedLabels={this.state.highlightedWaterSources}
 							onLabelInteraction={this.handleLabelInteraction}
 							x="0" y={height/2}/>
 					]}
 					center = {[	
-						<MainChart key="0" />,
+						<MainChart key="0" 
+							data={this.state.records}
+							onRecordInteraction={this.handleRecordInteraction}
+						/>,
 						<LabelGroup key="1" 
 							type="community" 
 							direction='h' 
 							title="Community" 
-							labels={communityName} 
 							data={this.state.diagnosis} 
-							highlightedLabels={this.state.highlightedCommunities} 
 							onLabelInteraction={this.handleLabelInteraction}
-							x="0" y={height-96}/>
+							x="0" y={Meta.MAIN_CHART_HEIGHT + Meta.PADDING * 2}/>
 					]}
 					right = {[
 						<LabelGroup key="0" 
 							type="treatment" 
 							direction='v' 
 							title="Treatment" 
-							labels={labelGroupData1}
-							data={this.state.diagnosis}  
-							highlightedLabels={this.state.highlightedTreatments} 
+							data={this.state.diagnosis} 
 							onLabelInteraction={this.handleLabelInteraction}
 							x="0" y="0"/>,
 						<LabelGroup key="1" 
@@ -159,9 +142,7 @@ export default class MainView extends React.Component {
 							direction='v' 
 							title="Bano" 
 							x="0" 
-							labels={labelGroupData1} 
-							data={this.state.diagnosis} 
-							highlightedLabels={this.state.highlightedBano} 
+							data={this.state.diagnosis}
 							onLabelInteraction={this.handleLabelInteraction}
 							x="0" y={height/2}/>
 					]}
@@ -170,12 +151,4 @@ export default class MainView extends React.Component {
 			</svg>
 		);
 	}
-}
-
-function getAttributeFromObejcts(objects, attr) {
-	let results = [];
-	objects.forEach(function(d) {
-		results.push(d[attr]);
-	});
-	return results;
 }

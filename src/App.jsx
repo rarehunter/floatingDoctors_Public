@@ -6,8 +6,11 @@ import MainView from './MainView.jsx';
 export default class App extends Component {
 	
 	render() {
+		const offsets = document.getElementById('root').getBoundingClientRect();
+		const top = offsets.top;
+		const left = offsets.left;
 		return (
-			<MainView />
+			<MainView y={top} x={left}/>
 		);
 	}
 }

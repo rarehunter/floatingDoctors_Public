@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Line extends React.Component {
+export default class Link extends React.Component {
 	render() {
 		return <text></text>;
 	}

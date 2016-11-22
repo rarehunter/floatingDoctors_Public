@@ -10,10 +10,12 @@ export default class App extends Component {
   	const offsets = document.getElementById('root').getBoundingClientRect();
 	const top = offsets.top;
 	const left = offsets.left;
-    return ([
-      	<MainView y={top} x={left}/>,
-        <MultiviewDialog />,
-        <br />,
-        <PatientDetailsDialog />,
-    ]);
+    return (
+    	<div>
+	      	<MainView y={top} x={left}/>
+	        <MultiviewDialog  />
+	        <PatientDetailsDialog />
+        </div>
+    );
   }
+}

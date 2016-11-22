@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, ButtonToolbar, Grid, Row, Col, Clearfix } from 'react-bootstrap';
-import styles from './css/modal.css';
+import styles from './css/main.css';
 
 
 export default class PatientDetailsDialog extends React.Component {

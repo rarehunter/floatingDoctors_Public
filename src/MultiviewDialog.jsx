@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button, ButtonToolbar, Grid, Row, Col, Clearfix } from 'react-bootstrap';
-import ScatterPlot from './components/scatter-plot.jsx';
-import styles from './css/modal.css';
+import ScatterPlot from './components/SAMPLE-scatter-plot.jsx';
+import styles from './css/main.css';
 import LineChart from './components/line-chart.jsx';
 import BarGraph from './components/bar-graph.jsx';
 import Rebase from 're-base';

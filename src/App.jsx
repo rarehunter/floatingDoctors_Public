@@ -1,21 +1,19 @@
-import styles from './app.css';
+import './css/main.css';
 import React, { Component } from 'react';
-import Layout from './Layout.jsx';
-import Counter from './Counter.jsx';
-import Chart from './chart.jsx';
+import MainView from './MainView.jsx';
 import Records from './Records.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
 import PatientDetailsDialog from './PatientDetailsDialog.jsx';
 
 export default class App extends Component {
   render() {
-    return (
-      <Layout>
-        <MultiviewDialog />
-        <br />
-        <PatientDetailsDialog />
-        <Chart />
-      </Layout>
-    );
+  	const offsets = document.getElementById('root').getBoundingClientRect();
+	const top = offsets.top;
+	const left = offsets.left;
+    return ([
+      	<MainView y={top} x={left}/>,
+        <MultiviewDialog />,
+        <br />,
+        <PatientDetailsDialog />,
+    ]);
   }
-}

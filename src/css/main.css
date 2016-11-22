@@ -6,3 +6,34 @@ button {
 	background-color: #ff5500;
 	border: 2px solid #d9d9d9;
 }
+
+/* CSS For MultiviewDialog and PatientDetailsDialog */
+.largeDialogBox
+{
+    width: 90%;
+}
+
+.smallDialogBox
+{
+    width: 40%;
+}
+
+.bignumbers
+{
+    font-size: 28px;
+}
+
+.gray
+{
+    color: #B8B8B8;
+}
+
+.black
+{
+    color: black;
+}
+
+.textRight
+{
+    text-align: right;
+}

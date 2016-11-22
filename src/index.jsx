@@ -9,7 +9,7 @@ import Records from './Records.jsx';
 const rootEl = document.getElementById('root');
 ReactDOM.render(
   <AppContainer>
-    <Records />
+    <App />
   </AppContainer>,
   rootEl
 );

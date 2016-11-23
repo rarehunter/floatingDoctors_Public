@@ -1,7 +1,6 @@
 import './css/main.css';
 import React, { Component } from 'react';
 import MainView from './MainView.jsx';
-import Records from './Records.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
 import PatientDetailsDialog from './PatientDetailsDialog.jsx';
 import dataManager from './helper/dataManager.jsx';

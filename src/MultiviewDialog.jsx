@@ -5,7 +5,6 @@ import styles from './css/main.css';
 import LineChart from './components/line-chart.jsx';
 import BarGraph from './components/bar-graph.jsx';
 import Rebase from 're-base';
-import Item from './Item.jsx';
 
 var prrecords;
 

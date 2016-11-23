@@ -33,12 +33,12 @@ export default class RecordSquare extends React.Component {
 	}
 	render() {
 		const translateX = this.props.x;
-		const translateY = this.props.y + Meta.SQUARE_SIZE / 2;
+		const translateY = this.props.y + Meta.SquareSize() / 2;
 		return (
 			<rect 
-				width={Meta.SQUARE_SIZE} 
-				height={Meta.SQUARE_SIZE} 
-				x={this.props.x - Meta.SQUARE_SIZE / 2} 
+				width={Meta.SquareSize()} 
+				height={Meta.SquareSize()} 
+				x={this.props.x - Meta.SquareSize() / 2} 
 				y={this.props.y} 
 				transform={`translate(${translateX}, ${translateY}) scale(${this.state.scale}) translate(-${translateX}, -${translateY})`}
 				className={this.checkSquareState()}

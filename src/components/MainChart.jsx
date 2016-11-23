@@ -176,12 +176,39 @@ const records = [
 	"r1",
 	"r1",
 	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+	"r1",
+
 ];
 const visitDates = getAttributeFromObejcts(visits, "date");
 const xScale = () => {
 	return d3.scalePoint()
 		.domain(visitDates)
-		.range([0,Meta.MAIN_CHART_WIDTH]);
+		.range([0,Meta.MainChartWidth()]);
+}
+const randomRecords = () => {
+	const len = Math.floor(Math.random() * (100 + 1));
+
+	let results = [];
+
+	for(var i = 0; i < len; i++) {
+		results.push("r");
+	}
+
+	return results;
 }
 export default class MainChart extends React.Component {
 	render() {
@@ -195,7 +222,7 @@ export default class MainChart extends React.Component {
 		return (
 		<g className="mainChart">
 			{visitDates.map((d, i) => {
-				return <RecordBar key={i} records={records} x={scaleX(d)} height={Meta.MAIN_CHART_HEIGHT}/>;
+				return <RecordBar key={i} records={randomRecords()} x={scaleX(d)} height={Meta.MAIN_CHART_HEIGHT}/>;
 			})};
 			<MainAxis {...xSettings} />
 		</g>

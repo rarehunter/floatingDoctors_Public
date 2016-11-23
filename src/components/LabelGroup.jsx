@@ -17,7 +17,7 @@ export default class LabelGroup extends React.Component {
 	}
 	render() {
 		return (
-			<text className={styles.labelTitle} x={this.props.x} y={this.props.y}>
+			<text className={styles.labelTitle} textAnchor={this.props.textAnchor} x={this.props.x} y={this.props.y}>
 				{this.props.title}
 				{this.props.data && this.props.data.map((d, i) => {
 					return (

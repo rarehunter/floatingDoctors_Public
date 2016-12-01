@@ -16,9 +16,9 @@ export default class LabelGroup extends React.Component {
 								<Label key={i} value={l} x={this.props.x} dy="20"/>
 							)
 						) : (
-							<Label key={i} value={l} y={this.props.y}  dx="16"/>
+							<Label key={i} value={l} onUserInput={this.props.onUserInput} y={this.props.y}  dx="16"/>
 						)
-						
+
 					);
 				})}
 			</text>

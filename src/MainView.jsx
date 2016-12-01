@@ -4,6 +4,8 @@ import MainViewLayout from './MainViewLayout.jsx';
 import LabelGroup from './components/LabelGroup.jsx';
 import MainChart from './components/MainChart.jsx';
 import LinkGroup from './components/LinkGroup.jsx';
+import MultiviewDialog from './MultiviewDialog.jsx';
+
 
 const PADDING = 32;
 const PANE_SPAN = 12;
@@ -36,10 +38,13 @@ export default class MainView extends React.Component {
 			height: window.innerHeight,
 			activeSquare: '',
 			activeLabel: '',
+			multiViewShowing: false,
+			communityShowing: '',
 			lines: [],
 			squares: [],
 			labels: [],
 		};
+		this.handleUserClick = this.handleUserClick.bind(this);
 	}
 
 	componentDidMount() {
@@ -47,6 +52,13 @@ export default class MainView extends React.Component {
 		this.setState({
 			height: height
 		});
+	}
+
+	handleUserClick(multiViewShowing, communityShowing) {
+		this.setState({
+			multiViewShowing: multiViewShowing,
+			communityShowing: communityShowing
+	    });
 	}
 
 	render() {
@@ -60,25 +72,30 @@ export default class MainView extends React.Component {
 
 		const communityName = getAttributeFromObejcts(communityData, "abr");
 
-		console.log("Height is "+height);
+		// console.log("Height is "+height);
+		console.log(this.state);
+
 		return (
-			<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
-				<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX} 
-					left = {[
-						<LabelGroup key="0" direction='v' title="Diagnosis" labels={labelGroupData1} x="0" y="0"/>,
-						<LabelGroup key="1" direction='v' title="Water Sources"  x="0" y={height/2}/>
-					]}
-					center = {[
-						<MainChart key="0" />,
-						<LabelGroup key="1" direction='h' title="Community" labels={communityName} x="0" y={height-96}/>
-					]}
-					right = {[
-						<LabelGroup key="0" direction='v' title="Treatment" x="0" y="0"/>,
-						<LabelGroup key="1" direction='v' title="Bano" x="0" y={height/2}/>
-					]}
-				/>
-				<LinkGroup />
-			</svg>
+			  <div>
+			     <MultiviewDialog isDialogActive={this.state.multiViewShowing} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
+			     <svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
+			        <MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}
+			          left = {[
+			            <LabelGroup key="0" direction='v' title="Diagnosis" labels={labelGroupData1} x="0" y="0"/>,
+			            <LabelGroup key="1" direction='v' title="Water Sources"  x="0" y={height/2}/>
+			          ]}
+			          center = {[
+			            <MainChart key="0" />,
+			            <LabelGroup key="1" direction='h' title="Community" onUserInput={this.handleUserClick} labels={communityName} x="0" y={height-96}/>
+			          ]}
+			          right = {[
+			            <LabelGroup key="0" direction='v' title="Treatment" x="0" y="0"/>,
+			            <LabelGroup key="1" direction='v' title="Bano" x="0" y={height/2}/>
+			          ]}
+			        />
+			        <LinkGroup />
+			    </svg>
+			  </div>
 		);
 	}
 }

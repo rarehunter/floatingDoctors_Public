@@ -23,31 +23,34 @@ export default class LabelGroup extends React.Component {
 					return (
 						(this.props.direction === "v") ? (
 							(i === 0) ? (
-								<Label key={d.id} 
-									id={d.id} 
-									value={d.name} 
-									x={this.props.x} 
-									state={d.state} 
+								<Label key={d.id}
+									id={d.id}
+									value={d.name}
+									x={this.props.x}
+									state={d.state}
 									onLabelInteraction={this.handleLabelInteraction}
 									dy={Meta.LABEL_DY_L}/>
 							) : (
-								<Label key={d.id} 
-									id={d.id} 
-									value={d.name} 
-									x={this.props.x} 
-									state={d.state} 
+								<Label key={d.id}
+									id={d.id}
+									value={d.name}
+									x={this.props.x}
+									state={d.state}
 									onLabelInteraction={this.handleLabelInteraction}
 									dy={Meta.LABEL_DY}/>
 							)
 						) : (
-							<Label key={d.id} 
-								id={d.id} 
-								value={d.name} 
-								y={this.props.y} 
-								state={d.state} 
+
+							<Label key={d.id}
+								id={d.id}
+								value={d.name}
+								y={this.props.y}
+								state={d.state}
 								onLabelInteraction={this.handleLabelInteraction}
+								onUserInput={this.props.onUserInput}
 								dx={Meta.LABEL_DX}/>
 						)
+
 					);
 				})}
 			</text>

@@ -4,8 +4,15 @@ import MainViewLayout from './MainViewLayout.jsx';
 import LabelGroup from './components/LabelGroup.jsx';
 import MainChart from './components/MainChart.jsx';
 import LinkGroup from './components/LinkGroup.jsx';
+import MultiviewDialog from './MultiviewDialog.jsx';
 import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
+
+const PADDING = 32;
+const PANE_SPAN = 12;
+const PANE_LEFT_SPAN = 2;
+const PANEL_CENTER_SPAN = 8;
+const PANEL_RIGHT_SPAN = 2;
 
 // Dummy data
 const labelGroupData1 = [
@@ -21,7 +28,7 @@ const diagnosisData = [
 	{"id":1, "name":"Prolapse", "state":0},
 	{"id":2, "name":"Schizophremia", "state":0},
 	{"id":3, "name":"Prostatitis", "state":0},
-	{"id":4, "name":"Renal", "state":0},	
+	{"id":4, "name":"Renal", "state":0},
 ];
 
 const communityData = [
@@ -40,6 +47,8 @@ export default class MainView extends React.Component {
 			height: window.innerHeight,
 			activeRecord: '',
 			activeLabel: '',
+			multiViewShowing: false,
+			communityShowing: '',
 			selectedRecord: '',
 			selectedLabels: [],
 			records: [],
@@ -50,6 +59,7 @@ export default class MainView extends React.Component {
 			bano: [],
 			lines: [],
 		};
+		this.handleUserClick = this.handleUserClick.bind(this);
 		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
 		this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
 	}
@@ -58,7 +68,7 @@ export default class MainView extends React.Component {
 		const height = this.state.height - this.props.y;
 		// Todo
 		/*
-		* Call dataManager to initialize 
+		* Call dataManager to initialize
 		const recordsData = DataManager.getRecords();
 		const communityData = DataManager.getCommunities();
 		const diagnosisData = DataManager.getDiagnosis();
@@ -91,7 +101,7 @@ export default class MainView extends React.Component {
 		const records = this.state.records.slice();
 		this.setState({
 			records: records
-		});	
+		});
 	}
 
 	updateCommunities(updatedRecords, state) {
@@ -108,7 +118,7 @@ export default class MainView extends React.Component {
 					community.state = state;
 					community.count = r.value;
 				}
-				
+
 			});
 			communities.sort((a,b) => {
 				const countA = a.count;
@@ -123,8 +133,8 @@ export default class MainView extends React.Component {
 			});
 			this.setState({
 				communities: communities
-			});	
-		} 
+			});
+		}
 		if (state === 0) {
 			const communities = communityData.slice();
 			communities.map(c => {
@@ -134,35 +144,35 @@ export default class MainView extends React.Component {
 				communities: communities
 			});
 		}
-		
+
 	}
 
 	updateDiagnosis() {
 		const diagnosis = this.state.diagnosis.slice();
 		this.setState({
 			diagnosis: diagnosis
-		});	
+		});
 	}
 
 	updateTreatments() {
 		const treatments = this.state.treatments.slice();
 		this.setState({
 			treatments: treatments
-		});	
+		});
 	}
 
 	updateWaterSources() {
 		const waterSources = this.state.waterSources.slice();
 		this.setState({
 			waterSources: waterSources
-		});	
+		});
 	}
 
 	updateBano() {
 		const bano = this.state.bano.slice();
 		this.setState({
 			bano: bano
-		});	
+		});
 	}
 
 	handleLabelInteraction(type, id, state) {
@@ -204,6 +214,13 @@ export default class MainView extends React.Component {
 		});
 	}
 
+	handleUserClick(multiViewShowing, communityShowing) {
+		this.setState({
+			multiViewShowing: multiViewShowing,
+			communityShowing: communityShowing
+	    });
+	}
+
 	render() {
 		const { width, height } = this.state;
 		const paneLeftX = 0;
@@ -212,65 +229,69 @@ export default class MainView extends React.Component {
 		const paneCenterWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_CENTER_SPAN;
 		const paneRightX = paneLeftWidth + paneCenterWidth + Meta.PADDING * 2;
 		const paneRightWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_RIGHT_SPAN - Meta.PADDING;
-
 		const communityName = Helper.getAttributeFromObejcts(communityData, "abr");
-		console.log("Height is "+height);
+
 		return (
-			<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
-				<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX} 
-					left = {[
-						<LabelGroup key="0" 
-							type="diagnosis" 
-							direction='v' 
-							title="Diagnosis" 
-							textAnchor="end"
-							data={this.state.diagnosis} 
-							onLabelInteraction={this.handleLabelInteraction}
-							x={paneLeftWidth} y="0"/>,
-						<LabelGroup key="1" 
-							type="watersources" 
-							direction='v' 
-							title="Water Sources" 
-							textAnchor="end"
-							data={this.state.diagnosis} 
-							onLabelInteraction={this.handleLabelInteraction}
-							x={paneLeftWidth} y={height/2}/>
-					]}
-					center = {[	
-						<MainChart key="0" 
-							data={this.state.records}
-							onRecordInteraction={this.handleRecordInteraction}
-						/>,
-						<LabelGroup key="1" 
-							type="community" 
-							direction='h' 
-							title="Community" 
-							data={this.state.communities} 
-							onLabelInteraction={this.handleLabelInteraction}
-							x="0" y={Meta.MAIN_CHART_HEIGHT + Meta.PADDING * 2}/>
-					]}
-					right = {[
-						<LabelGroup key="0" 
-							type="treatment" 
-							direction='v' 
-							title="Treatment" 
-							textAnchor="start"
-							data={this.state.diagnosis} 
-							onLabelInteraction={this.handleLabelInteraction}
-							x="0" y="0"/>,
-						<LabelGroup key="1" 
-							type="bano" 
-							direction='v' 
-							title="Bano" 
-							x="0" 
-							data={this.state.diagnosis}
-							textAnchor="start"
-							onLabelInteraction={this.handleLabelInteraction}
-							x="0" y={height/2}/>
-					]}
-				/>
-				<LinkGroup />
-			</svg>
+			<div>
+			   <MultiviewDialog isDialogActive={this.state.multiViewShowing} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
+
+				<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
+					<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}
+						left = {[
+							<LabelGroup key="0"
+								type="diagnosis"
+								direction='v'
+								title="Diagnosis"
+								textAnchor="end"
+								data={this.state.diagnosis}
+								onLabelInteraction={this.handleLabelInteraction}
+								x={paneLeftWidth} y="0"/>,
+							<LabelGroup key="1"
+								type="watersources"
+								direction='v'
+								title="Water Sources"
+								textAnchor="end"
+								data={this.state.diagnosis}
+								onLabelInteraction={this.handleLabelInteraction}
+								x={paneLeftWidth} y={height/2}/>
+						]}
+						center = {[
+							<MainChart key="0"
+								data={this.state.records}
+								onRecordInteraction={this.handleRecordInteraction}
+							/>,
+							<LabelGroup key="1"
+								type="community"
+								direction='h'
+								title="Community"
+								data={this.state.communities}
+								onLabelInteraction={this.handleLabelInteraction}
+								onUserInput={this.handleUserClick}
+								x="0" y={Meta.MAIN_CHART_HEIGHT + Meta.PADDING * 2}/>
+						]}
+						right = {[
+							<LabelGroup key="0"
+								type="treatment"
+								direction='v'
+								title="Treatment"
+								textAnchor="start"
+								data={this.state.diagnosis}
+								onLabelInteraction={this.handleLabelInteraction}
+								x="0" y="0"/>,
+							<LabelGroup key="1"
+								type="bano"
+								direction='v'
+								title="Bano"
+								x="0"
+								data={this.state.diagnosis}
+								textAnchor="start"
+								onLabelInteraction={this.handleLabelInteraction}
+								x="0" y={height/2}/>
+						]}
+					/>
+					<LinkGroup />
+				</svg>
+			</div>
 		);
 	}
 }

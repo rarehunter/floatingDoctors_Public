@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../css/main.css';
+import MultiviewDialog from '../MultiviewDialog.jsx';
 
 export default class Label extends React.Component {
 	constructor() {
@@ -7,6 +8,8 @@ export default class Label extends React.Component {
 		this.checkLabelState = this.checkLabelState.bind(this);
 		this.handleMouseOver = this.handleMouseOver.bind(this);
 		this.handleMouseOut = this.handleMouseOut.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+
 	}
 	checkLabelState() {
 		const state = this.props.state;
@@ -32,11 +35,18 @@ export default class Label extends React.Component {
 			0
 		);
 	}
+
+	handleClick() {
+		this.props.onUserInput(true, this.props.value);
+	}
+
 	render() {
-		return <tspan 
-			className={this.checkLabelState()} 
-			onMouseOver={this.handleMouseOver} 
+		return <tspan
+			className={this.checkLabelState()}
+			onMouseOver={this.handleMouseOver}
 			onMouseOut ={this.handleMouseOut}
+			onClick={this.handleClick}
 			x={this.props.x} dy={this.props.dy} dx={this.props.dx} y={this.props.y}> {this.props.value} </tspan>;
+
 	}
 }

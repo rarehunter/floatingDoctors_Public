@@ -6,7 +6,7 @@ import LineChart from './components/line-chart.jsx';
 import BarGraph from './components/bar-graph.jsx';
 import Rebase from 're-base';
 
-var prrecords;
+var prrecords; // test
 
 var base = Rebase.createClass({
     apiKey: "AIzaSyC7kqijvE-MYFjuvJarGXs8AC06zq0PFEo",
@@ -27,18 +27,18 @@ const plotdim = {
 export default class MultiviewDialog extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {show: false};
+        console.log("In Modal");
+        // this.state = {show: false};
 
         // bind component class methods inside the constructor
-        // binding inside constructor is better than binding inside render for performance sake
-        this.showModal = this.showModal.bind(this);
+        // do not bind inside render for performance sake
+        // this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
 
         this.state = {data: [[50,60],[80,200],[100,40],[120,10],[200,100]] };
     }
 
     componentDidMount() {
-        console.log("Did mount");
         base.fetch('community', {
             context: this,
             asArray: false,
@@ -46,37 +46,32 @@ export default class MultiviewDialog extends React.Component {
             }
         }).then(data => {
             prrecords = (Object.keys(data.AGUACATE).length);
-
         });
     }
 
-    showModal() {
-        this.setState({show: true});
-    }
+    // showModal() {
+    //     this.setState({show: true});
+    // }
 
     hideModal() {
-        this.setState({show: false});
+        // this.setState({show: false});
+        // this.props.onUserInput(false);
+        this.props.onHideModal(false)
     }
 
     render() {
 
         return (
-            <ButtonToolbar>
-                <Button bsStyle="info" bsSize="xsmall" onClick={this.showModal}>
-                    Some Community
-                </Button>
-
                 <Modal
-                    {...this.props}
-                    show={this.state.show}
+                    show={this.props.isDialogActive}
                     onHide={this.hideModal}
                     dialogClassName={styles.largeDialogBox}
                     backdrop={false}
                     keyboard={true}
                 >
 
-                    <Modal.Header bsClass={styles.modalTitle}>
-                        <Modal.Title id="contained-modal-title-lg">Community Name Here</Modal.Title>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-lg">{this.props.community}</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body bsClass={styles.modalLargeBody}>
@@ -84,11 +79,13 @@ export default class MultiviewDialog extends React.Component {
                             <Row className="show-grid">
                                 <Col md={2}>
                                     <h5 className={styles.gray}>Records</h5>
+                                    <br />
                                     <p className={styles.bignumbers}>{prrecords}</p>
                                 </Col>
 
                                 <Col md={2}>
                                     <h5 className={styles.gray}>Patients</h5>
+                                    <br />
                                     <p className={styles.bignumbers}>125</p>
 
                                 </Col>
@@ -117,6 +114,8 @@ export default class MultiviewDialog extends React.Component {
                                </Col>
                            </Row>
 
+                           <br /><br />
+
                            <Row className="show-grid">
                                <Col xs={12} sm={6} md={4} lg={4}>
                                    <h5>Blood Pressure Distribution</h5>
@@ -143,11 +142,7 @@ export default class MultiviewDialog extends React.Component {
                     </Modal.Footer>
 
                 </Modal>
-
-            </ButtonToolbar>
-
         ); // end return statement
 
     } // end render function
-
 } // end export default

@@ -22,11 +22,10 @@ export default class App extends Component {
         const diagRecords = dm.getRecords('diagnosis', 'Abcess');
         // const allRecrods = dm.getAllRecords();
         const communities = dm.getCommunities();
-        
+
         return (
             <div>
                 <MainView y={top} x={left}/>
-                <MultiviewDialog  />
                 <PatientDetailsDialog />
               </div>
         );

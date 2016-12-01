@@ -34,15 +34,16 @@ export default class PatientDetailsDialog extends React.Component {
                     show={this.state.show}
                     onHide={this.hideModal}
                     dialogClassName={styles.smallDialogBox}
+                    backdrop={false}
+                    keyboard={true}
                 >
 
-                    <Modal.Header closeButton>
+                    <Modal.Header bsClass={styles.modalTitle}>
                         <Modal.Title id="contained-modal-title-md">Patient Name </Modal.Title>
                     </Modal.Header>
 
-                    <Modal.Body>
+                    <Modal.Body bsClass={styles.modalSmallBody}>
                         <Grid>
-
                             <Row className="show-grid">
                                 <Col md={3}>
                                     <h6 className={styles.gray}>#PatientID | Community | 02/08/2015</h6>
@@ -51,31 +52,31 @@ export default class PatientDetailsDialog extends React.Component {
 
                             <Row className="show-grid">
                                 <Col md={1}>
-                                    <h6 className={styles.gray}>Gender</h6>
-                                    <h6 className={styles.gray}>DOB</h6>
-                                    <h6 className={styles.gray}>Height (cm)</h6>
-                                    <h6 className={styles.gray}>Weight (kg)</h6>
+                                    <h6 className={styles.black}>Gender</h6>
+                                    <h6 className={styles.black}>DOB</h6>
+                                    <h6 className={styles.black}>Height (cm)</h6>
+                                    <h6 className={styles.black}>Weight (kg)</h6>
+                                </Col>
+
+                                <Col md={2}>
+                                    <h6 className={styles.gray}>Male</h6>
+                                    <h6 className={styles.gray}>05/01/1987</h6>
+                                    <h6 className={styles.gray}>178</h6>
+                                    <h6 className={styles.gray}>70</h6>
                                 </Col>
 
                                 <Col md={1}>
-                                    <h6 className={styles.black}>Male</h6>
-                                    <h6 className={styles.black}>05/01/1987</h6>
-                                    <h6 className={styles.black}>178</h6>
-                                    <h6 className={styles.black}>70</h6>
+                                    <h6 className={styles.black}>BP</h6>
+                                    <h6 className={styles.black}>HR</h6>
+                                    <h6 className={styles.black}>RR</h6>
+                                    <h6 className={styles.black}>Temp (C)</h6>
                                 </Col>
 
-                                <Col md={1}>
-                                    <h6 className={styles.gray}>BP</h6>
-                                    <h6 className={styles.gray}>HR</h6>
-                                    <h6 className={styles.gray}>RR</h6>
-                                    <h6 className={styles.gray}>Temp (C)</h6>
-                                </Col>
-
-                                <Col md={1}>
-                                    <h6 className={styles.black}>120/70</h6>
-                                    <h6 className={styles.black}>52</h6>
-                                    <h6 className={styles.black}>72</h6>
-                                    <h6 className={styles.black}>37.1</h6>
+                                <Col md={2}>
+                                    <h6 className={styles.gray}>120/70</h6>
+                                    <h6 className={styles.gray}>52</h6>
+                                    <h6 className={styles.gray}>72</h6>
+                                    <h6 className={styles.gray}>37.1</h6>
                                 </Col>
 
 
@@ -83,8 +84,8 @@ export default class PatientDetailsDialog extends React.Component {
                          </Grid>
                     </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button onClick={this.hideModal}>Close</Button>
+                    <Modal.Footer bsClass=''>
+                        <Button bsClass={styles.modalFab} onClick={this.hideModal}>Close</Button>
                     </Modal.Footer>
 
                 </Modal>

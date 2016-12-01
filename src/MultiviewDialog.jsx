@@ -16,12 +16,13 @@ var base = Rebase.createClass({
     messagingSenderId: "487269857429"
 });
 
-
 const plotdim = {
     width: 300,
     height: 200,
     padding: 30,
 }
+
+
 
 export default class MultiviewDialog extends React.Component {
     constructor(props) {
@@ -70,13 +71,15 @@ export default class MultiviewDialog extends React.Component {
                     show={this.state.show}
                     onHide={this.hideModal}
                     dialogClassName={styles.largeDialogBox}
+                    backdrop={false}
+                    keyboard={true}
                 >
 
-                    <Modal.Header closeButton>
+                    <Modal.Header bsClass={styles.modalTitle}>
                         <Modal.Title id="contained-modal-title-lg">Community Name Here</Modal.Title>
                     </Modal.Header>
 
-                    <Modal.Body>
+                    <Modal.Body bsClass={styles.modalLargeBody}>
                         <Grid>
                             <Row className="show-grid">
                                 <Col md={2}>
@@ -135,8 +138,8 @@ export default class MultiviewDialog extends React.Component {
 
                     </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button onClick={this.hideModal}>Close</Button>
+                    <Modal.Footer bsClass=''>
+                        <Button bsClass={styles.modalFab} onClick={this.hideModal}>Close</Button>
                     </Modal.Footer>
 
                 </Modal>

@@ -81,7 +81,7 @@ var strToRecords = function(elements){
     record['consultMonth'] = elements[1];
     if(isNaN(parseInt(record['consultMonth'])))
         record['consultMonth'] = '01';
-    
+
     record['consultDay'] = elements[2];
     if(isNaN(parseInt(record['consultDay'])))
         record['consultDay'] = '01';
@@ -125,7 +125,7 @@ var strToRecords = function(elements){
         record['age'] = parseInt(elements[10]);
     else if(elements[11] != null && !isNaN(parseInt(elements[11])))
         record['age'] = parseFloat(elements[11])/12;
-    
+
     // height
     record['height'] = '';
     if(!isNaN(parseFloat(elements[12])))
@@ -161,7 +161,7 @@ var strToRecords = function(elements){
     {
         var temp = parseFloat(elements[20]);
         // converted to Celsius degree
-        record['temperature'] = (temp - 32) * 0.5556; 
+        record['temperature'] = (temp - 32) * 0.5556;
     }
 
     // Smoke
@@ -306,12 +306,12 @@ app.post('/upload', function(req, res){
 
         // Push to diagnosis table
         var diagnosis = record['diagnosis'];
-        
+
         for( var j = 0; j < diagnosis.length; j++)
         {
             updates['/diagnosis/' + diagnosis[j] + '/' + recordID] = true;
         }
-        
+
         // Push to treatement table
         var treatment = record['treatment'];
         for (var j = 0; j< treatment.length; j++)
@@ -330,14 +330,14 @@ app.post('/upload', function(req, res){
         if(record['waterResource'].length > 0)
             updates['/waterResource/' + record['waterResource'] + '/' + recordID] = true;
 
-        firebase.database().ref().update(updates); 
+        firebase.database().ref().update(updates);
     }
 
 });
 
 var port = process.env.PORT || 5000;
 app.listen(port, function () {
-    console.log('listening on port ' + port);    
+    console.log('listening on port ' + port);
 });
 
 // purge();

@@ -142,7 +142,6 @@ body {
 	transition: all 0.2s ease-in-out;
 	fill: rgba(254,90,90,0.2);
 }
-<<<<<<< HEAD
 .recordSquare.highlighted {
 	fill: rgba(254,90,90,1);
 }
@@ -153,7 +152,7 @@ body {
 
 .axisDot {
 	fill: #999;
-=======
+}
 .modalTitle {
 	font-weight: 500;
 	line-height: 19px;
@@ -194,5 +193,4 @@ body {
 .modalFab:hover {
 	color: #FE5A5A;
 	fill: #FE5A5A;
->>>>>>> Multiview dialog style.
 }

@@ -53,3 +53,4 @@ export default class MainChart extends React.Component {
         }
     }
 }
+

@@ -1,5 +1,5 @@
 // View related metadata
-export const PADDING = 32;
+export const PADDING = 64;
 export const PANE_SPAN = 14;
 export const PANE_LEFT_SPAN = 3;
 export const PANEL_CENTER_SPAN = 8;
@@ -22,6 +22,7 @@ export const DEFAULT_START_TIME = new Date('2014', '12', '01');
 export const DEFAULT_END_TIME = new Date('2016', '02', '01');
 export const DEFAULT_VISITS = 160; // Should be 160
 export const MAX_RECORDS = 100;
+export const BAR_SIZE = 4;
 
 export const SquareSize = () => {
     if (window.innerWidth < 1200) {

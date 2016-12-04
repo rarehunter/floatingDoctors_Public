@@ -38,13 +38,19 @@ export default class Label extends React.Component {
 		return classy;
 	}
 
-	checkBarState(textAnchor) {
+	checkBarState(textAnchor, direction) {
 		const state = this.props.state;
 		let classy = "";
 		if (textAnchor === "start") {
 			classy = styles.start;
 		} else {
 			classy = styles.end;
+		}
+		classy += " ";
+		if (direction === "v") {
+			classy += styles.vertical;
+		} else {
+			classy += styles.horizontal;
 		}
 		if (state === 1) {
 			classy += ` ${styles.bar} ${styles.show}`;
@@ -96,15 +102,16 @@ export default class Label extends React.Component {
 						>
 						{this.props.value}
 					</text>
-					<rect
-						className={this.checkBarState(this.props.textAnchor)}
-						x={this.props.barX}
-						y={this.props.barY}
-						height={this.props.barHeight}
-						width={this.props.barWidth}
-					>
-					
+					<g transform={(this.props.textAnchor==="start")?(`translate(${this.props.barX},${this.props.barY}) rotate(180) translate(${-this.props.barX},${-this.props.barY})`):("")}>
+						<rect
+							className={this.checkBarState(this.props.textAnchor, this.props.direction)}
+							x={this.props.barX}
+							y={this.props.barY}
+							height={this.props.barHeight}
+							width={this.props.barWidth}
+						>
 					</rect>
+					</g>
 				</g>
 			) : (
 				<g>
@@ -119,7 +126,7 @@ export default class Label extends React.Component {
 						{this.props.value}
 					</text>
 					<rect
-						className={this.checkBarState(this.props.textAnchor)}
+						className={this.checkBarState(this.props.textAnchor, this.props.direction)}
 						x={this.props.barX}
 						y={this.props.barY}
 						height={this.props.barHeight}

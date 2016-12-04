@@ -7,6 +7,8 @@ import LinkGroup from './components/LinkGroup.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
 import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
+import DataManager from './helper/dataManager.jsx';
+
 
 const PADDING = 32;
 const PANE_SPAN = 12;
@@ -16,28 +18,39 @@ const PANEL_RIGHT_SPAN = 2;
 
 // Dummy data
 const labelGroupData1 = [
-	"Worms",
-	"Prolapse",
-	"Schizophremia",
-	"Prostatitis",
-	"Renal Colic"
+    "Worms",
+    "Prolapse",
+    "Schizophremia",
+    "Prostatitis",
+    "Renal Colic"
 ];
 
-const diagnosisData = [
-	{"id":0, "name":"Worms", "state":0},
-	{"id":1, "name":"Prolapse", "state":0},
-	{"id":2, "name":"Schizophremia", "state":0},
-	{"id":3, "name":"Prostatitis", "state":0},
-	{"id":4, "name":"Renal", "state":0},
-];
+// var diagnosisData = [
+//  {"id":0, "name":"Worms", "state":0},
+//  {"id":1, "name":"Prolapse", "state":0},
+//  {"id":2, "name":"Schizophremia", "state":0},
+//  {"id":3, "name":"Prostatitis", "state":0},
+//  {"id":4, "name":"Renal", "state":0},
+// ];
 
-const communityData = [
-	{"name": "BG", "full_name":"BAHIA GRANDE", "state":0, "count": 25},
-	{"name": "BH", "full_name":"BAHIA HONDA", "state":0, "count": 15},
-	{"name": "BC", "full_name":"BAJO CEDRO", "state":0, "count": 35},
-	{"name": "BE", "full_name":"BUENA ESPERANZA", "state":0, "count": 45},
-	{"name": "CB", "full_name":"CERRO BRUJO", "state":0, "count": 5},
-];
+// const communityData = [
+//  {"name": "BG", "full_name":"BAHIA GRANDE", "state":0, "count": 25},
+//  {"name": "BH", "full_name":"BAHIA HONDA", "state":0, "count": 15},
+//  {"name": "BC", "full_name":"BAJO CEDRO", "state":0, "count": 35},
+//  {"name": "BE", "full_name":"BUENA ESPERANZA", "state":0, "count": 45},
+//  {"name": "CB", "full_name":"CERRO BRUJO", "state":0, "count": 5},
+// ];
+
+const startTime = Meta.DEFAULT_START_TIME.getTime();
+const endTime = Meta.DEFAULT_END_TIME.getTime();
+var records;
+var diagnosisData;
+var communityData;
+var treatmentData;
+var waterSourceData;
+var banoData;
+var dataManager;
+
 
 export default class MainView extends React.Component {
 	constructor(props) {
@@ -64,38 +77,54 @@ export default class MainView extends React.Component {
 		this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
 	}
 
-	componentDidMount() {
-		const height = this.state.height - this.props.y;
-		// Todo
-		/*
-		* Call dataManager to initialize
-		const recordsData = DataManager.getRecords();
-		const communityData = DataManager.getCommunities();
-		const diagnosisData = DataManager.getDiagnosis();
-		const treatmentData = DataManager.getTreatments();
-		const waterSourceData = DataManager.getWaterSources();
-		const banoData = DataManager.getBano();
-		*/
-		this.setState({
-			height: height,
-			diagnosis: diagnosisData,
-			communities: communityData
-		});
+    componentDidMount() {
+        const height = this.state.height - this.props.y;
+        // Todo
 
-		window.addEventListener("resize", this.updateSize);
-	}
+        console.log("Initialize DataManager");
+        dataManager = new DataManager(Meta.DEFAULT_END_TIME);
 
-	componentWillUnmount() {
-		window.removeEventListener("resize", this.updateSize);
-	}
+        var that = this;
+        dataManager.getVisits(function(visitedDate){
+            dataManager.getVisitedRecords(function(data){
+                records = dataManager.records;
+                diagnosisData = dataManager.diagnosisData;
+                console.log("Testing default parameter: ");
+                console.log(diagnosisData);
+                communityData = dataManager.communityData;
+                treatmentData = dataManager.treatmentData;
+                waterSourceData = dataManager.waterSourceData;
+                banoData = dataManager.banoData;
 
-	updateSize() {
-		console.log("Window resized");
-		// this.setState({
-		// 	width: window.innerWidth,
-		// 	height: window.innerHeight
-		// });
-	}
+                // Change state
+                that.setState({
+                    records: records,
+                    height: height,
+                    diagnosis: diagnosisData,
+                    communities: communityData,
+                    treatments: treatmentData,
+                    waterSources: waterSourceData,
+                    bano: banoData
+                });
+
+
+            });
+        });
+
+        window.addEventListener("resize", this.updateSize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateSize);
+    }
+
+    updateSize() {
+        console.log("Window resized");
+        // this.setState({
+        //  width: window.innerWidth,
+        //  height: window.innerHeight
+        // });
+    }
 
 	updateRecords() {
 		const records = this.state.records.slice();
@@ -175,44 +204,44 @@ export default class MainView extends React.Component {
 		});
 	}
 
-	handleLabelInteraction(type, id, state) {
-		if (type === "diagnosis") {
-			const diagnosis = this.state.diagnosis.slice();
-			diagnosis.map((d) => {
-				if (d.id === id) {
-					d.state = state;
-				}
-			});
-			this.setState({
-				diagnosis: diagnosis
-			});
-			// Todo
-			/* Use dataManager
-			const recordsByDiagnosis = DataManager.getRecordsByDiagnosis(id);
-			*/
-			const recordsByDiagnosis = [
-				{
-					"key":"BAJO CEDRO",
-					"value":30
-				},
-				{
-					"key":"BUENA ESPERANZA",
-					"value":20
-				}
-			];
-			this.updateCommunities(recordsByDiagnosis, state);
-		}
-	}
+    handleLabelInteraction(type, id, state) {
+        if (type === "diagnosis") {
+            const diagnosis = this.state.diagnosis.slice();
+            diagnosis.map((d) => {
+                if (d.id === id) {
+                    d.state = state;
+                }
+            });
+            this.setState({
+                diagnosis: diagnosis
+            });
+            // Todo
+            /* Use dataManager
+            const recordsByDiagnosis = DataManager.getRecordsByDiagnosis(id);
+            */
+            const recordsByDiagnosis = [
+                {
+                    "key":"BAJO CEDRO",
+                    "value":30
+                },
+                {
+                    "key":"BUENA ESPERANZA",
+                    "value":20
+                }
+            ];
+            this.updateCommunities(recordsByDiagnosis, state);
+        }
+    }
 
-	handleRecordInteraction(id, state) {
-		const records = this.state.records.slice();
-		records.map((r) => {
-			if (r.id === id) r.state = state;
-		});
-		this.setState({
-			records: records
-		});
-	}
+    handleRecordInteraction(id, state) {
+        const records = this.state.records.slice();
+        records.map((r) => {
+            if (r.id === id) r.state = state;
+        });
+        this.setState({
+            records: records
+        });
+    }
 
 	handleUserClick(multiViewShowing, communityShowing) {
 		this.setState({

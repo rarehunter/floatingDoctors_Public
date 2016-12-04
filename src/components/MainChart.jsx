@@ -222,7 +222,7 @@ export default class MainChart extends React.Component {
 		return (
 		<g className="mainChart">
 			{visitDates.map((d, i) => {
-				return <RecordBar key={i} records={randomRecords()} x={scaleX(d)} height={Meta.MAIN_CHART_HEIGHT}/>;
+				return <RecordBar key={i} records={records} x={scaleX(d)} height={Meta.MAIN_CHART_HEIGHT}/>;
 			})};
 			<MainAxis {...xSettings} />
 		</g>

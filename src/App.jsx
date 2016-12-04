@@ -13,16 +13,16 @@ export default class App extends Component {
         const left = offsets.left;
 
         // Data manager testing
-        var startTime = new Date('2014', '01', '01');
-        const dm = new dataManager(startTime);
-        var endTime = new Date('2015', '01', '01');
-        var visited = 20;
+        // var startTime = new Date('2014', '01', '01');
+        // const dm = new dataManager(startTime);
+        // var endTime = new Date('2015', '01', '01');
+        // var visited = 20;
 
         // const visitedDate = dm.getVisits(160, endTime);
-        const diagRecords = dm.getRecords('diagnosis', 'Abcess');
+        // const diagRecords = dm.getRecords('diagnosis', 'Abcess');
         // const allRecrods = dm.getAllRecords();
-        const communities = dm.getCommunities();
-
+        // const communities = dm.getCommunities();
+        
         return (
             <div>
                 <MainView y={top} x={left}/>

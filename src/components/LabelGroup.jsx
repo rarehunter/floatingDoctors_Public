@@ -1,4 +1,5 @@
 import React from 'react';
+import * as d3 from 'd3';
 import Label from '../components/Label.jsx';
 import styles from '../css/main.css';
 import * as Meta from '../Metadata.jsx';
@@ -27,11 +28,13 @@ export default class LabelGroup extends React.Component {
 
 		const barScale = (props) => {
 			return d3.scaleLinear()
-				.domain([0, d3.max(props.data.count)])
+				.domain([0, d3.max(props.data, (d) => d.count)])
 				.range([0, Meta.MAX_BAR_SIZE]);
 		}
+
 		return (
 			<g>
+				{console.log("hehehehhe" + barScale(this.props))}
 				<text className={styles.labelTitle} textAnchor={this.props.textAnchor} x={this.props.x} y={this.props.y}>
 					{this.props.title}
 				</text>
@@ -58,7 +61,7 @@ export default class LabelGroup extends React.Component {
 								x={this.props.x + (Meta.LABEL_DX_L + Meta.LABEL_DX * i)} y={this.props.y}
 								barX = {this.props.x + (Meta.LABEL_DX_L + Meta.LABEL_DX * i + 6)}
 								barY = {this.props.y + Meta.BAR_MARGIN}
-								barHeight={Meta.MAX_BAR_SIZE}
+								barHeight={barScale(this.props)(d.count)}
 								barWidth={Meta.BAR_SIZE}
 								textAnchor={this.props.textAnchor}
 								onLabelInteraction={this.handleLabelInteraction}

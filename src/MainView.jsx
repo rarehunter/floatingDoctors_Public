@@ -7,6 +7,7 @@ import LinkGroup from './components/LinkGroup.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
 import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
+import * as d3 from 'd3';
 
 const PADDING = 32;
 const PANE_SPAN = 12;
@@ -91,10 +92,10 @@ export default class MainView extends React.Component {
 
 	updateSize() {
 		console.log("Window resized");
-		// this.setState({
-		// 	width: window.innerWidth,
-		// 	height: window.innerHeight
-		// });
+		this.setState({
+			width: window.innerWidth,
+			height: window.innerHeight
+		});
 	}
 
 	updateRecords() {
@@ -104,9 +105,24 @@ export default class MainView extends React.Component {
 		});
 	}
 
+
+	filterRecords(record) {
+		if (this.state.activeLabel !== '') {
+			if (this.state.activeLabel.category === 'diagnosis') {
+				record.diagnosis.find(r => {
+					return r === this.state.activeLabel.value;
+				})
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
+
 	updateCommunities(updatedRecords, state) {
+		const communities = this.state.communities.slice();
 		if (state === 1) {
-			const communities = this.state.communities.slice();
 			communities.map(c => {
 				c.count = 0;
 			});
@@ -120,30 +136,40 @@ export default class MainView extends React.Component {
 				}
 
 			});
-			communities.sort((a,b) => {
-				const countA = a.count;
-				const countB = b.count;
-				if (countA < countB) {
-					return 1;
-				}
-				if (countA > countB) {
-					return -1;
-				}
-				return 0;
-			});
-			this.setState({
-				communities: communities
-			});
-		}
-		if (state === 0) {
-			const communities = communityData.slice();
-			communities.map(c => {
+
+		}else if (state === 0) {
+			communities.map((c,i) => {
 				c.state = 0;
-			});
-			this.setState({
-				communities: communities
+				c.count = communityData[i].count;
 			});
 		}
+		// const communityRecords = d3.nest()
+		// 	.key(function(d) {return d.community;})
+		// 	.rollup(function(leaf) {return leaf.length;})
+		// 	.entries(updatedRecords);
+
+		// communityRecords.map(r => {
+		// 	communities.map(c => {
+		// 		if (c.full_name === r.key) {
+		// 			c.state = state;
+		// 			c.count = r.value;
+		// 		}
+		// 	})
+		// });
+		communities.sort((a,b) => {
+			const countA = a.count;
+			const countB = b.count;
+			if (countA < countB) {
+				return 1;
+			}
+			if (countA > countB) {
+				return -1;
+			}
+			return 0;
+		});
+		this.setState({
+			communities: communities
+		});
 
 	}
 
@@ -176,6 +202,10 @@ export default class MainView extends React.Component {
 	}
 
 	handleLabelInteraction(type, id, state) {
+		let activeLabel = "";
+		if (state === 1) {
+			activeLabel = {'category':type, 'value':id}
+		}
 		if (type === "diagnosis") {
 			const diagnosis = this.state.diagnosis.slice();
 			diagnosis.map((d) => {
@@ -184,7 +214,8 @@ export default class MainView extends React.Component {
 				}
 			});
 			this.setState({
-				diagnosis: diagnosis
+				diagnosis: diagnosis,
+				activeLabel: activeLabel
 			});
 			// Todo
 			/* Use dataManager
@@ -201,6 +232,7 @@ export default class MainView extends React.Component {
 				}
 			];
 			this.updateCommunities(recordsByDiagnosis, state);
+			// this.updateCommunities(this.state.records.filter(filterRecordsl), state);
 		}
 	}
 

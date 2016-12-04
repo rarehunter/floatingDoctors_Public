@@ -258,7 +258,6 @@ export default class MainView extends React.Component {
 		const paneCenterWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_CENTER_SPAN;
 		const paneRightX = paneLeftWidth + paneCenterWidth + Meta.PADDING * 2;
 		const paneRightWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_RIGHT_SPAN - Meta.PADDING;
-		const communityName = Helper.getAttributeFromObejcts(communityData, "abr");
 
 		return (
 			<div>

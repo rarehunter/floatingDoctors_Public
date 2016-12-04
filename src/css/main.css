@@ -199,11 +199,18 @@ body {
 /* Bar Style */
 .bar {
 	fill: #FE5A5A;
+	transition: all 0.3s ease-in-out;
 }
 
-.bar.hide {
+.bar.vertical.hide {
 	/*display: none;*/
+	height: 0;
+}
+
+.bar.horizontal.hide {
+	/*display: none;*/
+	width: 0;
 }
 .bar.start {
-	transform: translate(-100%, 0) ;
+	/*transform: translate(-100%, 0) ;*/
 }

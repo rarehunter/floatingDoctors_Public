@@ -267,7 +267,7 @@ export default class MainView extends React.Component {
 								data={this.state.communities}
 								onLabelInteraction={this.handleLabelInteraction}
 								onUserInput={this.handleUserClick}
-								x="0" y={Meta.MAIN_CHART_HEIGHT + Meta.PADDING * 2}/>
+								x="0" y={Meta.MainChartHeight() + Meta.PADDING}/>
 						]}
 						right = {[
 							<LabelGroup key="0"

@@ -8,7 +8,7 @@ import MultiviewDialog from './MultiviewDialog.jsx';
 import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
 import DataManager from './helper/dataManager.jsx';
-
+import * as d3 from 'd3';
 
 const PADDING = 32;
 const PANE_SPAN = 12;
@@ -87,7 +87,6 @@ export default class MainView extends React.Component {
     componentDidMount() {
         const height = this.state.height - this.props.y;
         dataManager = new DataManager(Meta.DEFAULT_END_TIME);
-
         var that = this;
         dataManager.getVisits(function(visitedDate){
 
@@ -137,9 +136,24 @@ export default class MainView extends React.Component {
 		});
 	}
 
+
+	filterRecords(record) {
+		if (this.state.activeLabel !== '') {
+			if (this.state.activeLabel.category === 'diagnosis') {
+				record.diagnosis.find(r => {
+					return r === this.state.activeLabel.value;
+				})
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
+
 	updateCommunities(updatedRecords, state) {
+		const communities = this.state.communities.slice();
 		if (state === 1) {
-			const communities = this.state.communities.slice();
 			communities.map(c => {
 				c.count = 0;
 			});
@@ -153,30 +167,40 @@ export default class MainView extends React.Component {
 				}
 
 			});
-			communities.sort((a,b) => {
-				const countA = a.count;
-				const countB = b.count;
-				if (countA < countB) {
-					return 1;
-				}
-				if (countA > countB) {
-					return -1;
-				}
-				return 0;
-			});
-			this.setState({
-				communities: communities
-			});
-		}
-		if (state === 0) {
-			const communities = communityData.slice();
-			communities.map(c => {
+
+		}else if (state === 0) {
+			communities.map((c,i) => {
 				c.state = 0;
-			});
-			this.setState({
-				communities: communities
+				c.count = communityData[i].count;
 			});
 		}
+		// const communityRecords = d3.nest()
+		// 	.key(function(d) {return d.community;})
+		// 	.rollup(function(leaf) {return leaf.length;})
+		// 	.entries(updatedRecords);
+
+		// communityRecords.map(r => {
+		// 	communities.map(c => {
+		// 		if (c.full_name === r.key) {
+		// 			c.state = state;
+		// 			c.count = r.value;
+		// 		}
+		// 	})
+		// });
+		communities.sort((a,b) => {
+			const countA = a.count;
+			const countB = b.count;
+			if (countA < countB) {
+				return 1;
+			}
+			if (countA > countB) {
+				return -1;
+			}
+			return 0;
+		});
+		this.setState({
+			communities: communities
+		});
 
 	}
 
@@ -208,34 +232,41 @@ export default class MainView extends React.Component {
 		});
 	}
 
-    handleLabelInteraction(type, id, state) {
-        if (type === "diagnosis") {
-            const diagnosis = this.state.diagnosis.slice();
-            diagnosis.map((d) => {
-                if (d.id === id) {
-                    d.state = state;
-                }
-            });
-            this.setState({
-                diagnosis: diagnosis
-            });
-            // Todo
-            /* Use dataManager
-            const recordsByDiagnosis = DataManager.getRecordsByDiagnosis(id);
-            */
-            const recordsByDiagnosis = [
-                {
-                    "key":"BAJO CEDRO",
-                    "value":30
-                },
-                {
-                    "key":"BUENA ESPERANZA",
-                    "value":20
-                }
-            ];
-            this.updateCommunities(recordsByDiagnosis, state);
-        }
-    }
+
+	handleLabelInteraction(type, id, state) {
+		let activeLabel = "";
+		if (state === 1) {
+			activeLabel = {'category':type, 'value':id}
+		}
+		if (type === "diagnosis") {
+			const diagnosis = this.state.diagnosis.slice();
+			diagnosis.map((d) => {
+				if (d.id === id) {
+					d.state = state;
+				}
+			});
+			this.setState({
+				diagnosis: diagnosis,
+				activeLabel: activeLabel
+			});
+			// Todo
+			/* Use dataManager
+			const recordsByDiagnosis = DataManager.getRecordsByDiagnosis(id);
+			*/
+			const recordsByDiagnosis = [
+				{
+					"key":"BAJO CEDRO",
+					"value":30
+				},
+				{
+					"key":"BUENA ESPERANZA",
+					"value":20
+				}
+			];
+			this.updateCommunities(recordsByDiagnosis, state);
+			// this.updateCommunities(this.state.records.filter(filterRecordsl), state);
+		}
+	}
 
     handleRecordInteraction(id, state) {
         const records = this.state.records.slice();

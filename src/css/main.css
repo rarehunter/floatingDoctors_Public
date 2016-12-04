@@ -201,7 +201,7 @@ body {
 }
 
 .bar.hide {
-	// display: none;
+	/*display: none;*/
 }
 .bar.start {
 	transform: translate(-100%, 0) ;

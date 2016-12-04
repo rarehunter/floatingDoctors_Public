@@ -194,3 +194,15 @@ body {
 	color: #FE5A5A;
 	fill: #FE5A5A;
 }
+
+/* Bar Style */
+.bar {
+	fill: #FE5A5A;
+}
+
+.bar.hide {
+	// display: none;
+}
+.bar.start {
+	transform: translate(-100%, 0) ;
+}

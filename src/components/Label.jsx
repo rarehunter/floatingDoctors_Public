@@ -5,12 +5,26 @@ import MultiviewDialog from '../MultiviewDialog.jsx';
 export default class Label extends React.Component {
 	constructor() {
 		super();
+		this.state = {
+			barSize: 0,
+		}
 		this.checkLabelState = this.checkLabelState.bind(this);
+		this.checkBarState = this.checkBarState.bind(this);
+		this.checkBarSize = this.checkBarSize.bind(this);
 		this.handleMouseOver = this.handleMouseOver.bind(this);
 		this.handleMouseOut = this.handleMouseOut.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 
 	}
+
+	componentDidMount() {
+
+	}
+
+	componentDidUpdate() {
+
+	}
+
 	checkLabelState() {
 		const state = this.props.state;
 		let classy = "";
@@ -23,6 +37,34 @@ export default class Label extends React.Component {
 		}
 		return classy;
 	}
+
+	checkBarState(textAnchor) {
+		const state = this.props.state;
+		let classy = "";
+		if (textAnchor === "start") {
+			classy = styles.start;
+		} else {
+			classy = styles.end;
+		}
+		if (state === 1) {
+			classy += ` ${styles.bar} ${styles.show}`;
+		} else if (state === 2) {
+			classy += ` ${styles.bar} ${styles.show}`;
+		} else {
+			classy += ` ${styles.bar} ${styles.hide}`;
+		}
+		return classy;
+	}
+
+	checkBarSize() {
+		const state = this.props.state;
+		if (state === 1) {
+			return this.props.barWidth;
+		} else {
+			return 0;
+		}
+	}
+
 	handleMouseOver() {
 		this.props.onLabelInteraction(
 			this.props.id,
@@ -41,12 +83,54 @@ export default class Label extends React.Component {
 	}
 
 	render() {
-		return <tspan
-			className={this.checkLabelState()}
-			onMouseOver={this.handleMouseOver}
-			onMouseOut ={this.handleMouseOut}
-			onClick={this.handleClick}
-			x={this.props.x} dy={this.props.dy} dx={this.props.dx} y={this.props.y}> {this.props.value} </tspan>;
+		return (
+			(this.props.direction === "h") ? (
+				<g>
+					<text 
+						className={this.checkLabelState()}
+						x={this.props.x} y={this.props.y}
+						textAnchor={this.props.textAnchor}
+						onMouseOver={this.handleMouseOver}
+						onMouseOut ={this.handleMouseOut}
+						onClick={this.handleClick}
+						>
+						{this.props.value}
+					</text>
+					<rect
+						className={this.checkBarState(this.props.textAnchor)}
+						x={this.props.barX}
+						y={this.props.barY}
+						height={this.props.barHeight}
+						width={this.props.barWidth}
+					>
+					
+					</rect>
+				</g>
+			) : (
+				<g>
+					<text 
+						className={this.checkLabelState()}
+						x={this.props.x} y={this.props.y}
+						textAnchor={this.props.textAnchor}
+						onMouseOver={this.handleMouseOver}
+						onMouseOut ={this.handleMouseOut}
+						onClick={this.handleClick}
+						>
+						{this.props.value}
+					</text>
+					<rect
+						className={this.checkBarState(this.props.textAnchor)}
+						x={this.props.barX}
+						y={this.props.barY}
+						height={this.props.barHeight}
+						width={this.props.barWidth}
+					>
 
+					
+						
+					</rect>
+				</g>
+			)
+		);
 	}
 }

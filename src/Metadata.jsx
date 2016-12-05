@@ -1,9 +1,9 @@
 // View related metadata
+export const PANE_SPAN = 14;
+export const PANE_LEFT_SPAN = 3;
 export const PADDING = 64;
-export const PANE_SPAN = 12;
-export const PANE_LEFT_SPAN = 2;
 export const PANEL_CENTER_SPAN = 8;
-export const PANEL_RIGHT_SPAN = 2;
+export const PANEL_RIGHT_SPAN = 3;
 
 export const MAIN_CHART_HEIGHT = 480;
 
@@ -11,7 +11,7 @@ export const MAIN_AXIS_DOT_R = 2;
 
 export const LABEL_DY = 20;
 export const LABEL_DY_L = 32;
-export const LABEL_DX = 48;
+export const LABEL_DX = 32;
 export const LABEL_DX_L = 80;
 
 export const SQUARE_SIZE = 4;

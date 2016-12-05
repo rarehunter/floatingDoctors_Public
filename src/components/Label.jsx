@@ -6,20 +6,21 @@ export default class Label extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			barSize: 0,
-		}
+			type: '',
+		};
 		this.checkLabelState = this.checkLabelState.bind(this);
 		this.checkBarState = this.checkBarState.bind(this);
 		this.checkBarSize = this.checkBarSize.bind(this);
 		this.handleMouseOver = this.handleMouseOver.bind(this);
 		this.handleMouseOut = this.handleMouseOut.bind(this);
 		this.handleClick = this.handleClick.bind(this);
-
 	}
 
 	componentDidMount() {
-
-	}
+		this.setState({
+			type: this.props.type
+		});
+	}	
 
 	componentDidUpdate() {
 
@@ -31,7 +32,7 @@ export default class Label extends React.Component {
 		if (state === 1) {
 			classy = `${styles.label} ${styles.highlighted}`;
 		} else if (state === 2) {
-			classy = `${styles.label} ${styles.selected}`;
+			classy = `${styles.label}`;
 		} else {
 			classy = `${styles.label}`;
 		}
@@ -53,7 +54,7 @@ export default class Label extends React.Component {
 			classy += styles.horizontal;
 		}
 		if (state === 1) {
-			classy += ` ${styles.bar} ${styles.show}`;
+			classy += ` ${styles.bar} ${styles.hide}`;
 		} else if (state === 2) {
 			classy += ` ${styles.bar} ${styles.show}`;
 		} else {
@@ -132,9 +133,6 @@ export default class Label extends React.Component {
 						height={this.props.barHeight}
 						width={this.props.barWidth}
 					>
-
-					
-						
 					</rect>
 				</g>
 			)

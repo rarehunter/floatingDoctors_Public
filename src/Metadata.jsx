@@ -1,7 +1,7 @@
 // View related metadata
-export const PADDING = 32;
 export const PANE_SPAN = 14;
 export const PANE_LEFT_SPAN = 3;
+export const PADDING = 64;
 export const PANEL_CENTER_SPAN = 8;
 export const PANEL_RIGHT_SPAN = 3;
 
@@ -11,7 +11,8 @@ export const MAIN_AXIS_DOT_R = 2;
 
 export const LABEL_DY = 20;
 export const LABEL_DY_L = 32;
-export const LABEL_DX = 16;
+export const LABEL_DX = 32;
+export const LABEL_DX_L = 80;
 
 export const SQUARE_SIZE = 4;
 export const SQUARE_GUTTER = 1;
@@ -22,6 +23,10 @@ export const DEFAULT_START_TIME = new Date('2014', '12', '01');
 export const DEFAULT_END_TIME = new Date('2016', '02', '01');
 export const DEFAULT_VISITS = 160; // Should be 160
 export const MAX_RECORDS = 100;
+export const BAR_SIZE = 4;
+export const MAX_BAR_SIZE = 48;
+export const BAR_MARGIN = 4;
+
 
 export const SquareSize = () => {
     if (window.innerWidth < 1200) {
@@ -75,4 +80,8 @@ export const COMMUNITY_NAME_DICT = {
 
 export const MainChartWidth = () => {
 	return (window.innerWidth - PADDING * 2) / PANE_SPAN * PANEL_CENTER_SPAN;
+}
+
+export const MainChartHeight = () => {
+	return (window.innerHeight * 0.7);
 }

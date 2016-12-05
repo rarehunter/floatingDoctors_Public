@@ -214,7 +214,7 @@ export default class MainChart extends React.Component {
 	render() {
 		const scaleX = xScale();
 		const xSettings = {
-			translate: `translate(0, ${Meta.MAIN_CHART_HEIGHT})`,
+			translate: `translate(0, ${Meta.MainChartHeight()})`,
 			scale: scaleX,
 			orient: 'bottom',
 			dates: visitDates
@@ -222,7 +222,7 @@ export default class MainChart extends React.Component {
 		return (
 		<g className="mainChart">
 			{visitDates.map((d, i) => {
-				return <RecordBar key={i} records={records} x={scaleX(d)} height={Meta.MAIN_CHART_HEIGHT}/>;
+				return <RecordBar key={i} records={records} x={scaleX(d)} height={Meta.MainChartHeight()}/>;
 			})};
 			<MainAxis {...xSettings} />
 		</g>

@@ -47,33 +47,56 @@ export default class DataManager {
             asArray: true,
             queries: {
                 orderByChild: 'consultTime',
-                endAt: this.endTime,
-                limitToLast: queryNumber
+                endAt: this.endTime
+                // limitToLast: queryNumber
             }
         }).then(data => {
             var visitedDate = [];
-            for (var i = Object.keys(data).length - 1; i >= 0; i--)
-            {   
-                var date = data[i]['consultTime'];
-                if (visitedDate.indexOf(date) == -1)
-                {
-                    visitedDate.push(date);
-                }
+            // nesting data according to consult time
+            var nested_data = d3.nest()
+                .key(function(d) { return d.consultTime; })
+                .entries(data);
 
-                if(visitedDate.length == this.numOfVisits)
-                    break;
-            }
-
-            for (var i = 0; i < visitedDate.length; i++)
+            var startIndex = 0;
+            if (nested_data.length > this.numOfVisits)
             {
-                var date = new Date(visitedDate[i]);
-                date.setMonth(date.getMonth() - 1);
-                visitedDate[i] = date;
+                startIndex = nested_data.length - this.numOfVisits;
             }
+
+            this.startTime = parseInt(nested_data[startIndex].key);
+
+            // mapping key to visitedDate
+            for(var i = startIndex; i < nested_data.length; i++)
+            {
+                var date = new Date(parseInt(nested_data[i].key));
+                visitedDate[i-startIndex] = 
+                {
+                    key: date.toDateString(),
+                    value: nested_data[i].values
+                }
+            }
+            
+            // for (var i = Object.keys(data).length - 1; i >= 0; i--)
+            // {   
+            //     var date = data[i]['consultTime'];
+            //     if (visitedDate.indexOf(date) == -1)
+            //     {
+            //         visitedDate.push(date);
+            //     }
+
+            //     if(visitedDate.length == this.numOfVisits)
+            //         break;
+            // }
+
+            // for (var i = 0; i < visitedDate.length; i++)
+            // {
+            //     var date = new Date(visitedDate[i]);
+            //     date.setMonth(date.getMonth() - 1);
+            //     visitedDate[i] = date;
+            // }
 
             this.visitedDate = visitedDate;
-            this.startTime = visitedDate[visitedDate.length - 1].getTime();
-            return callback(visitedDate);
+            return callback(nested_data);
         });
     }
 
@@ -97,9 +120,6 @@ export default class DataManager {
         }).then(data => {
             // Get the records
             this.records = data;
-
-            console.log("Num of records: ");
-            console.log(data.length);
 
             // Get diagnosis, communities, treatment, waterResources
             this.diagnosisData = this.getDiagnosis();

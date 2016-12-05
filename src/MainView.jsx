@@ -44,6 +44,7 @@ const labelGroupData1 = [
 const startTime = Meta.DEFAULT_START_TIME.getTime();
 const endTime = Meta.DEFAULT_END_TIME.getTime();
 var records;
+var visitedDate;
 var diagnosisData;
 var communityData;
 var treatmentData;
@@ -65,6 +66,7 @@ export default class MainView extends React.Component {
 			selectedRecord: '',
 			selectedLabels: [],
 			records: [],
+            visitedDate: [],
 			communities: [],
 			diagnosis: [],
 			treatments: [],
@@ -77,20 +79,22 @@ export default class MainView extends React.Component {
 		this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
 	}
 
+    componentWillmount(){
+        console.log("Component will mount");
+
+    }
+
     componentDidMount() {
         const height = this.state.height - this.props.y;
-        // Todo
-
-        console.log("Initialize DataManager");
         dataManager = new DataManager(Meta.DEFAULT_END_TIME);
 
         var that = this;
         dataManager.getVisits(function(visitedDate){
+
             dataManager.getVisitedRecords(function(data){
+                visitedDate = dataManager.visitedDate;
                 records = dataManager.records;
                 diagnosisData = dataManager.diagnosisData;
-                console.log("Testing default parameter: ");
-                console.log(diagnosisData);
                 communityData = dataManager.communityData;
                 treatmentData = dataManager.treatmentData;
                 waterSourceData = dataManager.waterSourceData;
@@ -104,13 +108,13 @@ export default class MainView extends React.Component {
                     communities: communityData,
                     treatments: treatmentData,
                     waterSources: waterSourceData,
-                    bano: banoData
+                    bano: banoData,
+                    visitedDate: visitedDate
                 });
 
 
             });
         });
-
         window.addEventListener("resize", this.updateSize);
     }
 
@@ -286,6 +290,7 @@ export default class MainView extends React.Component {
 						center = {[
 							<MainChart key="0"
 								data={this.state.records}
+                                visitedDate={this.state.visitedDate}
 								onRecordInteraction={this.handleRecordInteraction}
 							/>,
 							<LabelGroup key="1"
@@ -323,3 +328,5 @@ export default class MainView extends React.Component {
 		);
 	}
 }
+
+

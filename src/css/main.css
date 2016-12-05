@@ -68,29 +68,6 @@ body {
 	padding: 32px;
 }
 
-.labelTitle {
-	font-size: 12px;
-	color: #232323;
-	fill: #232323;
-	font-weight: 500;
-}
-.label {
-	font-size: 14px;
-	color: #575757;
-	fill: #575757;
-	font-weight: 300;
-
-	transition: all 0.2s ease-in-out;
-	cursor: pointer;
-}
-
-.label:hover, .label.highlighted {
-	font-size: 14px;
-	color: #FE5A5A;
-	fill: #FE5A5A;
-	font-weight: 500;
-}
-
 .btn {
 	background-color: #ff5500;
 	border: 2px solid #d9d9d9;
@@ -193,4 +170,60 @@ body {
 .modalFab:hover {
 	color: #FE5A5A;
 	fill: #FE5A5A;
+}
+
+/* Label Style */
+.labelTitle {
+	font-size: 12px;
+	color: #232323;
+	fill: #232323;
+	font-weight: 500;
+}
+.label {
+	font-size: 14px;
+	color: #575757;
+	fill: #575757;
+	font-weight: 300;
+
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+}
+
+.label:hover, .label.highlighted {
+	font-size: 14px;
+	color: #FE5A5A;
+	fill: #FE5A5A;
+	font-weight: 500;
+}
+/* Bar Style */
+.bar {
+	fill: #FE5A5A;
+	transition: all 0.3s ease-in-out;
+}
+
+.bar.vertical.hide {
+	/*display: none;*/
+	height: 0;
+}
+
+.bar.horizontal.hide {
+	/*display: none;*/
+	width: 0;
+}
+.bar.start {
+	/*transform: translate(-100%, 0) ;*/
+}
+/* tooltip */
+.tooltip {
+	font-size: 12px;
+	font-weight: 500;
+	color: #232323;
+	transition: all 0.2s ease-in-out;
+}
+.tooltip rect {
+	fill: #000;
+	opacity: 0.2;
+}
+.tooltip text.hide {
+	visibility: hidden;
 }

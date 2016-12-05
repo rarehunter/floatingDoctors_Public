@@ -11,6 +11,8 @@ export default class RecordSquare extends React.Component {
 		this.handleMouseOver = this.handleMouseOver.bind(this);
 		this.handleMouseOut = this.handleMouseOut.bind(this);
 		this.checkSquareState = this.checkSquareState.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+
 	}
 	handleMouseOver() {
 		this.setState({
@@ -22,6 +24,11 @@ export default class RecordSquare extends React.Component {
 			scale: 1
 		})
 	}
+
+	handleClick() {
+		this.props.onUserInput(true, '');
+	}
+
 	checkSquareState() {
 		let classy = "";
 		if (this.state.scale === 1) {
@@ -35,15 +42,16 @@ export default class RecordSquare extends React.Component {
 		const translateX = this.props.x;
 		const translateY = this.props.y + Meta.SquareSize() / 2;
 		return (
-			<rect 
-				width={Meta.SquareSize()} 
-				height={Meta.SquareSize()} 
-				x={this.props.x - Meta.SquareSize() / 2} 
-				y={this.props.y} 
+			<rect
+				width={Meta.SquareSize()}
+				height={Meta.SquareSize()}
+				x={this.props.x - Meta.SquareSize() / 2}
+				y={this.props.y}
 				transform={`translate(${translateX}, ${translateY}) scale(${this.state.scale}) translate(-${translateX}, -${translateY})`}
 				className={this.checkSquareState()}
 				onMouseOver = {this.handleMouseOver}
 				onMouseOut = {this.handleMouseOut}
+				onClick={this.handleClick}
 			/>
 		)
 	}

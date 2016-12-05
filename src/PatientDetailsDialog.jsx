@@ -6,32 +6,22 @@ import styles from './css/main.css';
 export default class PatientDetailsDialog extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {show: false};
+        // this.state = {show: false};
 
         // bind component class methods inside the constructor
         // binding inside constructor is better than binding inside render for performance sake
-        this.showModal = this.showModal.bind(this);
+        // this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
     }
 
-    showModal() {
-        this.setState({show: true});
-    }
-
     hideModal() {
-        this.setState({show: false});
+        this.props.onHideModal(false, '');
     }
 
     render() {
         return (
-            <ButtonToolbar>
-                <Button bsStyle="success" bsSize="xsmall" onClick={this.showModal}>
-                    Some Patient
-                </Button>
-
                 <Modal
-                    {...this.props}
-                    show={this.state.show}
+                    show={this.props.isDialogActive}
                     onHide={this.hideModal}
                     dialogClassName={styles.smallDialogBox}
                     backdrop={false}
@@ -90,7 +80,6 @@ export default class PatientDetailsDialog extends React.Component {
 
                 </Modal>
 
-            </ButtonToolbar>
 
         ); // end return statement
 

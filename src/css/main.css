@@ -98,7 +98,7 @@ body {
 
 /* CSS For MultiviewDialog and PatientDetailsDialog */
 .largeDialogBox{
-    width: 90%;
+    width: 55%;
 		margin: 0px auto;
 }
 .largeDialogBox:first-child{

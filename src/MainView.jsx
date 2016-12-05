@@ -5,6 +5,7 @@ import LabelGroup from './components/LabelGroup.jsx';
 import MainChart from './components/MainChart.jsx';
 import LinkGroup from './components/LinkGroup.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
+import PatientDetailsDialog from './PatientDetailsDialog.jsx';
 import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
 
@@ -49,6 +50,8 @@ export default class MainView extends React.Component {
 			activeLabel: '',
 			multiViewShowing: false,
 			communityShowing: '',
+			patientDialogShowing: false,
+			patientShowing: '',
 			selectedRecord: '',
 			selectedLabels: [],
 			records: [],
@@ -60,6 +63,7 @@ export default class MainView extends React.Component {
 			lines: [],
 		};
 		this.handleUserClick = this.handleUserClick.bind(this);
+		this.handlePatientClick = this.handlePatientClick.bind(this);
 		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
 		this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
 	}
@@ -215,10 +219,40 @@ export default class MainView extends React.Component {
 	}
 
 	handleUserClick(multiViewShowing, communityShowing) {
+
+		//Translate abbreviation to full community name
+		var full_community_name;
+
+		if(communityShowing == '')
+		{
+			full_community_name = '';
+		}
+		else
+		{
+			var dict_array = Object.entries(Meta.COMMUNITY_NAME_DICT);
+
+			for (var i = 0; i < dict_array.length; i++)
+			{
+				if(dict_array[i][1] === communityShowing)
+				{
+					full_community_name = dict_array[i][0];
+					break;
+				}
+			}
+		}
+
 		this.setState({
 			multiViewShowing: multiViewShowing,
-			communityShowing: communityShowing
+			communityShowing: full_community_name
 	    });
+	}
+
+	handlePatientClick(patientDialogShowing, patientShowing) {
+
+		this.setState({
+			patientDialogShowing: patientDialogShowing,
+			patientShowing: patientShowing
+		});
 	}
 
 	render() {
@@ -234,7 +268,7 @@ export default class MainView extends React.Component {
 		return (
 			<div>
 			   <MultiviewDialog isDialogActive={this.state.multiViewShowing} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
-
+			   <PatientDetailsDialog isDialogActive={this.state.patientDialogShowing} patient={this.state.patientShowing} onHideModal={this.handlePatientClick} />
 				<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
 					<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}
 						left = {[
@@ -259,6 +293,7 @@ export default class MainView extends React.Component {
 							<MainChart key="0"
 								data={this.state.records}
 								onRecordInteraction={this.handleRecordInteraction}
+								onUserInput={this.handlePatientClick}
 							/>,
 							<LabelGroup key="1"
 								type="community"

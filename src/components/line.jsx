@@ -11,8 +11,8 @@ const renderLines = (props) => {
     			y1: props.yScale(coords[1]),
                 x2: props.xScale(next_coords[0]),
                 y2: props.yScale(next_coords[1]),
-                stroke: 'blue',
-                strokeWidth: 2,
+                stroke: props.stroke,
+                strokeWidth: 1,
     			key: index
     		};
     		return <line {...lineProps} />;

@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 
 export default class Axis extends React.Component {
 	componentDidMount() {
-		console.log("Did mount");
 		this.renderAxis();
 	}
 
@@ -14,9 +13,9 @@ export default class Axis extends React.Component {
 	renderAxis() {
 		var node = this.refs.axis;
 		if (this.props.orient === 'left') {
-			var axis = d3.axisLeft().ticks(1).scale(this.props.scale);
+			var axis = d3.axisLeft().ticks(this.props.ticks).scale(this.props.scale);
 		} else {
-			var axis = d3.axisBottom().ticks(1).scale(this.props.scale);
+			var axis = d3.axisBottom().ticks(this.props.ticks).scale(this.props.scale);
 		}
 
 		d3.select(node).call(axis);

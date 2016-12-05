@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 import Label from '../components/Label.jsx';
 import styles from '../css/main.css';
 import * as Meta from '../Metadata.jsx';
-import Bar from '../components/Bar.jsx';
 import Tooltip from '../components/Tooltip.jsx';
 
 export default class LabelGroup extends React.Component {

@@ -8,7 +8,6 @@ import MultiviewDialog from './MultiviewDialog.jsx';
 import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
 import DataManager from './helper/dataManager.jsx';
-import Tooltip from './components/Tooltip.jsx';
 import * as d3 from 'd3';
 
 const PADDING = 32;
@@ -63,9 +62,6 @@ export default class MainView extends React.Component {
 			activeRecord: '',
 			activeLabel: '',
 			multiViewShowing: false,
-			tooltipShowing: false,
-			tooltipPos: '',
-			tooltipValue: '',
 			communityShowing: '',
 			selectedRecord: '',
 			selectedLabels: [],
@@ -112,8 +108,6 @@ export default class MainView extends React.Component {
                     waterSources: waterSourceData,
                     bano: banoData,
                     visitedDate: visitedDate,
-                    tooltipPos: {"x":0, "y":0},
-                    tooltipValue: '',
                 });
             });
         });

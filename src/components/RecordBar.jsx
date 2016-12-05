@@ -3,12 +3,16 @@ import RecordSquare from '../components/RecordSquare.jsx';
 import * as Meta from '../Metadata.jsx';
 
 export default function RecordBar(props) {
-	return (
-		<g>
-		{props.records && props.records.map((r,i) => {
-			return <RecordSquare key={i} record={r} x={props.x} y={props.height - (i+1) * (Meta.SQUARE_GUTTER+Meta.SQUARE_SIZE) - Meta.SQUARE_SIZE} onUserInput={props.onUserInput} />;
-		})};
-		</g>
-	);
-
+    return (
+        <g>
+        {props.records && props.records.map((r,i) => {
+            return <RecordSquare key={i}
+                        onUserInput={props.onUserInput}
+                        record={r}
+                        x={props.x}
+                        y={props.height - (i+1) * (Meta.SQUARE_GUTTER+Meta.SQUARE_SIZE) - Meta.SQUARE_SIZE} />
+        })};
+        </g>
+    );
+    
 }

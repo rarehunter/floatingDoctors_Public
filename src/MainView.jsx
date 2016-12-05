@@ -10,6 +10,8 @@ import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
 import DataManager from './helper/dataManager.jsx';
 import * as d3 from 'd3';
+import PatientDetailsDialog from './PatientDetailsDialog.jsx';
+
 
 const PADDING = 32;
 const PANE_SPAN = 12;
@@ -55,33 +57,33 @@ var dataManager;
 
 
 export default class MainView extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			width: window.innerWidth,
-			height: window.innerHeight,
-			activeRecord: '',
-			activeLabel: '',
-			multiViewShowing: false,
-			communityShowing: '',
-			patientDialogShowing: false,
-			patientShowing: '',
-			selectedRecord: '',
-			selectedLabels: [],
-			records: [],
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: window.innerWidth,
+            height: window.innerHeight,
+            activeRecord: '',
+            activeLabel: '',
+            multiViewShowing: false,
+            communityShowing: '',
+            patientDialogShowing: false,
+            patientRecord: '',
+            selectedRecord: '',
+            selectedLabels: [],
+            records: [],
             visitedDate: [],
-			communities: [],
-			diagnosis: [],
-			treatments: [],
-			waterSources: [],
-			bano: [],
-			lines: [],
-		};
-		this.handleUserClick = this.handleUserClick.bind(this);
-		this.handlePatientClick = this.handlePatientClick.bind(this);
-		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
-		this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
-	}
+            communities: [],
+            diagnosis: [],
+            treatments: [],
+            waterSources: [],
+            bano: [],
+            lines: [],
+        };
+        this.handleUserClick = this.handleUserClick.bind(this);
+        this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
+        this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
+    }
 
     componentWillmount(){
         console.log("Component will mount");
@@ -113,6 +115,7 @@ export default class MainView extends React.Component {
                     bano: banoData,
                     visitedDate: visitedDate,
                 });
+
             });
         });
         window.addEventListener("resize", this.updateSize);
@@ -483,11 +486,11 @@ export default class MainView extends React.Component {
 	    });
 	}
 
-	handlePatientClick(patientDialogShowing, patientShowing) {
+	handlePatientClick(patientDialogShowing, patientRecord) {
 
 		this.setState({
 			patientDialogShowing: patientDialogShowing,
-			patientShowing: patientShowing
+			patientRecord: patientRecord
 		});
 	}
 

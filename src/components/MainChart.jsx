@@ -23,6 +23,7 @@ const randomRecords = () => {
 }
 export default class MainChart extends React.Component {
     render() {
+        console.log("in mainchart");
         if(this.props.visitedDate)
         {
             visitDates = getAttributeFromObejcts(this.props.visitedDate, "key");
@@ -41,7 +42,11 @@ export default class MainChart extends React.Component {
             return (
                 <g className="mainChart">
                     {visitDates.map((d, i) => {
-                        return <RecordBar key={i} records={this.props.visitedDate[i].value} x={scaleX(d)} height={Meta.MAIN_CHART_HEIGHT} onUserInput={this.props.onUserInput}/>;
+                        return <RecordBar key={i}
+                                    onUserInput={this.props.onUserInput}
+                                    records={this.props.visitedDate[i].value}
+                                    x={scaleX(d)}
+                                    height={Meta.MAIN_CHART_HEIGHT}/>
                     })};
                     <MainAxis {...xSettings} />
                 </g>

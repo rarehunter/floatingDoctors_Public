@@ -26,7 +26,6 @@ export default class App extends Component {
         return (
             <div>
                 <MainView y={top} x={left}/>
-                <PatientDetailsDialog />
               </div>
         );
     }

@@ -78,6 +78,7 @@ export default class LabelGroup extends React.Component {
 					return (
 						(this.props.direction === "v") ? (
 							<Label
+								key={`${this.props.type}_${d.id}`}
 								id={d.id}
 								state={d.state}
 								type={this.props.type}
@@ -93,6 +94,7 @@ export default class LabelGroup extends React.Component {
 							/>
 						) : (
 							<Label
+								key={`${this.props.type}_${d.id}`}
 								id={d.id}
 								state={d.state}
 								type={this.props.type}

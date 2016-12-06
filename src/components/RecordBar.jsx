@@ -6,7 +6,7 @@ export default function RecordBar(props) {
     return (
         <g>
         {props.records && props.records.map((r,i) => {
-            return <RecordSquare key={i}
+            return <RecordSquare key={r.key}
                         onUserInput={props.onUserInput}
                         record={r}
                         x={props.x}

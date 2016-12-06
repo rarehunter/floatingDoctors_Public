@@ -47,7 +47,7 @@ export default class RecordSquare extends React.Component {
                     height={Meta.SquareSize()} 
                     x={this.props.x - Meta.SquareSize() / 2} 
                     y={this.props.y}
-                    transform={`translate(${translateX}, ${translateY}) scale(${this.state.scale}) translate(-${translateX}, -${translateY})`}
+                    transform={`translate(${translateX}, ${translateY}) scale(${this.state.scale}) translate(${-translateX}, ${-translateY})`}
                     className={this.checkSquareState()}
                     onMouseOver = {this.handleMouseOver}
                     onMouseOut = {this.handleMouseOut}

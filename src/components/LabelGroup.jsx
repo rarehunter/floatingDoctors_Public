@@ -4,6 +4,8 @@ import Label from '../components/Label.jsx';
 import styles from '../css/main.css';
 import * as Meta from '../Metadata.jsx';
 import Tooltip from '../components/Tooltip.jsx';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
+import ReactTransitionGroup from 'react-addons-transition-group';
 
 export default class LabelGroup extends React.Component {
 	constructor() {
@@ -16,7 +18,7 @@ export default class LabelGroup extends React.Component {
 					x: 0,
 					y: 0
 				}
-			}
+			},
 		}
 		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
 	}
@@ -54,6 +56,7 @@ export default class LabelGroup extends React.Component {
 			state
 		);
 	}
+
 	render() {
 		const shiftX = () => {
 			if (this.props.textAnchor === "start") {
@@ -74,17 +77,19 @@ export default class LabelGroup extends React.Component {
 				<text className={styles.labelTitle} textAnchor={this.props.textAnchor} x={this.props.x} y={this.props.y}>
 					{this.props.title}
 				</text>
+				<ReactTransitionGroup component='g'>
 				{this.props.data && this.props.data.map((d, i) => {
 					return (
 						(this.props.direction === "v") ? (
 							<Label
-								key={`${this.props.type}_${d.id}`}
+								key={`${this.props.type}_${d.name}`}
+								i = {i}
 								id={d.id}
 								state={d.state}
 								type={this.props.type}
 								x={this.props.x} y={this.props.y + (Meta.LABEL_DY_L + Meta.LABEL_DY * i)}
-								barX = {shiftX()}
-								barY = {this.props.y + (Meta.LABEL_DY_L + Meta.LABEL_DY * i - 8)}
+								barX = {shiftX()-this.props.x}
+								barY = "-8"
 								barHeight={Meta.BAR_SIZE}
 								barWidth={barScale(this.props)(d.count)}
 								textAnchor={this.props.textAnchor}
@@ -94,13 +99,14 @@ export default class LabelGroup extends React.Component {
 							/>
 						) : (
 							<Label
-								key={`${this.props.type}_${d.id}`}
+								key={`${this.props.type}_${d.name}`}
+								i = {i}
 								id={d.id}
 								state={d.state}
 								type={this.props.type}
 								x={this.props.x + (Meta.LABEL_DX_L + Meta.LABEL_DX * i)} y={this.props.y}
-								barX = {this.props.x + (Meta.LABEL_DX_L + Meta.LABEL_DX * i + 6)}
-								barY = {this.props.y + Meta.BAR_MARGIN}
+								barX = "6"
+								barY = {Meta.BAR_MARGIN}
 								barHeight={barScale(this.props)(d.count)}
 								barWidth={Meta.BAR_SIZE}
 								textAnchor={this.props.textAnchor}
@@ -112,6 +118,7 @@ export default class LabelGroup extends React.Component {
 						)
 					);
 				})}
+				</ReactTransitionGroup>
 				<Tooltip tooltip={this.state.tooltip} />
 			</g>
 		);

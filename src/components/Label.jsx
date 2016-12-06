@@ -1,12 +1,25 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styles from '../css/main.css';
 import MultiviewDialog from '../MultiviewDialog.jsx';
+import * as d3 from 'd3';
+import ReactTransitionGroup from 'react-addons-transition-group';
 
+const transition = d3.transition()
+                   .duration(750)
+                   .ease(d3.easeCubic);
 export default class Label extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			type: '',
+			value: '',
+			direction: '',
+			textAnchor: '',
+			opacity: 1e-6,
+			x: 0,
+			y: 0,
+			barWidth: 0,
 		};
 		this.checkLabelState = this.checkLabelState.bind(this);
 		this.checkBarState = this.checkBarState.bind(this);
@@ -15,16 +28,39 @@ export default class Label extends React.Component {
 		this.handleMouseOut = this.handleMouseOut.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 	}
-
+	
 	componentDidMount() {
 		this.setState({
-			type: this.props.type
+			type: this.props.type,
+			value: this.props.value,
+			textAnchor: this.props.textAnchor,
+			direction: this.props.direction,
 		});
 	}
 
 	componentDidUpdate() {
 
 	}
+	componentWillEnter(callback) {
+       const el = ReactDOM.findDOMNode(this);
+       this.setState({
+       		x: this.props.x,
+       		y: this.props.y,
+       });
+       TweenMax.fromTo(el, 0.6, {opacity: 0}, {opacity: 1, onComplete: callback});
+    }
+
+    componentWillLeave(callback) {
+       const el = ReactDOM.findDOMNode(this);
+       TweenMax.fromTo(el, 0.3, {opacity: 1}, {opacity: 0, onComplete: callback});
+    }
+
+    componentWillReceiveProps(nextProps) {
+    	if (this.props.i != nextProps.i) {
+            const el = ReactDOM.findDOMNode(this);
+            TweenMax.fromTo(el, 0.6, {x: this.props.x, y: this.props.y}, {x: nextProps.x, y: nextProps.y});
+        }
+    }
 
 	checkLabelState() {
 		const state = this.props.state;
@@ -93,43 +129,44 @@ export default class Label extends React.Component {
 	render() {
 
 		return (
-			(this.props.direction === "h") ? (
-				<g>
+			(this.state.direction === "h") ? (
+				<g transform={`translate(${this.state.x},${this.state.y})`}>
 					<text
 						className={this.checkLabelState()}
-						x={this.props.x} y={this.props.y}
-						textAnchor={this.props.textAnchor}
+						// x={this.props.x} y={this.props.y}
+						x="0" y="0"
+						textAnchor={this.state.textAnchor}
 						onMouseOver={this.handleMouseOver}
 						onMouseOut ={this.handleMouseOut}
 						onClick={this.handleClick}
 						>
-						{this.props.value}
+						{this.state.value}
 					</text>
-					<g transform={(this.props.textAnchor==="start")?(`translate(${this.props.barX},${this.props.barY}) rotate(180) translate(${-this.props.barX},${-this.props.barY})`):("")}>
+					<g transform={(this.state.textAnchor==="start")?(`translate(${this.props.barX},${this.props.barY}) rotate(180) translate(${-this.props.barX},${-this.props.barY})`):("")}>
 						<rect
-							className={this.checkBarState(this.props.textAnchor, this.props.direction)}
+							className={this.checkBarState(this.state.textAnchor, this.state.direction)}
 							x={this.props.barX}
 							y={this.props.barY}
 							height={this.props.barHeight}
 							width={this.props.barWidth}
 						>
-					</rect>
+						</rect>
 					</g>
 				</g>
 			) : (
-				<g>
+				<g transform={`translate(${this.state.x},${this.state.y})`}>
 					<text
 						className={this.checkLabelState()}
-						x={this.props.x} y={this.props.y}
-						textAnchor={this.props.textAnchor}
+						x="0" y="0"
+						textAnchor={this.state.textAnchor}
 						onMouseOver={this.handleMouseOver}
 						onMouseOut ={this.handleMouseOut}
 						onClick={this.handleClick}
 						>
-						{this.props.value}
+						{this.state.value}
 					</text>
 					<rect
-						className={this.checkBarState(this.props.textAnchor, this.props.direction)}
+						className={this.checkBarState(this.state.textAnchor, this.state.direction)}
 						x={this.props.barX}
 						y={this.props.barY}
 						height={this.props.barHeight}

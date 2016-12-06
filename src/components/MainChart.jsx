@@ -23,7 +23,6 @@ const randomRecords = () => {
 }
 export default class MainChart extends React.Component {
     render() {
-        console.log("in mainchart");
         if(this.props.visitedDate)
         {
             visitDates = getAttributeFromObejcts(this.props.visitedDate, "key");

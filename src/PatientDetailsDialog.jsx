@@ -21,7 +21,6 @@ export default class PatientDetailsDialog extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         var record = this.props.patient;
         var name = "-";
         var consultDate = "-";

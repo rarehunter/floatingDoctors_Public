@@ -27,21 +27,6 @@ const labelGroupData1 = [
     "Renal Colic"
 ];
 
-// var diagnosisData = [
-//  {"id":0, "name":"Worms", "state":0},
-//  {"id":1, "name":"Prolapse", "state":0},
-//  {"id":2, "name":"Schizophremia", "state":0},
-//  {"id":3, "name":"Prostatitis", "state":0},
-//  {"id":4, "name":"Renal", "state":0},
-// ];
-
-// const communityData = [
-//  {"name": "BG", "full_name":"BAHIA GRANDE", "state":0, "count": 25},
-//  {"name": "BH", "full_name":"BAHIA HONDA", "state":0, "count": 15},
-//  {"name": "BC", "full_name":"BAJO CEDRO", "state":0, "count": 35},
-//  {"name": "BE", "full_name":"BUENA ESPERANZA", "state":0, "count": 45},
-//  {"name": "CB", "full_name":"CERRO BRUJO", "state":0, "count": 5},
-// ];
 
 const startTime = Meta.DEFAULT_START_TIME.getTime();
 const endTime = Meta.DEFAULT_END_TIME.getTime();

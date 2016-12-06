@@ -104,6 +104,7 @@ export default class MainView extends React.Component {
                 treatmentData = dataManager.treatmentData;
                 waterSourceData = dataManager.waterSourceData;
                 banoData = dataManager.banoData;
+
                 // Change state
                 that.setState({
                     records: records,

@@ -311,8 +311,23 @@ export default class DataManager {
             });
         }
         return banoData;
+    }
 
-
+    // get record based on community
+    // Example usage: 
+    // communityData = dataManager.getCommunityRecords(records, "SALT CREEK");
+    getCommunityRecords(data = this.records, communityName)
+    {
+        var nested_data = d3.nest()
+            .key(function(d){return d.consultLocation})
+            .entries(data);
+        
+        for(var i = 0; i < nested_data.length; i++)
+        {
+            if(nested_data[i].key == communityName)
+                return nested_data[i].values;
+        }
+        return null;
     }
 
 

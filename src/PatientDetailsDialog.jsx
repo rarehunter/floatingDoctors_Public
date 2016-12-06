@@ -21,6 +21,25 @@ export default class PatientDetailsDialog extends React.Component {
     render() {
         console.log(this.props);
         var record = this.props.patient;
+        var consultDate = "-";
+        var consultLocation = "-";
+        var gender = "-";
+        var DOB = "-";
+        var height = "-";
+        var weight = "-";
+        var BP = "-";
+        var HR = "-";
+        var RR = "-";
+        var temp = "-";
+
+        if(record.consultTime)
+            consultDate = record.consultTime.toLocaleDateString("en-US");
+        if(record.consultLocation)
+        {
+            
+        }
+        
+
 
         return (
                 
@@ -41,7 +60,7 @@ export default class PatientDetailsDialog extends React.Component {
                         <Grid>
                             <Row className="show-grid">
                                 <Col md={3}>
-                                    <h6 className={styles.gray}> {record.consultLocation} | {record.consultTime}</h6>
+                                    <h6 className={styles.gray}> {record.consultLocation} | {consultDate}</h6>
                                 </Col>
                             </Row>
 

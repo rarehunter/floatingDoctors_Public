@@ -42,6 +42,7 @@ export default class MainChart extends React.Component {
                 <g className="mainChart">
                     {visitDates.map((d, i) => {
                         return <RecordBar key={d}
+                                    onUserHover={this.props.onUserHover}
                                     onUserInput={this.props.onUserInput}
                                     records={this.props.visitedDate[i].value}
                                     x={scaleX(d)}

@@ -75,6 +75,7 @@ export default class MainView extends React.Component {
         this.handlePatientClick = this.handlePatientClick.bind(this);
         this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
         this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
+        this.handleUserHover = this.handleUserHover.bind(this);
     }
 
     componentWillmount(){
@@ -574,6 +575,14 @@ export default class MainView extends React.Component {
 		});
 	}
 
+	handleUserHover(selectedRecord, state){
+		this.updateCommunities([selectedRecord], state);
+		this.updateDiagnosis([selectedRecord], state);
+		this.updateBano([selectedRecord], state);
+		this.updateTreatments([selectedRecord], state);
+		this.updateWaterSources([selectedRecord], state);
+	}
+
 	render() {
 		const { width, height } = this.state;
 		const paneLeftX = 0;
@@ -612,7 +621,7 @@ export default class MainView extends React.Component {
 							<MainChart key="0"
 								data={this.state.records}
                                 visitedDate={this.state.visitedDate}
-								onRecordInteraction={this.handleRecordInteraction}
+								onUserHover={this.handleUserHover}
 								onUserInput={this.handlePatientClick}
 							/>,
 							<LabelGroup key="1"

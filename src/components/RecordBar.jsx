@@ -8,6 +8,7 @@ export default function RecordBar(props) {
         {props.records && props.records.map((r,i) => {
             return <RecordSquare key={r.key}
                         onUserInput={props.onUserInput}
+                        onUserHover={props.onUserHover}
                         record={r}
                         x={props.x}
                         y={props.height - (i+1) * (Meta.SQUARE_GUTTER+Meta.SQUARE_SIZE) - Meta.SQUARE_SIZE} />

@@ -19,11 +19,13 @@ export default class RecordSquare extends React.Component {
         this.setState({
             scale: 1.2
         });
+        this.props.onUserHover(this.props.record, 1);
     }
     handleMouseOut() {
         this.setState({
             scale: 1
         });
+        this.props.onUserHover(this.props.record, 0);
     }
     handleOnClick(){
         this.props.onUserInput(true, this.props.record);

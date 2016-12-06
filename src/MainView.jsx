@@ -86,7 +86,7 @@ export default class MainView extends React.Component {
     }
 
     componentWillmount(){
-        console.log("Component will mount");
+        // console.log("Component will mount");
 
     }
 
@@ -126,7 +126,7 @@ export default class MainView extends React.Component {
     }
 
     updateSize() {
-        console.log("Window resized");
+        // console.log("Window resized");
         // this.setState({
         //  width: window.innerWidth,
         //  height: window.innerHeight
@@ -180,7 +180,7 @@ export default class MainView extends React.Component {
 				const community = this.state.communities.find(c => {
 					return c.id === activeLabel.value;
 				});
-				console.log(community.name);
+				// console.log(community.name);
 				if (record.consultLocation === community.full_name) {
 					result = community.name;
 				}
@@ -194,7 +194,7 @@ export default class MainView extends React.Component {
 	}
 
 	updateCommunities(updatedRecords, state) {
-		console.log(updatedRecords.length);
+		// console.log(updatedRecords.length);
 		const communities = this.state.communities.slice();
 		communities.map(c => {
 			c.count = 0;
@@ -232,14 +232,14 @@ export default class MainView extends React.Component {
 	}
 
 	updateDiagnosis(updatedRecords, state) {
-		console.log(updatedRecords.length);
+		// console.log(updatedRecords.length);
 		const diagnosis = this.state.diagnosis.slice();
 		diagnosis.map(d => {
 			d.count = 0;
 			d.state = 0;
 		});
 		const diagnosisRecords = dataManager.getDiagnosis(updatedRecords);
-		console.log(diagnosisRecords);
+		// console.log(diagnosisRecords);
 		diagnosisRecords.map(r => {
 			diagnosis.map(d => {
 				if (d.name === r.name) {
@@ -479,7 +479,6 @@ export default class MainView extends React.Component {
 				}
 			}
 		}
-
 		this.setState({
 			multiViewShowing: multiViewShowing,
 			communityShowing: full_community_name

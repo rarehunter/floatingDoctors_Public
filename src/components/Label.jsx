@@ -142,7 +142,7 @@ export default class Label extends React.Component {
 						>
 						{this.state.value}
 					</text>
-					<g transform={(this.state.textAnchor==="start")?(`translate(${this.props.barX},${this.props.barY}) rotate(180) translate(${-this.props.barX},${-this.props.barY})`):("")}>
+					<g transform={(this.state.textAnchor==="start")?(`translate(${this.props.barX},${parseInt(this.props.barY)+2}) rotate(180) translate(${-this.props.barX},${-this.props.barY-2})`):("")}>
 						<rect
 							className={this.checkBarState(this.state.textAnchor, this.state.direction)}
 							x={this.props.barX}

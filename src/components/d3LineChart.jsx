@@ -43,9 +43,9 @@ export default (props) => {
 				.y(function(d) {return scales.yScale(d.value) } );
 
 	return <svg width={props.width} height={props.height}>
-	        <path d={line(props.allAge)} stroke="black" strokeLinecap="round" strokeWidth="1" fill="none"/>
-			<path d={line(props.femaleAge)} stroke="red" strokeLinecap="round" strokeWidth="1" fill="none"/>
-			<path d={line(props.maleAge)} stroke="blue" strokeLinecap="round" strokeWidth="1" fill="none"/>
+	        <path d={line(props.allAge)} stroke="#d9d9d9" strokeLinecap="round" strokeWidth="2" fill="none"/>
+			<path d={line(props.femaleAge)} stroke="#FE5A5A" strokeLinecap="round" strokeWidth="2" fill="none"/>
+			<path d={line(props.maleAge)} stroke="#5A95FE" strokeLinecap="round" strokeWidth="2" fill="none"/>
 
 			<XYAxis {...props} {...scales} />
 		</svg>

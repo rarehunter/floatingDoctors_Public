@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, Button, ButtonToolbar, Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import styles from './css/main.css';
+import {toTitleCase} from './Helper.jsx';
+
 
 
 export default class PatientDetailsDialog extends React.Component {
@@ -21,6 +23,7 @@ export default class PatientDetailsDialog extends React.Component {
     render() {
         console.log(this.props);
         var record = this.props.patient;
+        var name = "-";
         var consultDate = "-";
         var consultLocation = "-";
         var gender = "-";
@@ -32,14 +35,24 @@ export default class PatientDetailsDialog extends React.Component {
         var RR = "-";
         var temp = "-";
 
+        if(record.name) { name = toTitleCase(record.name); }
+        if(record.consultLocation) { consultLocation = toTitleCase(record.consultLocation); }
         if(record.consultTime)
-            consultDate = record.consultTime.toLocaleDateString("en-US");
-        if(record.consultLocation)
         {
-            
+            consultDate = new Date(record.consultTime);
+            consultDate = consultDate.toLocaleDateString("en-US");
         }
-        
-
+        if(record.gender) { gender = record.gender; }
+        if(record.DOB)
+        {
+            DOB = new Date(record.DOB);
+            DOB= DOB.toLocaleDateString("en-US");
+        }
+        if(record.height) { height = record.height; }
+        if(record.weight) { weight = record.weight; }
+        if(record.BP_DYS) { BP = record.BP_DYS; }
+        if(record.heartRate) { HR = record.heartRate; }
+        if(record.respirationRate) { temp = record.respirationRate; }
 
         return (
                 
@@ -53,14 +66,14 @@ export default class PatientDetailsDialog extends React.Component {
                 >
 
                     <Modal.Header bsClass={styles.modalTitle}>
-                        <Modal.Title id="contained-modal-title-md"> {record.name} </Modal.Title>
+                        <Modal.Title id="contained-modal-title-md"> {name} </Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body bsClass={styles.modalSmallBody}>
                         <Grid>
                             <Row className="show-grid">
                                 <Col md={3}>
-                                    <h6 className={styles.gray}> {record.consultLocation} | {consultDate}</h6>
+                                    <h6 className={styles.gray}> {consultLocation} | {consultDate}</h6>
                                 </Col>
                             </Row>
 
@@ -73,10 +86,10 @@ export default class PatientDetailsDialog extends React.Component {
                                 </Col>
 
                                 <Col md={2}>
-                                    <h6 className={styles.gray}>{record.gender}</h6>
-                                    <h6 className={styles.gray}>05/01/1987</h6>
-                                    <h6 className={styles.gray}>{record.height}</h6>
-                                    <h6 className={styles.gray}>{record.weight}</h6>
+                                    <h6 className={styles.gray}>{gender}</h6>
+                                    <h6 className={styles.gray}>{DOB}</h6>
+                                    <h6 className={styles.gray}>{height}</h6>
+                                    <h6 className={styles.gray}>{weight}</h6>
                                 </Col>
 
                                 <Col md={1}>
@@ -87,10 +100,10 @@ export default class PatientDetailsDialog extends React.Component {
                                 </Col>
 
                                 <Col md={2}>
-                                    <h6 className={styles.gray}>{record.BP_DYS}</h6>
-                                    <h6 className={styles.gray}>{record.heartRate}</h6>
-                                    <h6 className={styles.gray}>{record.respirationRate}</h6>
-                                    <h6 className={styles.gray}>{record.temperature}</h6>
+                                    <h6 className={styles.gray}>{BP}</h6>
+                                    <h6 className={styles.gray}>{HR}</h6>
+                                    <h6 className={styles.gray}>{RR}</h6>
+                                    <h6 className={styles.gray}>{temp}</h6>
                                 </Col>
 
 

@@ -19,7 +19,8 @@ export default class PatientDetailsDialog extends React.Component {
     }
 
     render() {
-        var record = this.props.patientRecord;
+        console.log(this.props);
+        var record = this.props.patient;
 
         return (
                 

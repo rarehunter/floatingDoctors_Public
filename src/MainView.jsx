@@ -10,7 +10,6 @@ import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
 import DataManager from './helper/dataManager.jsx';
 import * as d3 from 'd3';
-import PatientDetailsDialog from './PatientDetailsDialog.jsx';
 
 
 const PADDING = 32;
@@ -81,6 +80,7 @@ export default class MainView extends React.Component {
             lines: [],
         };
         this.handleUserClick = this.handleUserClick.bind(this);
+        this.handlePatientClick = this.handlePatientClick.bind(this);
         this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
         this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
     }
@@ -505,7 +505,7 @@ export default class MainView extends React.Component {
 		return (
 			<div>
 			   <MultiviewDialog isDialogActive={this.state.multiViewShowing} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
-			   <PatientDetailsDialog isDialogActive={this.state.patientDialogShowing} patient={this.state.patientShowing} onHideModal={this.handlePatientClick} />
+			   <PatientDetailsDialog isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
 
 				<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
 					<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}

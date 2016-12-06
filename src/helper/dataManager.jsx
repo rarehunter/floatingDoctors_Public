@@ -69,15 +69,15 @@ export default class DataManager {
             for(var i = startIndex; i < nested_data.length; i++)
             {
                 var date = new Date(parseInt(nested_data[i].key));
-                visitedDate[i-startIndex] = 
+                visitedDate[i-startIndex] =
                 {
                     key: date.toDateString(),
                     value: nested_data[i].values
                 }
             }
-            
+
             // for (var i = Object.keys(data).length - 1; i >= 0; i--)
-            // {   
+            // {
             //     var date = data[i]['consultTime'];
             //     if (visitedDate.indexOf(date) == -1)
             //     {
@@ -157,7 +157,7 @@ export default class DataManager {
             }
         }
 
-        // Step 2: nest data 
+        // Step 2: nest data
         var nested_data = d3.nest()
             .key(function(d) {
                 return d.diagnosis;
@@ -264,7 +264,7 @@ export default class DataManager {
     getWaterSources(data = this.records)
     {
         var waterSourceData = [];
-       
+
         var nested_data = d3.nest()
             .key(function(d) {
                 return d.waterResource;
@@ -291,7 +291,7 @@ export default class DataManager {
     // get bano data
     getbanoData(data = this.records)
     {
-        var banoData = [];        
+        var banoData = [];
         var nested_data = d3.nest()
             .key(function(d) {
                 return d.bano;
@@ -314,7 +314,7 @@ export default class DataManager {
     }
 
     // get record based on community
-    // Example usage: 
+    // Example usage:
     // communityData = dataManager.getCommunityRecords(records, "SALT CREEK");
     getCommunityRecords(communityName, data = this.records)
     {

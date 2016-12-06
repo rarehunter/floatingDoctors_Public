@@ -6,6 +6,7 @@ import LineChart from './components/line-chart.jsx';
 import BarGraph from './components/bar-graph.jsx';
 import GenderBars from './components/GenderBars.jsx';
 import Rebase from 're-base';
+import D3LineChart from './components/d3LineChart.jsx';
 
 var num_records; // test
 
@@ -21,6 +22,10 @@ export default class MultiviewDialog extends React.Component {
 
         // bind component class methods inside the constructor
         this.hideModal = this.hideModal.bind(this);
+
+        // var recordCount = d3.rollup(function(s) {
+        //     return d3.sum(s, function(d) { return d.sales });
+        // };
 
         this.state = {
             ageData: [
@@ -54,7 +59,6 @@ export default class MultiviewDialog extends React.Component {
     }
 
     render() {
-
         return (
                 <Modal
                     show={this.props.isDialogActive}
@@ -92,7 +96,11 @@ export default class MultiviewDialog extends React.Component {
                             <Row className="show-grid">
                                 <Col xs={12} sm={6} md={4} lg={4}>
                                     <h5>Age Distribution</h5>
-                                    <LineChart data={this.state.ageData} {...plotdim} />
+                                    <D3LineChart data={this.props.theState.age_nest}
+                                                 allAge={this.props.theState.age_nest}
+                                                 maleAge={this.props.theState.age_nest_M}
+                                                 femaleAge={this.props.theState.age_nest_F}
+                                                 {...plotdim} />
                                </Col>
 
                                <Col xs={12} sm={6} md={4} lg={4}>

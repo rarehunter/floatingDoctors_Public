@@ -64,6 +64,13 @@ export default class MainView extends React.Component {
             height: window.innerHeight,
             activeRecord: '',
             activeLabel: '',
+			commRecords: [],
+			num_records: 0,
+			num_females: 0,
+			num_males: 0,
+			age_nest: [],
+			age_nest_M: [],
+			age_nest_F: [],
             multiViewShowing: false,
             communityShowing: '',
             patientDialogShowing: false,
@@ -458,14 +465,59 @@ export default class MainView extends React.Component {
         });
     }
 
+	// helper function that returns filtered records by parameters
+	getFilteredRecords(filterBy, key, community_records) {
+		var filtered;
+		if(filterBy == "all")
+		{
+			if (key == "age")
+			{
+				// Filter out NaN and empty strings for ages in the records
+				filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "") } );
+
+				// Then get rid of float ages and make it all integers
+				filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
+				return filtered;
+			}
+		}
+		else if (filterBy == "M")
+		{
+			if (key == "age")
+			{
+				// Filter out NaN and empty strings for ages in the records
+				filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "" && d.gender == "M") } );
+
+				// Then get rid of float ages and make it all integers
+				filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
+				return filtered;
+			}
+		}
+		else if (filterBy == "F")
+		{
+			if (key == "age")
+			{
+				// Filter out NaN and empty strings for ages in the records
+				filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "" && d.gender == "F") } );
+
+				// Then get rid of float ages and make it all integers
+				filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
+				return filtered;
+			}
+		}
+	}
+
+
 	handleUserClick(multiViewShowing, communityShowing) {
 
 		//Translate abbreviation to full community name
 		var full_community_name;
+		var community_records;
+		var num_records;
 
 		if(communityShowing == '')
 		{
 			full_community_name = '';
+			community_records = [];
 		}
 		else
 		{
@@ -479,12 +531,55 @@ export default class MainView extends React.Component {
 					break;
 				}
 			}
+
+			/* Grab community records from dataManager to be displayed in MultiviewDialog */
+			community_records = dataManager.getCommunityRecords(full_community_name);
+			num_records = community_records.length;
+
+			var age_by_all = this.getFilteredRecords("all", "age", community_records);
+			var age_by_M = this.getFilteredRecords("M", "age", community_records);
+			var age_by_F = this.getFilteredRecords("F", "age", community_records);
+
+			// gender_nest is used to show gender distribution (M, F)
+			var gender_nest =  d3.nest().key(function(d){ return d.gender; })
+					.rollup(function(leaves) { return leaves.length; })
+					.entries(community_records);
+
+			// age distribution for all
+			var age_nest = d3.nest().key(function(d){ return d.age; })
+							.rollup(function(leaves) { return leaves.length; })
+							.entries(age_by_all)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+			// age distribution for males
+			var age_nest_M = d3.nest().key(function(d){ return d.age; })
+							.rollup(function(leaves) { return leaves.length; })
+							.entries(age_by_M)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+			// age distribution for females
+			var age_nest_F = d3.nest().key(function(d){ return d.age; })
+							.rollup(function(leaves) { return leaves.length; })
+							.entries(age_by_F)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 		}
+
+		// console.log(community_records);
 		this.setState({
 			multiViewShowing: multiViewShowing,
-			communityShowing: full_community_name
+			communityShowing: full_community_name,
+			commRecords: community_records,
+			num_records: num_records,
+			num_females: gender_nest["F"],
+			num_males: gender_nest["M"],
+			num_other: gender_nest[""],
+			age_nest: age_nest,
+			age_nest_M: age_nest_M,
+			age_nest_F: age_nest_F,
 	    });
+		// console.log(this.state);
 	}
+
 
 	handlePatientClick(patientDialogShowing, patientRecord) {
 
@@ -505,7 +600,7 @@ export default class MainView extends React.Component {
 
 		return (
 			<div>
-			   <MultiviewDialog isDialogActive={this.state.multiViewShowing} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
+			   <MultiviewDialog isDialogActive={this.state.multiViewShowing} theState={this.state} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
 			   <PatientDetailsDialog isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
 
 				<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>

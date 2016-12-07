@@ -4,7 +4,6 @@ import Label from '../components/Label.jsx';
 import styles from '../css/main.css';
 import * as Meta from '../Metadata.jsx';
 import Tooltip from '../components/Tooltip.jsx';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 import ReactTransitionGroup from 'react-addons-transition-group';
 
 export default class LabelGroup extends React.Component {

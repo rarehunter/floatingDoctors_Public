@@ -651,7 +651,8 @@ export default class MainView extends React.Component {
 								direction='h'
 								title="Community"
 								tooltip="true"
-								data={this.state.communities.slice(0,20)}
+								textAnchor="middle"
+								data={this.state.communities}
 								onLabelInteraction={this.handleLabelInteraction}
 								onUserInput={this.handleUserClick}
 								x="0" y={Meta.MainChartHeight() + Meta.PADDING}/>

@@ -44,7 +44,7 @@ export default class RecordSquare extends React.Component {
         this.setState({
             scale: 1
         });
-        this.props.onUserHover(this.props.record, 0);
+        this.props.onUserHover('', 0);
     }
     handleOnClick(){
         this.props.onUserInput(true, this.props.record);

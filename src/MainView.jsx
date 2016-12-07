@@ -621,11 +621,22 @@ export default class MainView extends React.Component {
 	}
 
 	handleUserHover(selectedRecord, state){
-		this.updateCommunities([selectedRecord], state);
-		this.updateDiagnosis([selectedRecord], state);
-		this.updateBano([selectedRecord], state);
-		this.updateTreatments([selectedRecord], state);
-		this.updateWaterSources([selectedRecord], state);
+		if(selectedRecord)
+		{
+			this.updateCommunities([selectedRecord], state);
+			this.updateDiagnosis([selectedRecord], state);
+			this.updateBano([selectedRecord], state);
+			this.updateTreatments([selectedRecord], state);
+			this.updateWaterSources([selectedRecord], state);
+		}
+		else
+		{
+			this.updateCommunities(this.state.records, state);
+			this.updateDiagnosis(this.state.records, state);
+			this.updateBano(this.state.records, state);
+			this.updateTreatments(this.state.records, state);
+			this.updateWaterSources(this.state.records, state);
+		}
 	}
 
 	render() {

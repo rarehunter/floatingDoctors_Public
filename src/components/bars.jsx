@@ -3,13 +3,13 @@ import React from 'react';
 const renderBars = (props) => {
 	return (coords, index) => {
 		const barProps = {
-            x: props.xScale(coords[0]),
-            y: props.yScale(coords[1]),
-            width: 15,
-            height: 200 - 30 - props.yScale(coords[1]),
+            x: props.xScale(coords.key),
+            y: props.yScale(coords.value),
+            width: 0.5,
+            height: props.height - props.padding - props.yScale(coords.value),
 			key: index
 		};
-		return <rect {...barProps} />;
+		return <rect {...barProps} fill="#FFFFFF" stroke={props.stroke}/>;
 	};
 };
 

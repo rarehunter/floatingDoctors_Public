@@ -3,8 +3,8 @@ import * as d3 from 'd3';
 import Bars from '../components/bars.jsx';
 import XYAxis from '../components/x-y-axis.jsx';
 
-const xMax = (data) => d3.max(data, (d) => d[0]);
-const yMax = (data) => d3.max(data, (d) => d[1]);
+const xMax = (data) => d3.max(data, (d) => parseInt(d.key));
+const yMax = (data) => d3.max(data, (d) => parseInt(d.value));
 
 const xScale = (props) => {
 	return d3.scaleLinear()
@@ -21,7 +21,10 @@ const yScale = (props) => {
 export default (props) => {
 	const scales = {xScale: xScale(props), yScale: yScale(props) };
 	return <svg width={props.width} height={props.height}>
-		<Bars {...props} {...scales} />
-		<XYAxis {...props} {...scales} />
+		<Bars {...props} data={props.allAge} stroke="#D9D9D9" {...scales} />
+		<Bars {...props} data={props.maleAge} stroke="#5A95FE" {...scales} />
+		<Bars {...props} data={props.femaleAge} stroke="#FE5A5A" {...scales} />
+
+		<XYAxis {...props} xLabel={props.xLabel} yLabel={props.yLabel} {...scales} />
 		</svg>
 }

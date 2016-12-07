@@ -51,10 +51,16 @@ export default class MainView extends React.Component {
             activeLabel: '',
 			commRecords: [],
 			num_records: 0,
-			gender_data: [],
+			gender_data: [[]],
 			age_nest: [],
 			age_nest_M: [],
 			age_nest_F: [],
+            bmi_nest_all: [],
+            bmi_nest_M: [],
+            bmi_nest_F: [],
+            bh_nest_all: [],
+            bh_nest_M: [],
+            bh_nest_F: [],
             multiViewShowing: false,
             communityShowing: '',
             patientDialogShowing: false,
@@ -464,6 +470,15 @@ export default class MainView extends React.Component {
 				filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
 				return filtered;
 			}
+            else if(key == "bh")
+            {
+                // Filter out NaN and empty strings for all bmi in the records
+                filtered = community_records.filter(function(d) { return (!isNaN(d.HB) && d.HB != "") } );
+
+                // Then get rid of float ages and make it all integers
+                filtered = filtered.map(function(e) { e.HB = Math.round(parseFloat(e.HB)); return e; } );
+                return filtered;
+            }
 		}
 		else if (filterBy == "M")
 		{
@@ -476,6 +491,15 @@ export default class MainView extends React.Component {
 				filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
 				return filtered;
 			}
+            else if(key == "bh")
+            {
+                // Filter out NaN and empty strings for all bmi in the records
+                filtered = community_records.filter(function(d) { return (!isNaN(d.HB) && d.HB != "" && d.gender == "M") } );
+
+                // Then get rid of float ages and make it all integers
+                filtered = filtered.map(function(e) { e.HB = Math.round(parseFloat(e.HB)); return e; } );
+                return filtered;
+            }
 		}
 		else if (filterBy == "F")
 		{
@@ -488,6 +512,15 @@ export default class MainView extends React.Component {
 				filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
 				return filtered;
 			}
+            else if(key == "bh")
+            {
+                // Filter out NaN and empty strings for all bmi in the records
+                filtered = community_records.filter(function(d) { return (!isNaN(d.HB) && d.HB != "" && d.gender == "F") } );
+
+                // Then get rid of float ages and make it all integers
+                filtered = filtered.map(function(e) { e.HB = Math.round(parseFloat(e.HB)); return e; } );
+                return filtered;
+            }
 		}
 	}
 
@@ -497,8 +530,10 @@ export default class MainView extends React.Component {
 		//Translate abbreviation to full community name
 		var full_community_name;
 		var community_records;
-		var num_records, num_females, num_males, num_other, age_nest, age_nest_M, age_nest_F;
+		var num_records = 0, num_females = 0, num_males = 0, num_other = 0, age_nest, age_nest_M, age_nest_F;
         var gender_data;
+        var bh_nest_all, bh_nest_M, bh_nest_F;
+        var bmi_nest_all, bmi_nest_M, bmi_nest_F;
 
 		if(communityShowing == '')
 		{
@@ -508,14 +543,19 @@ export default class MainView extends React.Component {
             age_nest_M = [];
             age_nest_F = [];
             num_records = 0;
-            num_females = 0;
-            num_males = 0;
-            num_other = 0;
-		}
-		else
+            gender_data = [[0,0]];
+            bh_nest_all = [],
+            bh_nest_M = [],
+            bh_nest_F = [],
+            bmi_nest_all = [],
+            bmi_nest_M = [],
+            bmi_nest_F = []
+        }
+        else
 		{
 			var dict_array = Object.entries(Meta.COMMUNITY_NAME_DICT);
 
+            // Translation from abbreviation to full name
 			for (var i = 0; i < dict_array.length; i++)
 			{
 				if(dict_array[i][1] === communityShowing)
@@ -529,47 +569,76 @@ export default class MainView extends React.Component {
 			community_records = dataManager.getCommunityRecords(full_community_name);
 			num_records = community_records.length;
 
+            console.log(community_records);
+
+            // call helper function to get a data array with the right filters applied
 			var age_by_all = this.getFilteredRecords("all", "age", community_records);
 			var age_by_M = this.getFilteredRecords("M", "age", community_records);
 			var age_by_F = this.getFilteredRecords("F", "age", community_records);
+            var bh_by_all = this.getFilteredRecords("all", "bh", community_records);
+            var bh_by_M = this.getFilteredRecords("M", "bh", community_records);
+            var bh_by_F = this.getFilteredRecords("F", "bh", community_records);
+            var bmi_by_all = this.getFilteredRecords("all", "bmi", community_records);
 
 			// gender_nest is used to show gender distribution (M, F)
 			var gender_nest =  d3.nest().key(function(d){ return d.gender; })
 					.rollup(function(leaves) { return leaves.length; })
 					.entries(community_records);
 
-                    // var obj = {a: 5, b: 7, c: 9};
-                    // for (var [key, value] of Object.entries(obj)) {
-                    //     console.log(key + ' ' + value); // "a 5", "b 7", "c 9"
-                    // }
-
-            console.log(gender_nest);
-
-            for (var [key, value] of Object.entries(gender_nest)) {
-                    num_males = value.key;
-                    num_females = value.key;
+            /* Grab the count of male, female, and other */
+            for (var [key, obj] of Object.entries(gender_nest)) {
+                if(obj.key == "M")
+                    num_males = obj.value;
+                if(obj.key == "F")
+                    num_females = obj.value;
+                if(obj.key == "")
+                    num_other = obj.value;
             }
 
+            // we will pass this to the state - rendered by GenderBars
             gender_data = [[num_males, num_females]];
-            console.log(gender_data);
 
 			// age distribution for all
-			var age_nest = d3.nest().key(function(d){ return d.age; })
+			age_nest = d3.nest().key(function(d){ return d.age; })
 							.rollup(function(leaves) { return leaves.length; })
 							.entries(age_by_all)
 							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
 			// age distribution for males
-			var age_nest_M = d3.nest().key(function(d){ return d.age; })
+			age_nest_M = d3.nest().key(function(d){ return d.age; })
 							.rollup(function(leaves) { return leaves.length; })
 							.entries(age_by_M)
 							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
 			// age distribution for females
-			var age_nest_F = d3.nest().key(function(d){ return d.age; })
+			age_nest_F = d3.nest().key(function(d){ return d.age; })
 							.rollup(function(leaves) { return leaves.length; })
 							.entries(age_by_F)
 							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // bh distribution for all
+			bh_nest_all = d3.nest().key(function(d){ return d.HB; })
+							.rollup(function(leaves) { return leaves.length; })
+							.entries(bh_by_all)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // bh distribution for males
+			bh_nest_M = d3.nest().key(function(d){ return d.HB; })
+							.rollup(function(leaves) { return leaves.length; })
+							.entries(bh_by_M)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // bh distribution for females
+            bh_nest_F = d3.nest().key(function(d){ return d.HB; })
+                            .rollup(function(leaves) { return leaves.length; })
+                            .entries(bh_by_F)
+                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // bmi distribution for all
+            // bmi_nest_all = d3.nest().key(function(d){ return d.age; })
+            //                 .rollup(function(leaves) { return leaves.length; })
+            //                 .entries(bh_by_F)
+            //                 .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 		}
 
 		this.setState({
@@ -581,6 +650,10 @@ export default class MainView extends React.Component {
 			age_nest: age_nest,
 			age_nest_M: age_nest_M,
 			age_nest_F: age_nest_F,
+            bh_nest_all: bh_nest_all,
+            bh_nest_M: bh_nest_M,
+            bh_nest_F: bh_nest_F,
+            bmi_nest_all: bmi_nest_all,
 	    });
 	}
 
@@ -612,7 +685,7 @@ export default class MainView extends React.Component {
 
 		return (
 			<div>
-			   <MultiviewDialog isDialogActive={this.state.multiViewShowing} theState={this.state} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
+			   <MultiviewDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.multiViewShowing} theState={this.state} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
 			   <PatientDetailsDialog isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
 
 				<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>

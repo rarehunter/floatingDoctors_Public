@@ -3,6 +3,7 @@ import React from 'react';
 const renderBars = (props) => {
 	return (coords, index) => {
 		const barProps = {
+			className: props.className,
             x: props.barProps.x,
             y: props.barProps.y,
             width: props.barProps.width,
@@ -16,10 +17,9 @@ const renderBars = (props) => {
 
 
 export default (props) => {
-	// return <g><rect x={props.x} y={props.y} fill={props.fill} height="10" width="50" /></g>
-	return <g>
+	return <g className={props.className}>
 			<text y={props.barProps.y + 10 }>{props.gender}</text>
 			{ props.data.map(renderBars(props)) }
-			<text y={props.barProps.y + 10 } x={props.barProps.width + 20}>{props.barProps.width} ({props.per}%)</text>
+			<text y={props.barProps.y + 10 } x={props.barProps.width + 20}>{props.barProps.number} ({props.barProps.percentage}%)</text>
 		</g>
 }

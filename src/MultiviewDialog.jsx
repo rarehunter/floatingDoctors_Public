@@ -11,9 +11,9 @@ import D3LineChart from './components/d3LineChart.jsx';
 var num_records; // test
 
 const plotdim = {
-    width: 300,
-    height: 200,
-    padding: 30
+    width: 400,
+    height: 300,
+    padding: 50
 }
 
 export default class MultiviewDialog extends React.Component {
@@ -77,17 +77,17 @@ export default class MultiviewDialog extends React.Component {
                         <Grid>
                             <Row className="show-grid">
                                 <Col md={1}>
-                                    <h5 className={styles.gray}>Records</h5>
+                                    <h5 className={styles.gray}>Visits</h5>
 
                                     <br />
                                     <p className={styles.bignumbers}>{this.props.theState.num_records}</p>
                                 </Col>
 
-                                <Col md={2}>
-                                    <GenderBars data={this.props.theState.gender_data} />
+                                <Col md={3}>
+                                    <GenderBars maleClass={styles.mbar} femaleClass={styles.fbar} data={this.props.theState.gender_data} />
                                 </Col>
 
-                                <Col md={2} mdOffset={2}>
+                                <Col md={2} mdOffset={1}>
                                     <h6 className={styles.gray + ' ' + styles.textRight}>Jan 2015-Dec 2015</h6>
                                 </Col>
                             </Row>
@@ -97,16 +97,18 @@ export default class MultiviewDialog extends React.Component {
                             <Row className="show-grid">
                                 <Col xs={12} sm={6} md={4} lg={4}>
                                     <h5>Age Distribution</h5>
-                                    <D3LineChart data={this.props.theState.age_nest}
-                                                 allAge={this.props.theState.age_nest}
-                                                 maleAge={this.props.theState.age_nest_M}
-                                                 femaleAge={this.props.theState.age_nest_F}
-                                                 {...plotdim} />
+                                    <BarGraph data={this.props.theState.age_nest}
+                                              allAge={this.props.theState.age_nest}
+                                              maleAge={this.props.theState.age_nest_M}
+                                              femaleAge={this.props.theState.age_nest_F}
+                                              xLabel="Age"
+                                              yLabel="Count"
+                                              {...plotdim} />
+
                                </Col>
 
                                <Col xs={12} sm={6} md={4} lg={4}>
                                    <h5>BMI Distribution</h5>
-                                   <LineChart data={this.state.ageData} {...plotdim} />
 
                                </Col>
                            </Row>
@@ -115,14 +117,19 @@ export default class MultiviewDialog extends React.Component {
 
                            <Row className="show-grid">
                                <Col xs={12} sm={6} md={4} lg={4}>
-                                   <h5>Blood Hemoglobin Distribution</h5>
-                                   <LineChart data={this.state.ageData} {...plotdim} />
+                                   <h5>Blood Hemoglobin by Age</h5>
+                                   <BarGraph data={this.props.theState.bh_nest_all}
+                                             allAge={this.props.theState.bh_nest_all}
+                                             maleAge={this.props.theState.bh_nest_M}
+                                             femaleAge={this.props.theState.bh_nest_F}
+                                             xLabel="Age"
+                                             yLabel="mg/dL"
+                                             {...plotdim} />
+
                                </Col>
 
                              <Col xs={12} sm={6} md={4} lg={4}>
                                  <h5>Blood Pressure Distribution</h5>
-                                 <LineChart data={this.state.ageData} {...plotdim} />
-
                              </Col>
                            </Row>
 

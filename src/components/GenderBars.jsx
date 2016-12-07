@@ -21,12 +21,26 @@ const yScale = (props) => {
 export default (props) => {
 	const scales = {xScale: xScale(props), yScale: yScale(props) };
 	const total = props.data[0][0] + props.data[0][1];
+	var male_percentage;
+	var female_percentage;
+
+	/* This is needed for times when total is 0 and we don't want to divide by 0 */
+	if(total == 0) {
+		male_percentage = 0;
+		female_percentage = 0;
+	}
+	else {
+		male_percentage = Math.round(props.data[0][0] / total * 100);
+		female_percentage = Math.round(props.data[0][1] / total * 100);
+	}
 
 	const barPropsM = {
 		x: 15,
 		y: 15,
 		height: 10,
-		width: props.data[0][0],
+		width: props.data[0][0] % 200,
+		number: props.data[0][0],
+		percentage: male_percentage,
 		fill: '#5A95FE',
 	};
 
@@ -34,12 +48,14 @@ export default (props) => {
 		x: 15,
 		y: 30,
 		height: 10,
-		width: props.data[0][1],
+		width: props.data[0][1] % 200,
+		number: props.data[0][1],
+		percentage: female_percentage,
 		fill: '#FF5858',
 	};
 
-	return <svg width={props.width} height={props.height}>
-			<GBar {...props} barProps={barPropsM} gender="M" per={Math.round(props.data[0][0]/total * 100) } {...scales} />
-			<GBar {...props} barProps={barPropsF} gender="F" per={Math.round(props.data[0][1]/total * 100) } {...scales}/>
+	return <svg height="100">
+			<GBar {...props} barProps={barPropsM} gender="M" className={props.maleClass} {...scales} />
+			<GBar {...props} barProps={barPropsF} gender="F" className={props.femaleClass} {...scales}/>
 		</svg>
 }

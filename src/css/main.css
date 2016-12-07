@@ -75,7 +75,7 @@ body {
 
 /* CSS For MultiviewDialog and PatientDetailsDialog */
 .largeDialogBox{
-    width: 55%;
+    width: 65%;
 		margin: 0px auto;
 }
 .largeDialogBox:first-child{
@@ -210,9 +210,11 @@ body {
 	/*display: none;*/
 	width: 0;
 }
+
 .bar.start {
 	/*transform: translate(-100%, 0) ;*/
 }
+
 /* tooltip */
 .tooltip {
 	font-size: 12px;
@@ -220,11 +222,28 @@ body {
 	color: #232323;
 	transition: all 0.2s ease-in-out;
 }
+
 .tooltip rect {
 	fill: #000;
 	opacity: 0.2;
 }
+
 .tooltip text.hide {
 	visibility: hidden;
 }
 
+.mbar {
+	opacity: 0.8;
+}
+
+.mbar:hover {
+	opacity: 1;
+}
+
+.fbar {
+	opacity: 0.8;
+}
+
+.fbar:hover {
+	opacity: 1;
+}

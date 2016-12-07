@@ -185,7 +185,7 @@ body {
 	fill: #575757;
 	font-weight: 300;
 
-	transition: all 0.2s ease-in-out;
+	// transition: all 0.5s ease-in-out;
 	cursor: pointer;
 }
 
@@ -198,7 +198,7 @@ body {
 /* Bar Style */
 .bar {
 	fill: #FE5A5A;
-	transition: all 0.3s ease-in-out;
+	transition: all 0.5s ease-in-out;
 }
 
 .bar.vertical.hide {
@@ -227,3 +227,4 @@ body {
 .tooltip text.hide {
 	visibility: hidden;
 }
+

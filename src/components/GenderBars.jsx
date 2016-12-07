@@ -27,7 +27,7 @@ export default (props) => {
 		y: 15,
 		height: 10,
 		width: props.data[0][0],
-		fill: 'blue',
+		fill: '#5A95FE',
 	};
 
 	const barPropsF = {
@@ -35,7 +35,7 @@ export default (props) => {
 		y: 30,
 		height: 10,
 		width: props.data[0][1],
-		fill: 'red',
+		fill: '#FF5858',
 	};
 
 	return <svg width={props.width} height={props.height}>

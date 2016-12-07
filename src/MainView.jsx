@@ -538,11 +538,18 @@ export default class MainView extends React.Component {
 					.rollup(function(leaves) { return leaves.length; })
 					.entries(community_records);
 
+                    // var obj = {a: 5, b: 7, c: 9};
+                    // for (var [key, value] of Object.entries(obj)) {
+                    //     console.log(key + ' ' + value); // "a 5", "b 7", "c 9"
+                    // }
+
             console.log(gender_nest);
-            num_males = gender_nest.M;
-            console.log(num_males);
-            num_females = gender_nest.F;
-            num_other = gender_nest[""];
+
+            for (var [key, value] of Object.entries(gender_nest)) {
+                    num_males = value.key;
+                    num_females = value.key;
+            }
+
             gender_data = [[num_males, num_females]];
             console.log(gender_data);
 

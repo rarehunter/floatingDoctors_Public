@@ -30,6 +30,9 @@ export const BAR_MARGIN = 4;
 export const TOOLTIP_OFFSET_H = 20;
 export const TOOLTIP_OFFSET_V = 20;
 
+export const LABEL_PER_ROW = 8;
+export const LABEL_ROW_OFFSET = 32;
+
 export const SquareSize = () => {
     if (window.innerWidth < 1200) {
         return 3;

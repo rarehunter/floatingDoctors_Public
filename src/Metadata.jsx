@@ -27,6 +27,8 @@ export const BAR_SIZE = 4;
 export const MAX_BAR_SIZE = 48;
 export const BAR_MARGIN = 4;
 
+export const TOOLTIP_OFFSET_H = 20;
+export const TOOLTIP_OFFSET_V = 20;
 
 export const SquareSize = () => {
     if (window.innerWidth < 1200) {

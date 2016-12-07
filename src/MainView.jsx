@@ -622,16 +622,20 @@ export default class MainView extends React.Component {
 								type="diagnosis"
 								direction='v'
 								title="Diagnosis"
+								tooltip="true"
+								tooltipPos="right"
 								textAnchor="end"
-								data={this.state.diagnosis.slice(0,11)}
+								data={this.state.diagnosis.slice(0,16)}
 								onLabelInteraction={this.handleLabelInteraction}
 								x={paneLeftWidth} y="0"/>,
 							<LabelGroup key="1"
 								type="watersources"
 								direction='v'
 								title="Water Sources"
+								tooltip="true"
+								tooltipPos="right"
 								textAnchor="end"
-								data={this.state.waterSources.slice(0,11)}
+								data={this.state.waterSources}
 								onLabelInteraction={this.handleLabelInteraction}
 								x={paneLeftWidth} y={height/2}/>
 						]}
@@ -646,6 +650,7 @@ export default class MainView extends React.Component {
 								type="community"
 								direction='h'
 								title="Community"
+								tooltip="true"
 								data={this.state.communities.slice(0,20)}
 								onLabelInteraction={this.handleLabelInteraction}
 								onUserInput={this.handleUserClick}
@@ -657,15 +662,19 @@ export default class MainView extends React.Component {
 								direction='v'
 								title="Treatment"
 								textAnchor="start"
-								data={this.state.treatments.slice(0,11)}
+								tooltip="true"
+								tooltipPos="left"
+								data={this.state.treatments.slice(0,16)}
 								onLabelInteraction={this.handleLabelInteraction}
 								x="0" y="0"/>,
 							<LabelGroup key="1"
 								type="bano"
 								direction='v'
 								title="Bano"
+								tooltip="true"
+								tooltipPos="left"
 								x="0"
-								data={this.state.bano.slice(0,11)}
+								data={this.state.bano}
 								textAnchor="start"
 								onLabelInteraction={this.handleLabelInteraction}
 								x="0" y={height/2}/>

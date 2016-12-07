@@ -181,8 +181,8 @@ body {
 }
 .label {
 	font-size: 14px;
-	color: #575757;
-	fill: #575757;
+	color: #333;
+	fill: #333;
 	font-weight: 300;
 	transform: scale(0.8);
 	transition: all 0.5s ease-in-out;
@@ -213,6 +213,15 @@ body {
 }
 .bar.start {
 	/*transform: translate(-100%, 0) ;*/
+}
+
+.circle {
+	fill: #FE5A5A;
+	fill-opacity: 0.6;
+	transition: all 0.5s ease-in-out;
+}
+.circle.hide {
+	opacity: 0;
 }
 /* tooltip */
 .tooltip {

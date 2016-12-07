@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './css/main.css';
 import MainViewLayout from './MainViewLayout.jsx';
 import LabelGroup from './components/LabelGroup.jsx';
+import CommunityLabelGroup from './components/CommunityLabelGroup.jsx';
 import MainChart from './components/MainChart.jsx';
 import LinkGroup from './components/LinkGroup.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
@@ -207,17 +208,17 @@ export default class MainView extends React.Component {
 			})
 		});
 
-		communities.sort((a,b) => {
-			const countA = a.count;
-			const countB = b.count;
-			if (countA < countB) {
-				return 1;
-			}
-			if (countA > countB) {
-				return -1;
-			}
-			return 0;
-		});
+		// communities.sort((a,b) => {
+		// 	const countA = a.count;
+		// 	const countB = b.count;
+		// 	if (countA < countB) {
+		// 		return 1;
+		// 	}
+		// 	if (countA > countB) {
+		// 		return -1;
+		// 	}
+		// 	return 0;
+		// });
 
 		this.setState({
 			communities: communities
@@ -646,12 +647,13 @@ export default class MainView extends React.Component {
 								onUserHover={this.handleUserHover}
 								onUserInput={this.handlePatientClick}
 							/>,
-							<LabelGroup key="1"
+							<CommunityLabelGroup key="1"
 								type="community"
 								direction='h'
 								title="Community"
 								tooltip="true"
 								textAnchor="middle"
+								width={paneCenterWidth}
 								data={this.state.communities}
 								onLabelInteraction={this.handleLabelInteraction}
 								onUserInput={this.handleUserClick}

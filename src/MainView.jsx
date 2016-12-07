@@ -91,7 +91,7 @@ export default class MainView extends React.Component {
             dataManager.getVisitedRecords(function(data){
                 visitedDate = dataManager.visitedDate;
                 records = dataManager.records;
-                diagnosisData = dataManager.diagnosisData;
+                diagnosisData = dataManager.getDiagnosis();
                 communityData = dataManager.communityData;
                 treatmentData = dataManager.treatmentData;
                 waterSourceData = dataManager.waterSourceData;

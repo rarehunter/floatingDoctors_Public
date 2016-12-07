@@ -51,8 +51,7 @@ export default class MainView extends React.Component {
             activeLabel: '',
 			commRecords: [],
 			num_records: 0,
-			num_females: 0,
-			num_males: 0,
+			gender_data: [],
 			age_nest: [],
 			age_nest_M: [],
 			age_nest_F: [],
@@ -457,7 +456,7 @@ export default class MainView extends React.Component {
 		{
 			if (key == "age")
 			{
-				// Filter out NaN and empty strings for ages in the records
+				// Filter out NaN and empty strings for all ages in the records
 				filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "") } );
 
 				// Then get rid of float ages and make it all integers
@@ -469,7 +468,7 @@ export default class MainView extends React.Component {
 		{
 			if (key == "age")
 			{
-				// Filter out NaN and empty strings for ages in the records
+				// Filter out NaN and empty strings for males in the records
 				filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "" && d.gender == "M") } );
 
 				// Then get rid of float ages and make it all integers
@@ -481,7 +480,7 @@ export default class MainView extends React.Component {
 		{
 			if (key == "age")
 			{
-				// Filter out NaN and empty strings for ages in the records
+				// Filter out NaN and empty strings for females in the records
 				filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "" && d.gender == "F") } );
 
 				// Then get rid of float ages and make it all integers
@@ -497,12 +496,20 @@ export default class MainView extends React.Component {
 		//Translate abbreviation to full community name
 		var full_community_name;
 		var community_records;
-		var num_records;
+		var num_records, num_females, num_males, num_other, age_nest, age_nest_M, age_nest_F;
+        var gender_data;
 
 		if(communityShowing == '')
 		{
 			full_community_name = '';
 			community_records = [];
+            age_nest = [];
+            age_nest_M = [];
+            age_nest_F = [];
+            num_records = 0;
+            num_females = 0;
+            num_males = 0;
+            num_other = 0;
 		}
 		else
 		{
@@ -530,6 +537,14 @@ export default class MainView extends React.Component {
 					.rollup(function(leaves) { return leaves.length; })
 					.entries(community_records);
 
+            console.log(gender_nest);
+            num_males = gender_nest.M;
+            console.log(num_males);
+            num_females = gender_nest.F;
+            num_other = gender_nest[""];
+            gender_data = [[num_males, num_females]];
+            console.log(gender_data);
+
 			// age distribution for all
 			var age_nest = d3.nest().key(function(d){ return d.age; })
 							.rollup(function(leaves) { return leaves.length; })
@@ -549,20 +564,16 @@ export default class MainView extends React.Component {
 							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 		}
 
-		// console.log(community_records);
 		this.setState({
 			multiViewShowing: multiViewShowing,
 			communityShowing: full_community_name,
 			commRecords: community_records,
 			num_records: num_records,
-			num_females: gender_nest["F"],
-			num_males: gender_nest["M"],
-			num_other: gender_nest[""],
+			gender_data: gender_data,
 			age_nest: age_nest,
 			age_nest_M: age_nest_M,
 			age_nest_F: age_nest_F,
 	    });
-		// console.log(this.state);
 	}
 
 

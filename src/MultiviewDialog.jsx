@@ -28,13 +28,14 @@ export default class MultiviewDialog extends React.Component {
         // };
 
         this.state = {
+            // genderData: [[props.theState.num_males, props.theState.num_females]],
             ageData: [
                         [[50,60],[80,35],[100,40],[120,10],[150,100]],
                         [[10,50],[50,120],[90,100],[110,60],[130,60]],
                         [[30,70],[40,80],[50,90],[70,25],[160,40]]
                     ],
 
-            genderData: [[87,57]],
+            // genderData: [[87,57]],
             bmiData: [[10,25],[15,14],[20,30],[25,41],[30,65],[35,85],[40,45]],
             bpData: [[10,63],[15,85],[20,53],[25,78],[30,30],[35, 13],[40,23]],
             bhData: [[10,98],[15,54],[20,23],[25,43],[30,5],[35,12],[40,67]]
@@ -79,11 +80,11 @@ export default class MultiviewDialog extends React.Component {
                                     <h5 className={styles.gray}>Records</h5>
 
                                     <br />
-                                    <p className={styles.bignumbers}>100</p>
+                                    <p className={styles.bignumbers}>{this.props.theState.num_records}</p>
                                 </Col>
 
                                 <Col md={2}>
-                                    <GenderBars data={this.state.genderData} />
+                                    <GenderBars data={this.props.theState.gender_data} />
                                 </Col>
 
                                 <Col md={2} mdOffset={2}>

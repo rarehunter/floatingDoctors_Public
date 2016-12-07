@@ -29,7 +29,7 @@ export default class RecordSquare extends React.Component {
     componentWillReceiveProps(nextProps) {
     	if (this.props.i != nextProps.i) {
             const el = ReactDOM.findDOMNode(this);
-            console.log(el);
+            // console.log(el);
             TweenMax.fromTo(el, 0.6, {x: this.props.x - Meta.SquareSize() / 2, y: this.props.y}, {x: nextProps.x - Meta.SquareSize() / 2, y: nextProps.y});
         }
     }
@@ -44,14 +44,14 @@ export default class RecordSquare extends React.Component {
         this.setState({
             scale: 1
         });
-        this.props.onUserHover(this.props.record, 0);
+        this.props.onUserHover('', 0);
     }
     handleOnClick(){
         this.props.onUserInput(true, this.props.record);
     }
     checkSquareState() {
         let classy = "";
-        if (this.state.scale === 1) {
+        if (this.state.scale === 1 && this.props.record.state == 0) {
             classy = `${styles.recordSquare}`;
         } else {
             classy = `${styles.recordSquare} ${styles.highlighted}`;
@@ -59,6 +59,7 @@ export default class RecordSquare extends React.Component {
         return classy;
     }
     render() {
+        // console.log(this.props.record.state);
         const translateX = this.props.x;
         const translateY = this.props.y + Meta.SquareSize() / 2;
         return (

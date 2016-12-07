@@ -16,34 +16,98 @@ export default class LabelGroup extends React.Component {
 				pos:{
 					x: 0,
 					y: 0
-				}
+				},
+				offsetX: 0,
+				offsetY: 0,
 			},
 		}
 		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
+		this.getTooltip = this.getTooltip.bind(this);
+	}
+	componentDidMount() {
+		let offsetX = 0;
+		let offsetY = 0;
+		if (this.props.tooltipPos === "bottom") {
+			offsetY = parseInt(Meta.TOOLTIP_OFFSET_V);
+		} else if (this.props.tooltipPos === "top") {
+			offsetY -= parseInt(Meta.TOOLTIP_OFFSET_V);
+		} else if (this.props.tooltipPos === "left") {
+			offsetX -= parseInt(Meta.TOOLTIP_OFFSET_H);
+		} else if (this.props.tooltipPos === "right") {
+			offsetX = parseInt(Meta.TOOLTIP_OFFSET_H);
+		} else {
+			offsetY -= parseInt(Meta.TOOLTIP_OFFSET_V); // default = top
+		}
+		this.setState({
+			tooltip: {
+				display: false,
+				data: '',
+				pos:{
+					x: this.props.x,
+					y: this.props.y,
+				},
+				offsetX: offsetX,
+				offsetY: offsetY,
+			}
+		});
 	}
 	handleLabelInteraction(id, state) {
+		const offsetX = this.state.tooltip.offsetX;
+		const offsetY = this.state.tooltip.offsetY;
+
+		let x = 0;
+		let y = 0;
+		
 		if (state === 1) {
-			this.props.data && (this.props.type === 'community') && this.props.data.map((d, i) => {
+			this.props.data && this.props.tooltip && this.props.data.map((d, i) => {
+				let data = "";
+				if(this.props.type === "community") {
+					data = d.full_name;
+				} else {
+					data = d.count;
+				}
+				if (this.props.direction === "v") {
+					x = parseInt(this.props.x)  + this.state.tooltip.offsetX;
+					y = parseInt(this.props.y) + (parseInt(Meta.LABEL_DY_L) + parseInt(Meta.LABEL_DY) * i) + this.state.tooltip.offsetY;
+				} else {
+					x = parseInt(this.props.x) + (parseInt(Meta.LABEL_DX_L) + parseInt(Meta.LABEL_DX) * i) + this.state.tooltip.offsetX;
+					y = parseInt(this.props.y) +  + this.state.tooltip.offsetY;
+				}
 				if (d.id === id) {
 					this.setState({
 						tooltip:{
 							display: true,
-							data: d.full_name,
+							data: data,
 							pos: {
-								x: this.props.x + (Meta.LABEL_DX_L + Meta.LABEL_DX * i),
-								y: this.props.y
-							}
+								x: x,
+								y: y,
+							},
+							offsetX: offsetX,
+							offsetY: offsetY,
 						}
 					});
 				}
 			})
 		} else {
-			this.props.data && this.props.data.map((d, i) => {
+			this.props.data && this.props.tooltip && this.props.data.map((d, i) => {
+				if (this.props.direction === "v") {
+					x = parseInt(this.props.x)  + this.state.tooltip.offsetX;
+					y = parseInt(this.props.y) + (parseInt(Meta.LABEL_DY_L) + parseInt(Meta.LABEL_DY) * i) + this.state.tooltip.offsetY;
+				} else {
+					x = parseInt(this.props.x) + (parseInt(Meta.LABEL_DX_L) + parseInt(Meta.LABEL_DX) * i) + this.state.tooltip.offsetX;
+					y = parseInt(this.props.y)  + this.state.tooltip.offsetY;
+				}
 				if (d.id === id) {
 					this.setState({
 						tooltip:{
 							display: false,
-							data: ''
+							data: '',
+							pos: {
+								x: x,
+								y: y,
+							},
+							offsetX: offsetX,
+							offsetY: offsetY,
 						}
 					});
 				}
@@ -54,6 +118,15 @@ export default class LabelGroup extends React.Component {
 			id,
 			state
 		);
+	}
+
+	getTooltip() {
+
+		if (this.props.tooltip !== "true") {
+			return "";
+		} else {
+			return <Tooltip key="tooltip"  tooltip={this.state.tooltip} />;
+		}
 	}
 
 	render() {
@@ -117,8 +190,8 @@ export default class LabelGroup extends React.Component {
 						)
 					);
 				})}
+				{this.getTooltip()}
 				</ReactTransitionGroup>
-				<Tooltip tooltip={this.state.tooltip} />
 			</g>
 		);
 	}

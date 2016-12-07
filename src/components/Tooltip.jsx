@@ -1,32 +1,41 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styles from '../css/main.css';
+import * as Meta from '../Metadata.jsx';
 
 export default class Tooltip extends React.Component {
 	constructor() {
 		super();
+        this.state= {
+            x: 20,
+            y: 20,
+            visibility: "hidden",
+        };
 	}
-	render() {
-		var visibility="hidden";
-        var transform="";
-        var x=0;
-        var y=0;
-        var width=150,height=70;
-        var transformText='translate('+width/2+','+(height/2-5)+')';
-       	var classy = styles.tooltip;
 
-        if(this.props.tooltip.display === true){
-            var position = this.props.tooltip.pos;
-            x= position.x;
-            y= position.y;
-            visibility="visible";
-            transform='translate(' + x + ',' + (y - 20)+ ')';
-        }else{
-            classy += ` ${styles.hide}`;
-            transform='translate(' + x + ',' + (y - 40)+ ')';
+    componentDidMount() {
+       // this.setState({
+        //     x: this.props.tooltip.pos.x,
+        //     y: this.props.tooltip.pos.y,
+        // });
+    }
+   
+    componentWillReceiveProps(nextProps) {
+        if (this.props.tooltip.data !== nextProps.tooltip.data && this.props.tooltip.display !== nextProps.tooltip.display) {
+            const el = ReactDOM.findDOMNode(this);
+            if (nextProps.tooltip.display === true) {
+                this.setState({
+                    visibility: "visibile",
+                });
+                TweenMax.fromTo(el, 0.4, {opacity: 0}, {opacity: 1});
+            } else {
+                TweenMax.fromTo(el, 0.4, {opacity: 1}, {opacity: 0});
+            }
         }
+    }
+	render() {
 		return (
-			<g transform={transform} className={classy} >
-                <rect width={width} height={height} rx="5" ry="5" visibility="hidden" />
+			<g transform={`translate(${this.props.tooltip.pos.x},${this.props.tooltip.pos.y})`} className={styles.tooltip} visibility={this.state.visibility}>
                 <text textAnchor="middle">
                    {this.props.tooltip.data}
                 </text>

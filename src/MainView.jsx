@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './css/main.css';
 import MainViewLayout from './MainViewLayout.jsx';
 import LabelGroup from './components/LabelGroup.jsx';
+import CommunityLabelGroup from './components/CommunityLabelGroup.jsx';
 import MainChart from './components/MainChart.jsx';
 import LinkGroup from './components/LinkGroup.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
@@ -97,7 +98,7 @@ export default class MainView extends React.Component {
             dataManager.getVisitedRecords(function(data){
                 visitedDate = dataManager.visitedDate;
                 records = dataManager.records;
-                diagnosisData = dataManager.diagnosisData;
+                diagnosisData = dataManager.getDiagnosis();
                 communityData = dataManager.communityData;
                 treatmentData = dataManager.treatmentData;
                 waterSourceData = dataManager.waterSourceData;
@@ -132,12 +133,6 @@ export default class MainView extends React.Component {
         // });
     }
 
-	updateRecords() {
-		const records = this.state.records.slice();
-		this.setState({
-			records: records
-		});
-	}
 
 	filterRecords(activeLabel) {
 		return ((record) =>  {
@@ -192,6 +187,32 @@ export default class MainView extends React.Component {
 		});
 	}
 
+	// update visitedDates
+	updateVisitedDates(updatedRecords, state) {
+		var records_keys = updatedRecords.slice().map(r => {
+			return r.key;
+		});
+
+		var dateRecords = this.state.visitedDate.slice();
+
+		// update state for all visited date record
+		for(var i = 0; i < dateRecords.length; i++)
+		{
+			for (var j = 0; j < dateRecords[i].value.length; j++)
+			{
+				if(records_keys.indexOf(dateRecords[i].value[j].key) != -1)
+				{
+					dateRecords[i].value[j].state = state;
+				}
+			}
+		}
+
+		// update record state
+		this.setState({
+			visitedDate: dateRecords
+		});
+	}
+
 	updateCommunities(updatedRecords, state) {
 		// console.log(updatedRecords.length);
 		const communities = this.state.communities.slice();
@@ -213,17 +234,17 @@ export default class MainView extends React.Component {
 			})
 		});
 
-		communities.sort((a,b) => {
-			const countA = a.count;
-			const countB = b.count;
-			if (countA < countB) {
-				return 1;
-			}
-			if (countA > countB) {
-				return -1;
-			}
-			return 0;
-		});
+		// communities.sort((a,b) => {
+		// 	const countA = a.count;
+		// 	const countB = b.count;
+		// 	if (countA < countB) {
+		// 		return 1;
+		// 	}
+		// 	if (countA > countB) {
+		// 		return -1;
+		// 	}
+		// 	return 0;
+		// });
 
 		this.setState({
 			communities: communities
@@ -366,9 +387,11 @@ export default class MainView extends React.Component {
 	handleLabelInteraction(type, id, state) {
 		let activeLabel = "";
 		let toState = 0;
+		let toRecordState = 0;
 		if (state === 1) {
 			activeLabel = {'type':type, 'value':id};
 			toState = 2;
+			toRecordState = 1;
 		}
 		if (type === "diagnosis") {
 			const diagnosis = this.state.diagnosis.slice();
@@ -383,6 +406,7 @@ export default class MainView extends React.Component {
 				activeLabel: activeLabel
 			});
 			this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+			this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
 		}
 		if (type === "treatment") {
 			const treatments = this.state.treatments.slice();
@@ -397,6 +421,7 @@ export default class MainView extends React.Component {
 				activeLabel: activeLabel
 			});
 			this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+			this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
 		}
 		if (type === "watersources") {
 			const watersources = this.state.waterSources.slice();
@@ -411,6 +436,7 @@ export default class MainView extends React.Component {
 				activeLabel: activeLabel
 			});
 			this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+			this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
 		}
 		if (type === "bano") {
 			const bano = this.state.bano.slice();
@@ -425,6 +451,7 @@ export default class MainView extends React.Component {
 				activeLabel: activeLabel
 			});
 			this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+			this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
 		}
 		if (type === "community") {
 			const communities = this.state.communities.slice();
@@ -443,6 +470,7 @@ export default class MainView extends React.Component {
 			this.updateTreatments(this.state.records.filter(this.filterRecords(activeLabel)), toState);
 			this.updateWaterSources(this.state.records.filter(this.filterRecords(activeLabel)), toState);
 			this.updateBano(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+			this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
 		}
 	}
 
@@ -667,11 +695,22 @@ export default class MainView extends React.Component {
 	}
 
 	handleUserHover(selectedRecord, state){
-		this.updateCommunities([selectedRecord], state);
-		this.updateDiagnosis([selectedRecord], state);
-		this.updateBano([selectedRecord], state);
-		this.updateTreatments([selectedRecord], state);
-		this.updateWaterSources([selectedRecord], state);
+		if(selectedRecord)
+		{
+			this.updateCommunities([selectedRecord], state);
+			this.updateDiagnosis([selectedRecord], state);
+			this.updateBano([selectedRecord], state);
+			this.updateTreatments([selectedRecord], state);
+			this.updateWaterSources([selectedRecord], state);
+		}
+		else
+		{
+			this.updateCommunities(this.state.records, state);
+			this.updateDiagnosis(this.state.records, state);
+			this.updateBano(this.state.records, state);
+			this.updateTreatments(this.state.records, state);
+			this.updateWaterSources(this.state.records, state);
+		}
 	}
 
 	render() {
@@ -695,16 +734,20 @@ export default class MainView extends React.Component {
 								type="diagnosis"
 								direction='v'
 								title="Diagnosis"
+								tooltip="true"
+								tooltipPos="right"
 								textAnchor="end"
-								data={this.state.diagnosis.slice(0,11)}
+								data={this.state.diagnosis.slice(0,16)}
 								onLabelInteraction={this.handleLabelInteraction}
 								x={paneLeftWidth} y="0"/>,
 							<LabelGroup key="1"
 								type="watersources"
 								direction='v'
 								title="Water Sources"
+								tooltip="true"
+								tooltipPos="right"
 								textAnchor="end"
-								data={this.state.waterSources.slice(0,11)}
+								data={this.state.waterSources}
 								onLabelInteraction={this.handleLabelInteraction}
 								x={paneLeftWidth} y={height/2}/>
 						]}
@@ -715,11 +758,14 @@ export default class MainView extends React.Component {
 								onUserHover={this.handleUserHover}
 								onUserInput={this.handlePatientClick}
 							/>,
-							<LabelGroup key="1"
+							<CommunityLabelGroup key="1"
 								type="community"
 								direction='h'
 								title="Community"
-								data={this.state.communities.slice(0,20)}
+								tooltip="true"
+								textAnchor="middle"
+								width={paneCenterWidth}
+								data={this.state.communities}
 								onLabelInteraction={this.handleLabelInteraction}
 								onUserInput={this.handleUserClick}
 								x="0" y={Meta.MainChartHeight() + Meta.PADDING}/>
@@ -730,15 +776,19 @@ export default class MainView extends React.Component {
 								direction='v'
 								title="Treatment"
 								textAnchor="start"
-								data={this.state.treatments.slice(0,11)}
+								tooltip="true"
+								tooltipPos="left"
+								data={this.state.treatments.slice(0,16)}
 								onLabelInteraction={this.handleLabelInteraction}
 								x="0" y="0"/>,
 							<LabelGroup key="1"
 								type="bano"
 								direction='v'
 								title="Bano"
+								tooltip="true"
+								tooltipPos="left"
 								x="0"
-								data={this.state.bano.slice(0,11)}
+								data={this.state.bano}
 								textAnchor="start"
 								onLabelInteraction={this.handleLabelInteraction}
 								x="0" y={height/2}/>

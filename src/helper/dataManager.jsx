@@ -177,7 +177,7 @@ export default class DataManager {
         // Step 3: formating data to required format
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == 'undefined' || nested_data[i] == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
             diagnosisData.push({
                 "id": i,
                 "name": nested_data[i].key,
@@ -204,7 +204,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == 'undefined' || nested_data[i] == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
             var communityName = nested_data[i].key;
             communitiesData.push({
                 "id": i,
@@ -214,6 +214,9 @@ export default class DataManager {
                 "state": 0
             });
         }
+
+        console.log("Community data");
+        console.log(communitiesData);
 
         return communitiesData;
     }
@@ -253,7 +256,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == 'undefined' || nested_data[i] == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
             var treatment = nested_data[i].key;
             treatmentData.push({
                 "id": i,
@@ -282,7 +285,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == 'undefined' || nested_data[i].key == '') continue;
+            if(!nested_data[i].key == undefined || nested_data[i].key == '') continue;
             waterSourceData.push({
                 "id": i,
                 "name": nested_data[i].key,
@@ -309,7 +312,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == 'undefined' || nested_data[i].key == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
             banoData.push({
                 "id": i,
                 "name": nested_data[i].key,

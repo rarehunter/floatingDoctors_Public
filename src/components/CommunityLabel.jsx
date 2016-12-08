@@ -86,7 +86,7 @@ export default class CommunityLabel extends React.Component {
 					className={this.checkCircleState()}
 					cx="0"
 					cy="-4"
-					r={this.props.r/3}
+					r={this.props.r/2}
 				>
 				</circle>
 				<text

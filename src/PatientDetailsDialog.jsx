@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button, ButtonToolbar, Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import styles from './css/main.css';
 import {toTitleCase} from './Helper.jsx';
+import {MdClose} from 'react-icons/lib/md';
 
 
 
@@ -120,7 +121,7 @@ export default class PatientDetailsDialog extends React.Component {
                     </Modal.Body>
 
                     <Modal.Footer bsClass=''>
-                        <Button bsClass={styles.modalFab} onClick={this.hideModal}>Close</Button>
+                        <Button bsClass={styles.modalFab} onClick={this.hideModal} style={{fontSize: "18px"}}><MdClose /></Button>
                     </Modal.Footer>
 
                 </Modal>

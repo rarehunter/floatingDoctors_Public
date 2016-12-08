@@ -8,9 +8,11 @@ import LinkGroup from './components/LinkGroup.jsx';
 import LoadingView from './Loading.jsx';
 import MultiviewDialog from './MultiviewDialog.jsx';
 import PatientDetailsDialog from './PatientDetailsDialog.jsx';
+import HeaderPage from './HeaderPage.jsx';
 import * as Meta from './Metadata.jsx';
 import * as Helper from './Helper.jsx';
 import DataManager from './helper/dataManager.jsx';
+import {SectionsContainer, Section} from 'react-fullpage';
 import * as d3 from 'd3';
 
 
@@ -751,9 +753,24 @@ export default class MainView extends React.Component {
 		const paneRightX = paneLeftWidth + paneCenterWidth + Meta.PADDING * 2;
 		const paneRightWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_RIGHT_SPAN - Meta.PADDING;
 		var isDialogActive = this.state.multiViewShowing || this.state.patientDialogShowing
-		console.log('in Mainview render');
-		console.log(isDialogActive);
-		
+
+		const visitDates = Helper.getAttributeFromObejcts(this.state.visitedDate, "key");
+		const numRecords = this.state.records.length;
+		let options = {
+		  activeClass:          'active', // the class that is appended to the sections links
+		  anchors: ['sectionOne', 'sectionTwo'],
+		  arrowNavigation:      true, // use arrow keys
+		  className:            'SectionContainer', // the class name for the section container
+		  delay:                1000, // the scroll animation speed
+		  navigation:           true, // use dots navigatio
+		  scrollBar:            false, // use the browser default scrollbar
+		  sectionClassName:     'Section', // the section class name
+		  sectionPaddingTop:    '0', // the section top padding
+		  sectionPaddingBottom: '0', // the section bottom padding
+		  verticalAlign:        false, // align the content of each section vertical
+		  navigation:           false
+		};
+
 		if (this.state.diagnosis.length === 0 || this.state.treatments.length === 0 || this.state.waterSources.length === 0 || this.state.communities.length === 0 || this.state.bano.length === 0) {
 			return (
 				<LoadingView />
@@ -761,82 +778,92 @@ export default class MainView extends React.Component {
 		} else {
 			return (
 				<div>
-				<MultiviewDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.multiViewShowing} theState={this.state} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
-			    <PatientDetailsDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
-
-					<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
-						<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}
-							left = {[
-								<LabelGroup key="0"
-									type="diagnosis"
-									isDialogActive={isDialogActive}
-									direction='v'
-									title="Diagnosis"
-									tooltip="true"
-									tooltipPos="right"
-									textAnchor="end"
-									data={this.state.diagnosis.slice(0,16)}
-									onLabelInteraction={this.handleLabelInteraction}
-									x={paneLeftWidth} y="0"/>,
-								<LabelGroup key="1"
-									type="watersources"
-									isDialogActive={isDialogActive}
-									direction='v'
-									title="Water Sources"
-									tooltip="true"
-									tooltipPos="right"
-									textAnchor="end"
-									data={this.state.waterSources}
-									onLabelInteraction={this.handleLabelInteraction}
-									x={paneLeftWidth} y={height/2}/>
-							]}
-							center = {[
-								<MainChart key="0"
-									data={this.state.records}
-									isDialogActive={isDialogActive}
-	                                visitedDate={this.state.visitedDate}
-									onUserHover={this.handleUserHover}
-									onUserInput={this.handlePatientClick}
-								/>,
-								<CommunityLabelGroup key="1"
-									type="community"
-									isDialogActive={isDialogActive}
-									direction='h'
-									title="Community"
-									tooltip="true"
-									textAnchor="middle"
-									width={paneCenterWidth}
-									data={this.state.communities}
-									onLabelInteraction={this.handleLabelInteraction}
-									onUserInput={this.handleUserClick}
-									x="0" y={Meta.MainChartHeight() + Meta.PADDING}/>
-							]}
-							right = {[
-								<LabelGroup key="0"
-									type="treatment"
-									direction='v'
-									title="Treatment"
-									textAnchor="start"
-									tooltip="true"
-									tooltipPos="left"
-									data={this.state.treatments.slice(0,16)}
-									onLabelInteraction={this.handleLabelInteraction}
-									x="0" y="0"/>,
-								<LabelGroup key="1"
-									type="bano"
-									direction='v'
-									title="Bano"
-									tooltip="true"
-									tooltipPos="left"
-									x="0"
-									data={this.state.bano}
-									textAnchor="start"
-									onLabelInteraction={this.handleLabelInteraction}
-									x="0" y={height/2}/>
-							]}
-						/>
-						<LinkGroup />
-					</svg>
+				
+					
+					<SectionsContainer {...options}>
+				    	<Section>	
+				    		<HeaderPage  dates={visitDates} communities={this.state.communities} numRecords={numRecords}/>
+				    	</Section>
+				    	<Section>
+				    		<MultiviewDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.multiViewShowing} theState={this.state} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
+				    		<PatientDetailsDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
+				    
+				    		<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
+								<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}
+									left = {[
+										<LabelGroup key="0"
+											type="diagnosis"
+											isDialogActive={isDialogActive}
+											direction='v'
+											title="Diagnosis"
+											tooltip="true"
+											tooltipPos="right"
+											textAnchor="end"
+											data={this.state.diagnosis.slice(0,16)}
+											onLabelInteraction={this.handleLabelInteraction}
+											x={paneLeftWidth} y="0"/>,
+										<LabelGroup key="1"
+											type="watersources"
+											isDialogActive={isDialogActive}
+											direction='v'
+											title="Water Sources"
+											tooltip="true"
+											tooltipPos="right"
+											textAnchor="end"
+											data={this.state.waterSources}
+											onLabelInteraction={this.handleLabelInteraction}
+											x={paneLeftWidth} y={height/2}/>
+									]}
+									center = {[
+										<MainChart key="0"
+											data={this.state.records}
+											isDialogActive={isDialogActive}
+			                                visitedDate={this.state.visitedDate}
+											onUserHover={this.handleUserHover}
+											onUserInput={this.handlePatientClick}
+										/>,
+										<CommunityLabelGroup key="1"
+											type="community"
+											isDialogActive={isDialogActive}
+											direction='h'
+											title="Community"
+											tooltip="true"
+											textAnchor="middle"
+											width={paneCenterWidth}
+											data={this.state.communities}
+											onLabelInteraction={this.handleLabelInteraction}
+											onUserInput={this.handleUserClick}
+											x="0" y={Meta.MainChartHeight() + Meta.PADDING}/>
+									]}
+									right = {[
+										<LabelGroup key="0"
+											type="treatment"
+											direction='v'
+											title="Treatment"
+											textAnchor="start"
+											tooltip="true"
+											tooltipPos="left"
+											data={this.state.treatments.slice(0,16)}
+											onLabelInteraction={this.handleLabelInteraction}
+											x="0" y="0"/>,
+										<LabelGroup key="1"
+											type="bano"
+											direction='v'
+											title="Bano"
+											tooltip="true"
+											tooltipPos="left"
+											x="0"
+											data={this.state.bano}
+											textAnchor="start"
+											onLabelInteraction={this.handleLabelInteraction}
+											x="0" y={height/2}/>
+									]}
+								/>
+								<LinkGroup />
+							</svg>
+				    	</Section>
+				    </SectionsContainer>
+					
 				</div>
 			);
 		}

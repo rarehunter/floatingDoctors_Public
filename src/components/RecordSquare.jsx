@@ -7,6 +7,9 @@ import PatientDetailsDialog from '../PatientDetailsDialog.jsx';
 export default class RecordSquare extends React.Component {
     constructor() {
         super();
+        this.state = {
+            scale: 1.0,
+        }
         this.handleMouseOver = this.handleMouseOver.bind(this);
         this.handleMouseOut = this.handleMouseOut.bind(this);
         this.checkSquareState = this.checkSquareState.bind(this);
@@ -14,9 +17,15 @@ export default class RecordSquare extends React.Component {
     }
 
     handleMouseOver() {
+        this.setState({
+            scale: 1.2,
+        });
         this.props.onUserHover(this.props.record, 1);
     }
     handleMouseOut() {
+        this.setState({
+            scale: 1.0,
+        });
         if(!this.props.isDialogActive)
         {
             this.props.onUserHover(this.props.record, 0);
@@ -52,7 +61,7 @@ export default class RecordSquare extends React.Component {
                 height={Meta.SquareSize()} 
                 x={this.props.x - Meta.SquareSize() / 2} 
                 y={this.props.y}
-                transform={`translate(${translateX}, ${translateY}) scale(${this.checkSquareState()}) translate(${-translateX}, ${-translateY})`}
+                transform={`translate(${translateX}, ${translateY}) scale(${this.state.scale}) translate(${-translateX}, ${-translateY})`}
                 className={this.checkSquareClass()}
                 onMouseOver = {this.handleMouseOver}
                 onMouseOut = {this.handleMouseOut}

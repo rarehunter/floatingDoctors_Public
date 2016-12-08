@@ -17,7 +17,7 @@ export default class PatientDetailsDialog extends React.Component {
     }
 
     hideModal() {
-        this.props.onHideModal(false, '');
+        this.props.onHideModal(false, this.props.patient, 0);
     }
 
     render() {

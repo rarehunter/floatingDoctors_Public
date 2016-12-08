@@ -686,16 +686,48 @@ export default class MainView extends React.Component {
 	}
 
 
-	handlePatientClick(patientDialogShowing, patientRecord) {
-
+	handlePatientClick(patientDialogShowing, patientRecord, state) {
+		this.handleUserHover(patientRecord, state);
 		this.setState({
 			patientDialogShowing: patientDialogShowing,
 			patientRecord: patientRecord
 		});
 	}
 
+	handlePatientClickHide(patientRecord){
+		this.updateCommunities(this.state.records, state);
+		this.updateDiagnosis(this.state.records, state);
+		this.updateBano(this.state.records, state);
+		this.updateTreatments(this.state.records, state);
+		this.updateWaterSources(this.state.records, state);
+
+		this.setState({
+			patientDialogShowing: false,
+			patientRecord: patientRecord
+		});
+	}
+
 	handleUserHover(selectedRecord, state){
+
+		// update selected record state
+		var vRecords = this.state.visitedDate;
+
 		if(selectedRecord)
+		{
+			for (var i = 0; i < vRecords.length; i++)
+			{
+				for(var j = 0; j< vRecords[i].value.length; j++)
+				{
+					if (selectedRecord.key == vRecords[i].value[j].key)
+					{
+						vRecords[i].value[j].state = state;
+						break;
+					}
+				}
+			}
+		}
+
+		if(state)
 		{
 			this.updateCommunities([selectedRecord], state);
 			this.updateDiagnosis([selectedRecord], state);
@@ -710,6 +742,26 @@ export default class MainView extends React.Component {
 			this.updateBano(this.state.records, state);
 			this.updateTreatments(this.state.records, state);
 			this.updateWaterSources(this.state.records, state);
+			// records
+			this.setState({
+				visitedDate: dataManager.visitedDate
+			});
+
+			// var newVistedDate = dataManager.visitedDate.slice();
+
+			// console.log(selectedRecord);
+			//for (var i = 0; i < newVistedDate.length; i++)
+			// {
+			// 	for(var j = 0; j< newVistedDate[i].value.length; j++)
+			// 	{
+			// 		if (selectedRecord.key == newVistedDate[i].value[j])
+			// 		{
+			// 			newVistedDate[i].value[j].scale = 1;
+			// 			newVistedDate[i].value[j].state = 0;
+			// 		}
+			// 	}
+			// }
+			
 		}
 	}
 
@@ -721,6 +773,7 @@ export default class MainView extends React.Component {
 		const paneCenterWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_CENTER_SPAN;
 		const paneRightX = paneLeftWidth + paneCenterWidth + Meta.PADDING * 2;
 		const paneRightWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_RIGHT_SPAN - Meta.PADDING;
+		var isDialogActive = this.state.multiViewShowing || this.state.patientDialogShowing
 
 		return (
 			<div>
@@ -754,6 +807,7 @@ export default class MainView extends React.Component {
 						center = {[
 							<MainChart key="0"
 								data={this.state.records}
+								isDialogActive={isDialogActive}
                                 visitedDate={this.state.visitedDate}
 								onUserHover={this.handleUserHover}
 								onUserInput={this.handlePatientClick}

@@ -80,6 +80,7 @@ export default class DataManager {
                 for (var j = 0; j < visitedDate[i-startIndex].value.length; j++)
                 {
                     visitedDate[i-startIndex].value[j].state = 0;
+                    visitedDate[i-startIndex].value[j].scale = 1;
                 }
             }
 
@@ -214,9 +215,6 @@ export default class DataManager {
                 "state": 0
             });
         }
-
-        console.log("Community data");
-        console.log(communitiesData);
 
         return communitiesData;
     }

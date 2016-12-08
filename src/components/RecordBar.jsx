@@ -9,6 +9,7 @@ export default function RecordBar(props) {
        
         {props.records && props.records.map((r,i) => {
             return <RecordSquare key={r.key}
+                        isDialogActive={props.isDialogActive}
             			i = {i}
                         onUserInput={props.onUserInput}
                         onUserHover={props.onUserHover}

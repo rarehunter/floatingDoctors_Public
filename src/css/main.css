@@ -176,8 +176,8 @@ body {
   top: -30px;
 }
 .modalFab:hover {
-  color: rgba(255, 143, 34, 1);
-  fill: rgba(255, 143, 34, 1);
+  color: #2A3242;
+  fill: #2A3242;
 }
 .modalFab:focus{
   outline: 0;
@@ -202,16 +202,16 @@ body {
 
 .label:hover, .label.highlighted {
   /*font-size: 14px;*/
-  /*color: #FE5A5A;
-  fill: #FE5A5A;*/
-  color: rgba(255, 143, 34, 1);
-  fill: rgba(255, 143, 34, 1);
+  color: #FE5A5A;
+  fill: #FE5A5A;
+  /*color: #445572;
+  fill: #445572;*/
   font-weight: 500;
   transform: scale(1.0);
 }
 /* Bar Style */
 .bar {
-  fill: rgba(255, 143, 34, 1);
+  fill: #445572;
   transition: all 0.5s ease-in-out;
 }
 
@@ -231,7 +231,8 @@ body {
 
 
 .circle {
-  stroke: rgba(255, 143, 34, 1);
+  stroke: #FE5A5A;
+  /*stroke: #445572;*/
   fill: none;
   stroke-width: 1px;
   // stroke-opacity: 0.4;
@@ -296,7 +297,7 @@ body {
 .loaderInner {
   position: relative;
   width: 100%;
-  color: rgba(255, 143, 34, 1);
+  color: rgba(254, 90, 90, 1);
   padding: 0 100px;
   text-align: center;
 }
@@ -503,7 +504,7 @@ body {
 	font-size: 2.4rem;
 	font-weight: 700;
 	margin-bottom: 16px;
-	color: rgba(255, 143, 34, 1);
+	color: rgba(254, 90, 90, 1);
 }
 .btnExplore {
 	display: block;
@@ -531,7 +532,7 @@ body {
 	text-align: center;
 }
 .divider {
-	color: rgba(255, 143, 34, 1);
+	color: rgba(254, 90, 90, 1);
 	text-align: center;
 	font-size: 2em;
 	margin-bottom: 56px;

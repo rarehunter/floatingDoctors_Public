@@ -65,7 +65,7 @@ body {
 }
 
 .svgWrapper {
-  padding: 32px;
+  padding: 64px;
 }
 
 .btn {
@@ -277,10 +277,15 @@ body {
   width: 100%;
 }
 
+.loaderInnerWrap {
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+	width: 100%;
+}
+
 .loaderInner {
-  transform: translateY(-50%);
-  top: 60%;
-  position: absolute;
+  position: relative;
   width: 100%;
   color: #FE5A5A;
   padding: 0 100px;
@@ -288,27 +293,26 @@ body {
 }
 
 .loaderInnerText {
-  transform: translateY(-50%);
-  top: 30%;
-  position: absolute;
+  position: relative;
   width: 100%;
-  color: #FE5A5A;
+  height: 160px;
   padding: 0 100px;
   text-align: center;
+
 }
 
 .loaderInnerText label {
-  transform: translateY(-50%);
-  top: 50%;
-  position: absolute;
-  width: 50%;
-  left: 25%;
   color: #232323;
   font-weight: 300;
   font-size: 1.6em;
   line-height: 1.8em;
-  padding: 0 100px;
   text-align: center;
+  width: 50%;
+  max-width: 720px;
+  left: 25%;
+  top:0;
+  position: absolute;
+  display:inline-block;
   opacity: 0;
 }
 

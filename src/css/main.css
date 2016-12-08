@@ -66,6 +66,7 @@ body {
 
 .svgWrapper {
   padding: 64px;
+  padding-bottom: 0;
 }
 
 .btn {

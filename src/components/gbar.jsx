@@ -11,7 +11,26 @@ const renderBars = (props) => {
 			fill: props.barProps.fill,
 			key: index
 		};
-		return <rect {...barProps} />;
+
+		const onMouseOver = () => {
+			props.onMouseOver(true);
+		}
+
+		const onMouseOut = () => {
+			if(!props.clickState)
+				props.onMouseOut(true);
+		}
+
+		const onClick = () => {
+			props.onClick();
+		}
+
+		if(props.clickState) {
+			return <rect {...barProps} fillOpacity="1" onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} />;
+		}
+		else {
+			return <rect {...barProps} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} />;
+		}
 	};
 };
 

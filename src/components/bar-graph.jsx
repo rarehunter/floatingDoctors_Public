@@ -21,9 +21,38 @@ const yScale = (props) => {
 export default (props) => {
 	const scales = {xScale: xScale(props), yScale: yScale(props) };
 	return <svg width={props.width} height={props.height}>
-		<Bars {...props} data={props.allAge} stroke="#D9D9D9" {...scales} />
-		<Bars {...props} data={props.maleAge} stroke="#5A95FE" {...scales} />
-		<Bars {...props} data={props.femaleAge} stroke="#FE5A5A" {...scales} />
+
+		<Bars {...props} className={props.dataBars}
+						 handleDataBarHover={props.onDataBarHover}
+						 handleDataBarOut={props.onDataBarOut}
+						 data={props.allAge}
+						 stroke="#A8A8A8"
+						 visibility="true"
+						 highlightThis={props.highlightThis}
+						 updateDetails={props.updateDetails}
+						 {...scales} />
+
+		<Bars {...props} className={props.dataBars}
+						 handleDataBarHover={props.onDataBarHover}
+						 handleDataBarOut={props.onDataBarOut}
+						 data={props.maleAge}
+						 stroke="#5A95FE"
+						 visibility={props.maleShowing}
+						 clickState={props.maleState}
+						 highlightThis={props.highlightThis}
+						 updateDetails={props.updateDetails}
+						 {...scales} />
+
+		<Bars {...props} className={props.dataBars}
+						 handleDataBarHover={props.onDataBarHover}
+						 handleDataBarOut={props.onDataBarOut}
+						 data={props.femaleAge}
+						 stroke="#FE5A5A"
+						 visibility={props.femaleShowing}
+						 clickState={props.femaleState}
+						 highlightThis={props.highlightThis}
+						 updateDetails={props.updateDetails}
+						 {...scales} />
 
 		<XYAxis {...props} xLabel={props.xLabel} yLabel={props.yLabel} {...scales} />
 		</svg>

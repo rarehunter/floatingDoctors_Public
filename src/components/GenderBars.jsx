@@ -55,7 +55,26 @@ export default (props) => {
 	};
 
 	return <svg height="100">
-			<GBar {...props} barProps={barPropsM} gender="M" className={props.maleClass} {...scales} />
-			<GBar {...props} barProps={barPropsF} gender="F" className={props.femaleClass} {...scales}/>
+			<GBar {...props}
+				  barProps={barPropsM}
+				  gender="M"
+				  className={props.maleClass}
+				  clickState={props.maleState}
+				  {...scales}
+				  onMouseOver={props.maleHover}
+				  onMouseOut={props.maleOut}
+				  onClick={props.maleClick}
+			/>
+
+			<GBar {...props}
+				  barProps={barPropsF}
+				  gender="F"
+				  className={props.femaleClass}
+				  clickState={props.femaleState}
+				  {...scales}
+				  onMouseOver={props.femaleHover}
+				  onMouseOut={props.femaleOut}
+				  onClick={props.femaleClick}
+			/>
 		</svg>
 }

@@ -79,6 +79,7 @@ body {
     width: 65%;
     margin: 0px auto;
 }
+
 .largeDialogBox:first-child{
     box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
 }
@@ -538,4 +539,23 @@ body {
 	text-transform: uppercase;
 	// font-weight: 700;
 	font-size: 0.8em;
+}
+
+.barClicked {
+	opacity: 1;
+}
+
+.dataBars {
+	opacity: 1;
+}
+
+.dataBars:hover {
+	stroke: black;
+}
+
+.dataDetails {
+	color: #808080;
+	margin: 10px 0px;
+	font-size: 13px;
+
 }

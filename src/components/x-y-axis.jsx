@@ -1,5 +1,6 @@
 import React from 'react';
 import Axis from '../components/axis.jsx';
+import NormalRange from '../components/normalrange.jsx';
 
 export default (props) => {
 	const xSettings = {

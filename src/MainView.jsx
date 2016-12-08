@@ -65,10 +65,15 @@ export default class MainView extends React.Component {
             bh_nest_all: [],
             bh_nest_M: [],
             bh_nest_F: [],
+            bp_nest_all: [],
+            bp_nest_M: [],
+            bp_nest_F: [],
             multiViewShowing: false,
             groupName: '',
             patientDialogShowing: false,
             patientRecord: '',
+            maleShowing: false,
+            femaleShowing: false,
             selectedRecord: '',
             selectedLabels: [],
             records: [],
@@ -135,7 +140,6 @@ export default class MainView extends React.Component {
         //  height: window.innerHeight
         // });
     }
-
 
     filterRecords(activeLabel) {
         return ((record) =>  {
@@ -487,69 +491,230 @@ export default class MainView extends React.Component {
         });
     }
 
-    // helper function that returns filtered records by parameters
-    getFilteredRecords(filterBy, key, community_records) {
-        var filtered;
-        if(filterBy == "all")
-        {
-            if (key == "age")
-            {
-                // Filter out NaN and empty strings for all ages in the records
-                filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "") } );
+	// helper function that returns filtered records by parameters
+	getFilteredRecords(filterBy, key, community_records) {
+		var filtered;
+		if(filterBy == "all")
+		{
+			if (key == "age") //male and female ages
+			{
+				// Filter out NaN and empty strings for all ages in the records
+				filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.age) && d.age != "")
+                });
 
-                // Then get rid of float ages and make it all integers
-                filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
+				// Then get rid of float ages and make it all integers
+				filtered = filtered.map(function(e) {
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+				return filtered;
+			}
+            else if(key == "bh") // male and female blood hemoglobin
+            {
+                // Filter out NaN and empty strings for all bmi and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.HB) && !isNaN(d.age) && d.HB != "" && d.age != "");
+                });
+
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.HB = Math.round(parseFloat(e.HB));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
                 return filtered;
             }
-            else if(key == "bh")
+            else if(key == "bmi") // male and female bmi
+            {
+                // Filter out NaN and empty strings for all height, weight, and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.height) && !isNaN(d.weight) && !isNaN(d.age) &&
+                            d.height != "" && d.weight != "" && d.age != "");
+                });
+
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.height = Math.round(parseFloat(e.height));
+                    e.weight = Math.round(parseFloat(e.weight));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+                return filtered;
+            }
+            else if(key == "bp") // male and female bp
+            {
+                // Filter out NaN and empty strings for blood pressure sys, dys and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.age) && d.BP_SYS != "" && d.BP_DYS != "" && d.age != "");
+                });
+
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.BP_SYS = Math.round(parseFloat(e.BP_SYS));
+                    e.BP_DYS = Math.round(parseFloat(e.BP_DYS));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+                // do one more filter and ensure that systolic Bp is always higher than diastolic
+                filtered = community_records.filter(function(d) {
+                    return (d.BP_SYS > d.BP_DYS && !isNaN(d.BP_SYS) && !isNaN(d.BP_DYS));
+                });
+
+                return filtered;
+            }
+		}
+		else if (filterBy == "M")
+		{
+			if (key == "age") // male ages
+			{
+				// Filter out NaN and empty strings for males in the records
+				filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.age) && d.age != "" && d.gender == "M");
+                });
+
+                // Then get rid of floats and make it all integers
+				filtered = filtered.map(function(e) {
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+				return filtered;
+			}
+            else if(key == "bh") // male blood hemoglobin
+            {
+                // Filter out NaN and empty strings, and non-males for all bmi and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.HB) && d.HB != "" && !isNaN(d.age) && d.age != "" && d.gender == "M");
+                });
+
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.HB = Math.round(parseFloat(e.HB));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+                return filtered;
+            }
+            else if(key == "bmi") // male bmi
+            {
+                // Filter out NaN and empty strings for all height, weight, and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.height) && !isNaN(d.weight) && !isNaN(d.age) &&
+                            d.height != "" && d.weight != "" && d.age != "" &&
+                            d.gender == "M");
+                });
+
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.height = Math.round(parseFloat(e.height));
+                    e.weight = Math.round(parseFloat(e.weight));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+                return filtered;
+            }
+            else if(key == "bp") // male bp
+            {
+                // Filter out NaN and empty strings for blood pressure sys, dys and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.age) && d.BP_SYS != "" && d.BP_DYS != "" && d.age != "");
+                });
+
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.BP_SYS = Math.round(parseFloat(e.BP_SYS));
+                    e.BP_DYS = Math.round(parseFloat(e.BP_DYS));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+                // do one more filter and ensure that systolic Bp is always higher than diastolic
+                filtered = community_records.filter(function(d) {
+                    return (d.BP_SYS > d.BP_DYS && !isNaN(d.BP_SYS) && !isNaN(d.BP_DYS) && d.gender == "M");
+                });
+
+                return filtered;
+            }
+		}
+		else if (filterBy == "F")
+		{
+			if (key == "age") //female ages
+			{
+				// Filter out NaN and empty strings for females in the records
+				filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.age) && d.age != "" && d.gender == "F");
+                });
+
+                // Then get rid of floats and make it all integers
+				filtered = filtered.map(function(e) {
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
+				return filtered;
+			}
+            else if(key == "bh") //female blood hemoglobin
             {
                 // Filter out NaN and empty strings for all bmi in the records
-                filtered = community_records.filter(function(d) { return (!isNaN(d.HB) && d.HB != "") } );
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.HB) && d.HB != "" && !isNaN(d.age) && d.age != "" && d.gender == "F");
+                });
 
-                // Then get rid of float ages and make it all integers
-                filtered = filtered.map(function(e) { e.HB = Math.round(parseFloat(e.HB)); return e; } );
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.HB = Math.round(parseFloat(e.HB));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
                 return filtered;
             }
-        }
-        else if (filterBy == "M")
-        {
-            if (key == "age")
+            else if(key == "bmi") // female bmi
             {
-                // Filter out NaN and empty strings for males in the records
-                filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "" && d.gender == "M") } );
+                // Filter out NaN and empty strings for all height, weight, and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.height) && !isNaN(d.weight) && !isNaN(d.age) &&
+                            d.height != "" && d.weight != "" && d.age != "" &&
+                            d.gender == "F");
+                });
 
-                // Then get rid of float ages and make it all integers
-                filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.height = Math.round(parseFloat(e.height));
+                    e.weight = Math.round(parseFloat(e.weight));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
+
                 return filtered;
             }
-            else if(key == "bh")
+            else if(key == "bp") // female bp
             {
-                // Filter out NaN and empty strings for all bmi in the records
-                filtered = community_records.filter(function(d) { return (!isNaN(d.HB) && d.HB != "" && d.gender == "M") } );
+                // Filter out NaN and empty strings for blood pressure sys, dys and age in the records
+                filtered = community_records.filter(function(d) {
+                    return (!isNaN(d.age) && d.BP_SYS != "" && d.BP_DYS != "" && d.age != "" );
+                });
 
-                // Then get rid of float ages and make it all integers
-                filtered = filtered.map(function(e) { e.HB = Math.round(parseFloat(e.HB)); return e; } );
-                return filtered;
-            }
-        }
-        else if (filterBy == "F")
-        {
-            if (key == "age")
-            {
-                // Filter out NaN and empty strings for females in the records
-                filtered = community_records.filter(function(d) { return (!isNaN(d.age) && d.age != "" && d.gender == "F") } );
+                // Then get rid of floats and make it all integers
+                filtered = filtered.map(function(e) {
+                    e.BP_SYS = Math.round(parseFloat(e.BP_SYS));
+                    e.BP_DYS = Math.round(parseFloat(e.BP_DYS));
+                    e.age = Math.round(parseFloat(e.age));
+                    return e;
+                });
 
-                // Then get rid of float ages and make it all integers
-                filtered = filtered.map(function(e) { e.age = Math.round(parseFloat(e.age)); return e; } );
-                return filtered;
-            }
-            else if(key == "bh")
-            {
-                // Filter out NaN and empty strings for all bmi in the records
-                filtered = community_records.filter(function(d) { return (!isNaN(d.HB) && d.HB != "" && d.gender == "F") } );
+                // do one more filter and ensure that systolic Bp is always higher than diastolic
+                filtered = community_records.filter(function(d) {
+                    return (d.BP_SYS > d.BP_DYS && !isNaN(d.BP_SYS) && !isNaN(d.BP_DYS) && d.gender == "F");
+                });
 
-                // Then get rid of float ages and make it all integers
-                filtered = filtered.map(function(e) { e.HB = Math.round(parseFloat(e.HB)); return e; } );
                 return filtered;
             }
         }
@@ -559,12 +724,17 @@ export default class MainView extends React.Component {
     handleUserClick(multiViewShowing, groupName, type) {
 
         //Translate abbreviation to full community name
-        // var full_community_name;
         var groupRecords;
-        var num_records = 0, num_females = 0, num_males = 0, num_other = 0, age_nest, age_nest_M, age_nest_F;
+
+        var full_community_name;
+		var community_records;
+
+        var num_records = 0, num_females = 0, num_males = 0, num_other = 0;
+        var age_nest, age_nest_M, age_nest_F;
         var gender_data;
         var bh_nest_all, bh_nest_M, bh_nest_F;
         var bmi_nest_all, bmi_nest_M, bmi_nest_F;
+        var bp_nest_all, bp_nest_M, bp_nest_F;
 
         if(groupName == '')
         {
@@ -581,15 +751,19 @@ export default class MainView extends React.Component {
             bmi_nest_all = [];
             bmi_nest_M = [];
             bmi_nest_F = [];
+            bp_nest_all = [];
+            bp_nest_M = [];
+            bp_nest_F = [];
 
             this.handleLabelInteraction("community", '', 0);
             this.updateCommunities(this.state.records, 0);
-            
+
             // reset click back
             this.updateDiagnosis(this.state.records, 0);
             this.updateTreatments(this.state.records, 0);
             this.updateBano(this.state.records, 0);
             this.updateWaterSources(this.state.records, 0);
+
         }
         else
         {
@@ -643,6 +817,11 @@ export default class MainView extends React.Component {
             var bh_by_M = this.getFilteredRecords("M", "bh", groupRecords);
             var bh_by_F = this.getFilteredRecords("F", "bh", groupRecords);
             var bmi_by_all = this.getFilteredRecords("all", "bmi", groupRecords);
+            var bmi_by_M = this.getFilteredRecords("M", "bmi", groupRecords);
+            var bmi_by_F = this.getFilteredRecords("F", "bmi", groupRecords);
+            var bp_by_all = this.getFilteredRecords("all", "bp", groupRecords);
+            var bp_by_M = this.getFilteredRecords("M", "bp", groupRecords);
+            var bp_by_F = this.getFilteredRecords("F", "bp", groupRecords);
 
             // gender_nest is used to show gender distribution (M, F)
             var gender_nest =  d3.nest().key(function(d){ return d.gender; })
@@ -662,62 +841,158 @@ export default class MainView extends React.Component {
             // we will pass this to the state - rendered by GenderBars
             gender_data = [[num_males, num_females]];
 
-            // age distribution for all
-            age_nest = d3.nest().key(function(d){ return d.age; })
-                            .rollup(function(leaves) { return leaves.length; })
-                            .entries(age_by_all)
-                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+            //First nest by age
+            var full_nested = d3.nest().key(function(d){ return d.age; });
 
-            // age distribution for males
-            age_nest_M = d3.nest().key(function(d){ return d.age; })
-                            .rollup(function(leaves) { return leaves.length; })
-                            .entries(age_by_M)
-                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+			// age distribution for all
+			age_nest = full_nested.rollup(function(leaves) { return leaves.length; })
+							.entries(age_by_all)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
-            // age distribution for females
-            age_nest_F = d3.nest().key(function(d){ return d.age; })
-                            .rollup(function(leaves) { return leaves.length; })
-                            .entries(age_by_F)
-                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+			// age distribution for males
+			age_nest_M = full_nested.rollup(function(leaves) { return leaves.length; })
+							.entries(age_by_M)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
-            // bh distribution for all
-            bh_nest_all = d3.nest().key(function(d){ return d.HB; })
-                            .rollup(function(leaves) { return leaves.length; })
-                            .entries(bh_by_all)
-                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+			// age distribution for females
+			age_nest_F = full_nested.rollup(function(leaves) { return leaves.length; })
+							.entries(age_by_F)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // average bh distribution for all
+			bh_nest_all = full_nested.rollup(function(leaves) {
+                                    var sum = 0;
+                                    for(var i = 0; i < leaves.length; i++)
+                                    {
+                                        sum += leaves[i].HB
+                                    }
+                                    return sum/leaves.length;
+                                })
+							.entries(bh_by_all)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
             // bh distribution for males
-            bh_nest_M = d3.nest().key(function(d){ return d.HB; })
-                            .rollup(function(leaves) { return leaves.length; })
-                            .entries(bh_by_M)
-                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+			bh_nest_M = full_nested.rollup(function(leaves) {
+                                    var sum = 0;
+                                    for(var i = 0; i < leaves.length; i++)
+                                    {
+                                        sum += leaves[i].HB
+                                    }
+                                    return sum/leaves.length;
+                                })
+							.entries(bh_by_M)
+							.sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
             // bh distribution for females
-            bh_nest_F = d3.nest().key(function(d){ return d.HB; })
-                            .rollup(function(leaves) { return leaves.length; })
+            bh_nest_F = full_nested.rollup(function(leaves) {
+                                    var sum = 0;
+                                    for(var i = 0; i < leaves.length; i++)
+                                    {
+                                        sum += leaves[i].HB
+                                    }
+                                    return sum/leaves.length;
+                                })
                             .entries(bh_by_F)
                             .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
-            // bmi distribution for all
-            // bmi_nest_all = d3.nest().key(function(d){ return d.age; })
-            //                 .rollup(function(leaves) { return leaves.length; })
-            //                 .entries(bh_by_F)
-            //                 .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
-        }
+            // average bmi distribution for all
+            bmi_nest_all = full_nested.rollup(function(leaves) {
+                                var sum = 0;
+                                for(var i = 0; i < leaves.length; i++)
+                                {
+                                    // BMI = weight / height (m) ^ 2
+                                    sum += leaves[i].weight / (Math.pow(leaves[i].height / 100, 2) );
+                                }
+                                return sum/leaves.length;
+                            })
+                            .entries(bmi_by_all)
+                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
 
-        this.setState({
-            multiViewShowing: multiViewShowing,
-            groupName: groupName,
-            groupRecords: groupRecords,
-            num_records: num_records,
-            gender_data: gender_data,
-            age_nest: age_nest,
-            age_nest_M: age_nest_M,
-            age_nest_F: age_nest_F,
+            // average bmi distribution for males
+            bmi_nest_M = full_nested.rollup(function(leaves) {
+                                var sum = 0;
+                                for(var i = 0; i < leaves.length; i++)
+                                {
+                                    // BMI = weight / height (m) ^ 2
+                                    sum += leaves[i].weight / (Math.pow(leaves[i].height / 100, 2) );
+                                }
+                                return sum/leaves.length;
+                            })
+                            .entries(bmi_by_M)
+                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // average bmi distribution for females
+            bmi_nest_F = full_nested.rollup(function(leaves) {
+                                var sum = 0;
+                                for(var i = 0; i < leaves.length; i++)
+                                {
+                                    // BMI = weight / height (m) ^ 2
+                                    sum += leaves[i].weight / (Math.pow(leaves[i].height / 100, 2) );
+                                }
+                                return sum/leaves.length;
+                            })
+                            .entries(bmi_by_F)
+                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // average bp distribution for all
+            bp_nest_all = full_nested.rollup(function(leaves) {
+                                var sum_sys = 0, sum_dys = 0;
+                                for(var i = 0; i < leaves.length; i++)
+                                {
+                                    sum_sys += leaves[i].BP_SYS;
+                                    sum_dys += leaves[i].BP_DYS;
+                                }
+                                return [sum_sys/leaves.length, sum_dys/leaves.length];
+                            })
+                            .entries(bp_by_all)
+                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // average bp distribution for male
+            bp_nest_M = full_nested.rollup(function(leaves) {
+                                var sum_sys = 0, sum_dys = 0;
+                                for(var i = 0; i < leaves.length; i++)
+                                {
+                                    sum_sys += leaves[i].BP_SYS;
+                                    sum_dys += leaves[i].BP_DYS;
+                                }
+                                return [sum_sys/leaves.length, sum_dys/leaves.length];
+                            })
+                            .entries(bp_by_M)
+                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+            // average bp distribution for female
+            bp_nest_F = full_nested.rollup(function(leaves) {
+                                var sum_sys = 0, sum_dys = 0;
+                                for(var i = 0; i < leaves.length; i++)
+                                {
+                                    sum_sys += leaves[i].BP_SYS;
+                                    sum_dys += leaves[i].BP_DYS;
+                                }
+                                return [sum_sys/leaves.length, sum_dys/leaves.length];
+                            })
+                            .entries(bp_by_F)
+                            .sort(function(a,b) { return d3.ascending(parseInt(a.key), parseInt(b.key))} );
+
+		}
+
+		this.setState({
+			multiViewShowing: multiViewShowing,
+			groupName: groupName,
+			groupRecords: groupRecords,
+			num_records: num_records,
+			gender_data: gender_data,
+			age_nest: age_nest,
+			age_nest_M: age_nest_M,
+			age_nest_F: age_nest_F,
             bh_nest_all: bh_nest_all,
             bh_nest_M: bh_nest_M,
             bh_nest_F: bh_nest_F,
             bmi_nest_all: bmi_nest_all,
+            bmi_nest_M: bmi_nest_M,
+            bmi_nest_F: bmi_nest_F,
+            bp_nest_all: bp_nest_all,
+            bp_nest_M: bp_nest_M,
+            bp_nest_F: bp_nest_F,
         });
     }
 
@@ -769,7 +1044,7 @@ export default class MainView extends React.Component {
             this.setState({
                 visitedDate: dataManager.visitedDate
             });
-            
+
         }
     }
 
@@ -807,16 +1082,19 @@ export default class MainView extends React.Component {
         } else {
             return (
                 <div>
-                
-                    
+
+
                     <SectionsContainer {...options}>
-                        <Section>   
+                        <Section>
                             <HeaderPage  dates={visitDates} communities={this.state.communities} numRecords={numRecords}/>
                         </Section>
                         <Section>
-                            <MultiviewDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.multiViewShowing} theState={this.state} groupName={this.state.groupName} onHideModal={this.handleUserClick}/>
+                            <MultiviewDialog paneCenterWidth={paneCenterWidth}
+                                isDialogActive={this.state.multiViewShowing}
+                                theState={this.state} groupName={this.state.groupName}
+                                onHideModal={this.handleUserClick}/>
                             <PatientDetailsDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
-                    
+
                             <svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
                                 <MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}
                                     left = {[
@@ -896,7 +1174,7 @@ export default class MainView extends React.Component {
                             </svg>
                         </Section>
                     </SectionsContainer>
-                    
+
                 </div>
             );
         }

@@ -4,26 +4,20 @@ const renderBars = (props) => {
 	return (coords, index) => {
 		const barProps = {
             x: props.xScale(coords.key),
-            y: props.yScale(coords.value),
+            y: props.yScale(coords.value[0]),
             width: 0.5,
-            height: props.height - props.padding - props.yScale(coords.value),
+            height: props.yScale(coords.value[1]) - props.yScale(coords.value[0]),
 			key: index
 		};
 
 		const onMouseOver = () => {
 			props.handleDataBarHover(true, coords.key);
-			props.updateDetails(coords.key, Math.round(coords.value * 100)/100);
+			props.updateDetails(coords.key, Math.round(coords.value[0] * 100)/100, Math.round(coords.value[1] * 100)/100);
 		}
 
 		const onMouseOut = () => {
-			if(props.clickState == true)
-			{
-				props.updateDetails('','');
-			}
-			else {
-				props.handleDataBarOut(true);
-				props.updateDetails('','');
-			}
+			props.handleDataBarOut(true);
+			props.updateDetails('', '');
 		}
 
 		if(props.visibility == false) {
@@ -32,11 +26,8 @@ const renderBars = (props) => {
 		else if(props.clickState == true) {
 			return <rect {...barProps} className={props.dataBars} onMouseOver={onMouseOver} onMouseOut={onMouseOut} fill="#FFFFFF" stroke={props.stroke} />;
 		}
-		else if(props.highlightThis == coords.key) {
-			return <rect {...barProps} className={props.dataBars} onMouseOver={onMouseOver} onMouseOut={onMouseOut} stroke={props.stroke} />;
-		}
 		else {
-			return <rect {...barProps} className={props.dataBars} onMouseOver={onMouseOver} onMouseOut={onMouseOut} fill="#FFFFFF" stroke={props.stroke} />;
+			return <rect {...barProps} className={props.dataBars} onMouseOver={onMouseOver} onMouseOut={onMouseOut} fill="#FFFFFF" stroke={props.stroke}/>;
 		}
 	};
 };

@@ -412,7 +412,12 @@ export default class MainView extends React.Component {
                 diagnosis: results,
                 activeLabel: activeLabel
             });
+
+
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateTreatments(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateWaterSources(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateBano(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
         }
         if (type === "treatment") {
@@ -428,7 +433,11 @@ export default class MainView extends React.Component {
                 activeLabel: activeLabel
             });
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateWaterSources(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateDiagnosis(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateBano(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
+
         }
         if (type === "watersources") {
             const watersources = this.state.waterSources.slice();
@@ -443,6 +452,9 @@ export default class MainView extends React.Component {
                 activeLabel: activeLabel
             });
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateDiagnosis(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateTreatments(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateBano(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
         }
         if (type === "bano") {
@@ -458,6 +470,9 @@ export default class MainView extends React.Component {
                 activeLabel: activeLabel
             });
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateDiagnosis(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateTreatments(this.state.records.filter(this.filterRecords(activeLabel)), toState);
+            this.updateWaterSources(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
         }
         if (type === "community") {

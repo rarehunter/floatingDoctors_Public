@@ -54,6 +54,6 @@ export default (props) => {
 						 updateDetails={props.updateDetails}
 						 {...scales} />
 
-		<XYAxis {...props} xLabel={props.xLabel} yLabel={props.yLabel} {...scales} />
+		<XYAxis {...props} xLabel={props.xLabel} yLabel={props.yLabel} chartType1={props.chartType1} chartType2={props.chartType2} {...scales} />
 		</svg>
 }

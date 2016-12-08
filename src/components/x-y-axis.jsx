@@ -26,13 +26,10 @@ export default (props) => {
 				<rect fill="none" x="0" y="0" width="50" height={props.height - 2*props.padding}></rect>
 				<text x="25" y={(props.height - 2*props.padding)/2} fill="black" textAnchor="middle" alignmentBaseline="central" transform="rotate(-90,25,100)">{props.yLabel}</text>
 			</svg>
+
+			<NormalRange {...props} chartType1={props.chartType1} />
+			<NormalRange {...props} chartType2={props.chartType2} showTwo="two"/>
 			<Axis {...xSettings} />
 			<Axis {...ySettings} />
 		</g>
-
-	//
-	// return <g className="xy-axis">
-	// 		<Axis {...xSettings} />
-	// 		<Axis {...ySettings} />
-	// </g>
 }

@@ -804,7 +804,6 @@ export default class MainView extends React.Component {
             {
                 groupRecords = dataManager.getRecordsByBano(groupName);
             }
-            console.log(groupRecords);
             num_records = groupRecords.length;
 
             // console.log(community_records);

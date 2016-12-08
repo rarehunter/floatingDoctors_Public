@@ -243,7 +243,8 @@ export default class MultiviewDialog extends React.Component {
                                              onDataBarOut={this.handleDataBarOut}
                                              highlightThis={this.state.xHover}
                                              updateDetails={this.handleBMIDetails}
-                                             chartType="bmi"
+                                             chartType1="bmi"
+                                             chartType2="empty"
                                              xLabel="Age"
                                              yLabel="kg/m^2"
                                              {...plotdim} />
@@ -271,7 +272,8 @@ export default class MultiviewDialog extends React.Component {
                                              onDataBarOut={this.handleDataBarOut}
                                              highlightThis={this.state.xHover}
                                              updateDetails={this.handleBHDetails}
-                                             chartType="hb"
+                                             chartType1="hb-male"
+                                             chartType2="hb-female"
                                              xLabel="Age"
                                              yLabel="mg/dL"
                                              {...plotdim} />
@@ -296,7 +298,8 @@ export default class MultiviewDialog extends React.Component {
                                              onDataBarOut={this.handleDataBarOut}
                                              highlightThis={this.state.xHover}
                                              updateDetails={this.handleBPDetails}
-                                             chartType="bp"
+                                             chartType1="bp-sys"
+                                             chartType2="bp-dys"
                                              xLabel="Age"
                                              yLabel="mm Hg"
                                              {...plotdim} />

@@ -80,26 +80,12 @@ body {
     margin: 0px auto;
 }
 
-.largeDialogBox:first-child{
-    box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
-}
-.largeDialogBox div:first-child{
-    border: 0;
-    border-radius: 0px 0px 5px 5px;
-    box-shadow: none;
-}
+
 .smallDialogBox{
-    width: 60%;
+  width: 60%;
   margin: 0px auto;
 }
-.smallDialogBox:first-child{
-    box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
-}
-.smallDialogBox div:first-child{
-    border: 0;
-    border-radius: 0px 0px 5px 5px;
-    box-shadow: none;
-}
+
 .bignumbers{
     font-size: 28px;
 }
@@ -145,11 +131,11 @@ body {
 }
 .modalSmallBody{
   font-size: 14px;
-  padding: 0px 16px 32px 16px;
+  padding: 0 32px 32px 32px;
 }
 .modalLargeBody{
   font-size: 12px;
-  padding: 0px 16px 32px 16px;
+  padding: 0 32px 32px 32px;
 }
 .modalLargeBody h5{
   font-weight: 500;
@@ -263,7 +249,9 @@ body {
 }
 
 .mbar {
-  opacity: 0.8;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .mbar:hover {
@@ -271,7 +259,9 @@ body {
 }
 
 .fbar {
-  opacity: 0.8;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .fbar:hover {
@@ -549,15 +539,33 @@ body {
 
 .dataBars {
 	opacity: 1;
+	// stroke: rgba(68,85,114,0.4);
+	transition: all 0.3s ease-in-out;
 }
 
 .dataBars:hover {
-	stroke: black;
+	stroke: #445572;
 }
 
 .dataDetails {
-	color: #808080;
+	color: #fff;
 	margin: 10px 0px;
 	font-size: 13px;
+}
 
+.chartInfo {
+	position: absolute;
+	background: rgba(0,0,0,0.6);
+	padding: 8px 16px;
+	border-radius: 8px;
+	transition: all 0.2s ease-in-out;
+	right: 16px;
+}
+
+.chartInfo .dataDetails {
+	font-weight: 400;
+}
+
+.chartInfo.hide{
+	opacity: 0;
 }

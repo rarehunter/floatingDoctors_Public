@@ -323,8 +323,8 @@ export default class DataManager {
 
     // get record based on community
     // Example usage:
-    // communityData = dataManager.getCommunityRecords(records, "SALT CREEK");
-    getCommunityRecords(communityName, data = this.records)
+    // communityData = dataManager.getCommunityRecords("SALT CREEK", records);
+    getRecordsByCommunity(communityName, data = this.records)
     {
         var nested_data = d3.nest()
             .key(function(d){return d.consultLocation})
@@ -334,6 +334,106 @@ export default class DataManager {
         {
             if(nested_data[i].key.toUpperCase() == communityName.toUpperCase())
                 return nested_data[i].values;
+        }
+        return null;
+    }
+
+    getRecordsByDiagnosis(diagnosisName, data = this.records)
+    {
+        // Step 1: expand record data
+        console.log('in dataManager getRecordsByDiagnosis');
+        console.log('diagnosisName', diagnosisName);
+        var expand_data = [];
+        for(var i = 0; i < data.length; i++)
+        {
+            if(data[i].hasOwnProperty("diagnosis") && data[i].diagnosis.length > 0)
+            {
+                for (var j = 0; j < data[i].diagnosis.length; j++)
+                {
+                    var d = Object.assign({}, data[i]);
+                    d.diagnosis = data[i].diagnosis[j];
+                    expand_data.push(d);
+                }
+            }
+            else
+            {
+                expand_data.push(data[i]);
+            }
+        }
+
+        // Step 2: nesting data by diagnosis
+        var nested_data = d3.nest()
+            .key(function(d){return d.diagnosis})
+            .entries(expand_data);
+        console.log(nested_data);
+
+        for(var i = 0; i < nested_data.length; i++)
+        {
+            if(nested_data[i].key.toUpperCase() == diagnosisName.toUpperCase())
+                return nested_data[i].values;
+        }
+        return null;
+    }
+
+    getRecordsByTreatments(treatmentName, data = this.records)
+    {
+        // Step 1: expand record data
+        var expand_data = [];
+        for(var i = 0; i < data.length; i++)
+        {
+            if(data[i].hasOwnProperty("treatment") && data[i].treatment.length > 0)
+            {
+                for (var j = 0; j < data[i].treatment.length; j++)
+                {
+
+                    var d = Object.assign({}, data[i]);
+                    d.treatment = data[i].treatment[j];
+                    expand_data.push(d);
+                }
+            }
+            else
+            {
+                expand_data.push(data[i]);
+            }
+        }
+
+        // Step 2: nesting data by diagnosis
+        var nested_data = d3.nest()
+            .key(function(d){return d.treatment})
+            .entries(expand_data);
+
+        for(var i = 0; i < nested_data.length; i++)
+        {
+            if(nested_data[i].key.toUpperCase() == treatmentName.toUpperCase())
+                return nested_data[i].values;
+        }
+        return null;
+    }
+
+    getRecordsByWatersource(watersourceName, data = this.records)
+    {
+        var nested_data = d3.nest()
+            .key(function(d){return d.waterResource})
+            .entries(data);
+
+        for(var i = 0; i < nested_data.length; i++)
+        {
+            if(nested_data[i].key.toUpperCase() == watersourceName.toUpperCase())
+                return nested_data.values;
+        }
+        return null;
+    }
+
+    getRecordsByBano(banoName, data = this.records)
+    {
+        var nested_data = d3.nest()
+            .key(function(d){return d.bano})
+            .entries(data);
+
+        for(var i = 0; i < nested_data.length; i++)
+        {
+            if(nested_data[i].key.toUpperCase() == banoName.toUpperCase())
+                return nested_data.values;
         }
         return null;
     }

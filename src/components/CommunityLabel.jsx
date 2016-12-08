@@ -75,7 +75,7 @@ export default class CommunityLabel extends React.Component {
 	}
 
 	handleClick() {
-		this.props.onUserInput(true, this.props.value);
+		this.props.onUserInput(true, this.props.value, this.props.type);
 	}
 
 	render() {

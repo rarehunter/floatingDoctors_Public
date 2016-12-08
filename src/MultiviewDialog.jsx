@@ -56,7 +56,7 @@ export default class MultiviewDialog extends React.Component {
     // }
 
     hideModal() {
-        this.props.onHideModal(false, '');
+        this.props.onHideModal(false, '', this.props.groupName);
     }
 
     updateModalWidth()
@@ -80,7 +80,7 @@ export default class MultiviewDialog extends React.Component {
                 >
 
                     <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-lg">{this.props.community}</Modal.Title>
+                        <Modal.Title id="contained-modal-title-lg">{this.props.groupName}</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body bsClass={styles.modalLargeBody}>
@@ -97,9 +97,6 @@ export default class MultiviewDialog extends React.Component {
                                     <GenderBars maleClass={styles.mbar} femaleClass={styles.fbar} data={this.props.theState.gender_data} />
                                 </Col>
 
-                                <Col md={2} mdOffset={1}>
-                                    <h6 className={styles.gray + ' ' + styles.textRight}>Jan 2015-Dec 2015</h6>
-                                </Col>
                             </Row>
 
                             <br />

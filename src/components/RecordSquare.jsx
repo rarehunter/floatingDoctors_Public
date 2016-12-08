@@ -16,24 +16,6 @@ export default class RecordSquare extends React.Component {
         this.handleOnClick = this.handleOnClick.bind(this);
     }
 
-    componentWillEnter(callback) {
-       const el = ReactDOM.findDOMNode(this);
-       TweenMax.fromTo(el, 0.6, {x: this.props.x - Meta.SquareSize() / 2, y: this.props.y+20, opacity: 0}, {x: this.props.x - Meta.SquareSize() / 2, y: this.props.y, opacity: 1, onComplete: callback});
-    }
-
-    componentWillLeave(callback) {
-       const el = ReactDOM.findDOMNode(this);
-       TweenMax.fromTo(el, 0.3, {opacity: 1}, {opacity: 0, onComplete: callback});
-    }
-
-    componentWillReceiveProps(nextProps) {
-    	if (this.props.i != nextProps.i) {
-            const el = ReactDOM.findDOMNode(this);
-            // console.log(el);
-            TweenMax.fromTo(el, 0.6, {x: this.props.x - Meta.SquareSize() / 2, y: this.props.y}, {x: nextProps.x - Meta.SquareSize() / 2, y: nextProps.y});
-        }
-    }
-
     handleMouseOver() {
         this.setState({
             scale: 1.2

@@ -33,16 +33,16 @@ export default class CommunityLabelGroup extends React.Component {
 
 		// Calculate the position Matrix
 		const unitWidth = this.props.width / parseInt(Meta.LABEL_PER_ROW);
+		
 		let pos = [];
 		for (var i = 0; i < this.props.data.length; i++) {
 			const xn = i % parseInt(Meta.LABEL_PER_ROW);
 			const yn = Math.floor(i / parseInt(Meta.LABEL_PER_ROW));
 			pos.push({
-				x: xn * unitWidth + unitWidth / 2 + this.props.x,
+				x: xn * unitWidth + unitWidth / 2,
 				y: (yn+1) * Meta.LABEL_ROW_OFFSET + this.props.y,
 			});
 		}
-
 		return (
 			<g>
 				<text className={styles.labelTitle} textAnchor={this.props.textAnchor} x={this.props.x+this.props.width/2} y={this.props.y}>

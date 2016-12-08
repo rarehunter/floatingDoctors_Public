@@ -48,7 +48,8 @@ export default class MainChart extends React.Component {
                                     x={scaleX(d)}
                                     height={Meta.MainChartHeight()}/>
                     })};
-                    <MainAxis {...xSettings} />
+                    <MainAxis {...xSettings} tooltip="true"
+								tooltipPos="bottom"/>
                 </g>
             );
         }

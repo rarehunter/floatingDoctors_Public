@@ -20,7 +20,7 @@ export default class LabelGroup extends React.Component {
 				offsetX: 0,
 				offsetY: 0,
 			},
-		}
+		};
 		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
 		this.getTooltip = this.getTooltip.bind(this);
 	}

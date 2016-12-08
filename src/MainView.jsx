@@ -694,19 +694,6 @@ export default class MainView extends React.Component {
 		});
 	}
 
-	handlePatientClickHide(patientRecord){
-		this.updateCommunities(this.state.records, state);
-		this.updateDiagnosis(this.state.records, state);
-		this.updateBano(this.state.records, state);
-		this.updateTreatments(this.state.records, state);
-		this.updateWaterSources(this.state.records, state);
-
-		this.setState({
-			patientDialogShowing: false,
-			patientRecord: patientRecord
-		});
-	}
-
 	handleUserHover(selectedRecord, state){
 
 		// update selected record state
@@ -746,21 +733,6 @@ export default class MainView extends React.Component {
 			this.setState({
 				visitedDate: dataManager.visitedDate
 			});
-
-			// var newVistedDate = dataManager.visitedDate.slice();
-
-			// console.log(selectedRecord);
-			//for (var i = 0; i < newVistedDate.length; i++)
-			// {
-			// 	for(var j = 0; j< newVistedDate[i].value.length; j++)
-			// 	{
-			// 		if (selectedRecord.key == newVistedDate[i].value[j])
-			// 		{
-			// 			newVistedDate[i].value[j].scale = 1;
-			// 			newVistedDate[i].value[j].state = 0;
-			// 		}
-			// 	}
-			// }
 			
 		}
 	}

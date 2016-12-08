@@ -17,3 +17,33 @@ a {
 .modal.fade .modal-dialog {
 	width: 100%;
 }
+
+.modal-header {
+	padding: 32px;
+	border: none;
+}
+
+.modal-content {
+	box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
+	border: 0;
+    border-radius: 0px 0px 5px 5px;
+}
+.modal-title {
+	font-size: 2em;
+	font-weight: 500;
+}
+
+
+.axis path{
+	stroke: #333333;
+}
+
+.axis .tick line {
+	stroke: #333333;
+}
+.axis text {
+   fill: rgb(169, 178, 189);
+}
+.axis .tick text {
+	fill: #333333;
+}

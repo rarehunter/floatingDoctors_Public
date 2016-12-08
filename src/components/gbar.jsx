@@ -26,7 +26,7 @@ const renderBars = (props) => {
 		}
 
 		if(props.clickState) {
-			return <rect {...barProps} fillOpacity="1" onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} />;
+			return <rect {...barProps} style={{opacity: "1"}} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} />;
 		}
 		else {
 			return <rect {...barProps} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} />;
@@ -36,7 +36,7 @@ const renderBars = (props) => {
 
 
 export default (props) => {
-	return <g className={props.className}>
+	return <g>
 			<text y={props.barProps.y + 10 }>{props.gender}</text>
 			{ props.data.map(renderBars(props)) }
 			<text y={props.barProps.y + 10 } x={props.barProps.width + 20}>{props.barProps.number} ({props.barProps.percentage}%)</text>

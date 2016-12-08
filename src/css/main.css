@@ -80,26 +80,12 @@ body {
     margin: 0px auto;
 }
 
-.largeDialogBox:first-child{
-    box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
-}
-.largeDialogBox div:first-child{
-    border: 0;
-    border-radius: 0px 0px 5px 5px;
-    box-shadow: none;
-}
+
 .smallDialogBox{
-    width: 60%;
+  width: 60%;
   margin: 0px auto;
 }
-.smallDialogBox:first-child{
-    box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
-}
-.smallDialogBox div:first-child{
-    border: 0;
-    border-radius: 0px 0px 5px 5px;
-    box-shadow: none;
-}
+
 .bignumbers{
     font-size: 28px;
 }
@@ -119,15 +105,14 @@ body {
 
 .recordSquare {
   transition: all 0.2s ease-in-out;
-  fill: rgba(254,90,90,0.2);
 }
 
 .recordSquare:hover {
 	cursor: pointer;
 }
-.recordSquare.highlighted {
+/*.recordSquare.highlighted {
   fill: rgba(254,90,90,1);
-}
+}*/
 
 .tick line {
   visibility: hidden;
@@ -146,11 +131,11 @@ body {
 }
 .modalSmallBody{
   font-size: 14px;
-  padding: 0px 16px 32px 16px;
+  padding: 0 32px 32px 32px;
 }
 .modalLargeBody{
   font-size: 12px;
-  padding: 0px 16px 32px 16px;
+  padding: 0 32px 32px 32px;
 }
 .modalLargeBody h5{
   font-weight: 500;
@@ -177,8 +162,8 @@ body {
   top: -30px;
 }
 .modalFab:hover {
-  color: #FE5A5A;
-  fill: #FE5A5A;
+  color: #2A3242;
+  fill: #2A3242;
 }
 .modalFab:focus{
   outline: 0;
@@ -202,15 +187,17 @@ body {
 }
 
 .label:hover, .label.highlighted {
-  // font-size: 14px;
+  /*font-size: 14px;*/
   color: #FE5A5A;
   fill: #FE5A5A;
+  /*color: #445572;
+  fill: #445572;*/
   font-weight: 500;
   transform: scale(1.0);
 }
 /* Bar Style */
 .bar {
-  fill: #FE5A5A;
+  fill: #445572;
   transition: all 0.5s ease-in-out;
 }
 
@@ -231,6 +218,7 @@ body {
 
 .circle {
   stroke: #FE5A5A;
+  /*stroke: #445572;*/
   fill: none;
   stroke-width: 1px;
   // stroke-opacity: 0.4;
@@ -261,7 +249,9 @@ body {
 }
 
 .mbar {
-  opacity: 0.8;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .mbar:hover {
@@ -269,7 +259,9 @@ body {
 }
 
 .fbar {
-  opacity: 0.8;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .fbar:hover {
@@ -295,7 +287,7 @@ body {
 .loaderInner {
   position: relative;
   width: 100%;
-  color: #FE5A5A;
+  color: rgba(254, 90, 90, 1);
   padding: 0 100px;
   text-align: center;
 }
@@ -458,7 +450,7 @@ body {
 /* Header Page */
 .container {
 	width: 60%;
-	margin: 160px auto 72px;
+	margin: 16% auto 72px;
 }
 .title {
 	font-size: 4.8rem;
@@ -502,7 +494,7 @@ body {
 	font-size: 2.4rem;
 	font-weight: 700;
 	margin-bottom: 16px;
-	color: #FE5A5A;
+	color: rgba(254, 90, 90, 1);
 }
 .btnExplore {
 	display: block;
@@ -530,7 +522,7 @@ body {
 	text-align: center;
 }
 .divider {
-	color: #FE5A5A;
+	color: rgba(254, 90, 90, 1);
 	text-align: center;
 	font-size: 2em;
 	margin-bottom: 56px;
@@ -547,15 +539,33 @@ body {
 
 .dataBars {
 	opacity: 1;
+	// stroke: rgba(68,85,114,0.4);
+	transition: all 0.3s ease-in-out;
 }
 
 .dataBars:hover {
-	stroke: black;
+	stroke: #445572;
 }
 
 .dataDetails {
-	color: #808080;
+	color: #fff;
 	margin: 10px 0px;
 	font-size: 13px;
+}
 
+.chartInfo {
+	position: absolute;
+	background: rgba(0,0,0,0.6);
+	padding: 8px 16px;
+	border-radius: 8px;
+	transition: all 0.2s ease-in-out;
+	right: 16px;
+}
+
+.chartInfo .dataDetails {
+	font-weight: 400;
+}
+
+.chartInfo.hide{
+	opacity: 0;
 }

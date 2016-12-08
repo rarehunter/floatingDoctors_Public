@@ -11,12 +11,6 @@ import D3LineChart from './components/d3LineChart.jsx';
 
 var num_records; // test
 
-const plotdim = {
-    width: 400,
-    height: 300,
-    padding: 50
-}
-
 export default class MultiviewDialog extends React.Component {
     constructor(props) {
         super(props);
@@ -35,6 +29,7 @@ export default class MultiviewDialog extends React.Component {
         this.handleBPDetails = this.handleBPDetails.bind(this);
         this.handleMaleClick = this.handleMaleClick.bind(this);
         this.handleFemaleClick = this.handleFemaleClick.bind(this);
+        this.checkInfoState = this.checkInfoState.bind(this);
 
         this.state = {
             femaleShowing: false,
@@ -156,7 +151,22 @@ export default class MultiviewDialog extends React.Component {
         return style;
     }
 
+    checkInfoState(data) {
+        let classy = "";
+        if (data === '') {
+            classy = `${styles.chartInfo} ${styles.hide}`;
+        } else {
+            classy = `${styles.chartInfo}`;
+        }
+        return classy;
+    }
     render() {
+        const chartWidth = (this.props.paneCenterWidth - 32*3)/ 2;
+        const plotdim = {
+            width: chartWidth,
+            height: 300,
+            padding: 24
+        }
         return (
                 <Modal
                     show={this.props.isDialogActive}
@@ -172,141 +182,144 @@ export default class MultiviewDialog extends React.Component {
                     </Modal.Header>
 
                     <Modal.Body bsClass={styles.modalLargeBody}>
-                        <Grid>
-                            <Row className="show-grid">
-                                <Col md={1}>
-                                    <h5 className={styles.gray}>Visits</h5>
 
-                                    <br />
-                                    <p className={styles.bignumbers}>{this.props.theState.num_records}</p>
-                                </Col>
+                        <Row className="show-grid">
+                            <Col md={2}>
+                                <p className={styles.bignumbers}>{this.props.theState.num_records}</p>
+                                <p className={styles.gray}>Records</p>
+                            </Col>
 
-                                <Col md={3}>
-                                    <GenderBars maleClass={styles.mbar}
-                                                femaleClass={styles.fbar}
-                                                maleHover={this.handleMaleHover}
-                                                femaleHover={this.handleFemaleHover}
-                                                maleOut={this.handleMaleOut}
-                                                femaleOut={this.handleFemaleOut}
-                                                maleClick={this.handleMaleClick}
-                                                femaleClick={this.handleFemaleClick}
-                                                maleState={this.state.maleSelected}
-                                                femaleState={this.state.femaleSelected}
-                                                data={this.props.theState.gender_data} />
-                                </Col>
+                            <Col md={3}>
+                                <GenderBars maleClass={styles.mbar}
+                                            femaleClass={styles.fbar}
+                                            maleHover={this.handleMaleHover}
+                                            femaleHover={this.handleFemaleHover}
+                                            maleOut={this.handleMaleOut}
+                                            femaleOut={this.handleFemaleOut}
+                                            maleClick={this.handleMaleClick}
+                                            femaleClick={this.handleFemaleClick}
+                                            maleState={this.state.maleSelected}
+                                            femaleState={this.state.femaleSelected}
+                                            data={this.props.theState.gender_data} />
+                            </Col>
 
-                            </Row>
+                        </Row>
 
-                            <br />
 
-                            <Row className="show-grid">
-                                <Col xs={12} sm={6} md={4} lg={4}>
-                                    <h5>Age Distribution</h5>
 
+                        <Row className="show-grid">
+                            <Col xs={12} sm={6} md={6} lg={6}>
+                                <h5>Age Distribution</h5>
+                                <div className={this.checkInfoState(this.state.currentAge)}>
                                     <h5 className={styles.dataDetails}>Age: {this.state.currentAge}</h5>
                                     <h5 className={styles.dataDetails}>Count: {this.state.currentCount}</h5>
+                                </div>
 
-                                    <BarGraph data={this.props.theState.age_nest}
-                                              dataBars={styles.dataBars}
-                                              allAge={this.props.theState.age_nest}
-                                              maleAge={this.props.theState.age_nest_M}
-                                              femaleAge={this.props.theState.age_nest_F}
-                                              maleShowing={this.state.maleShowing}
-                                              femaleShowing={this.state.femaleShowing}
-                                              maleState={this.state.maleSelected}
-                                              femaleState={this.state.femaleSelected}
-                                              onDataBarHover={this.handleDataBarHover}
-                                              onDataBarOut={this.handleDataBarOut}
-                                              highlightThis={this.state.xHover}
-                                              updateDetails={this.handleAgeDetails}
-                                              xLabel="Age"
-                                              yLabel="Count"
-                                              {...plotdim} />
 
-                               </Col>
+                                <BarGraph data={this.props.theState.age_nest}
+                                          dataBars={styles.dataBars}
+                                          allAge={this.props.theState.age_nest}
+                                          maleAge={this.props.theState.age_nest_M}
+                                          femaleAge={this.props.theState.age_nest_F}
+                                          maleShowing={this.state.maleShowing}
+                                          femaleShowing={this.state.femaleShowing}
+                                          maleState={this.state.maleSelected}
+                                          femaleState={this.state.femaleSelected}
+                                          onDataBarHover={this.handleDataBarHover}
+                                          onDataBarOut={this.handleDataBarOut}
+                                          highlightThis={this.state.xHover}
+                                          updateDetails={this.handleAgeDetails}
+                                          xLabel="Age"
+                                          yLabel="Count"
+                                          {...plotdim} />
 
-                               <Col xs={12} sm={6} md={4} lg={4}>
-                                   <h5>Average BMI by Age</h5>
-                                   <h5 className={styles.dataDetails}>Age: {this.state.currentBMIAge}</h5>
-                                   <h5 className={styles.dataDetails}>BMI: {this.state.currentBMI}</h5>
+                           </Col>
 
-                                   <BarGraph data={this.props.theState.bmi_nest_all}
-                                             dataBars={styles.dataBars}
-                                             allAge={this.props.theState.bmi_nest_all}
-                                             maleAge={this.props.theState.bmi_nest_M}
-                                             femaleAge={this.props.theState.bmi_nest_F}
-                                             maleShowing={this.state.maleShowing}
-                                             femaleShowing={this.state.femaleShowing}
-                                             maleState={this.state.maleSelected}
-                                             femaleState={this.state.femaleSelected}
-                                             onDataBarHover={this.handleDataBarHover}
-                                             onDataBarOut={this.handleDataBarOut}
-                                             highlightThis={this.state.xHover}
-                                             updateDetails={this.handleBMIDetails}
-                                             chartType1="bmi"
-                                             chartType2="empty"
-                                             xLabel="Age"
-                                             yLabel="kg/m^2"
-                                             {...plotdim} />
-                               </Col>
-                           </Row>
+                           <Col xs={12} sm={6} md={6} lg={6}>
+                               <h5>Average BMI by Age</h5>
+                               <div className={this.checkInfoState(this.state.currentBMIAge)}>
+                                    <h5 className={styles.dataDetails}>Age: {this.state.currentBMIAge}</h5>
+                                    <h5 className={styles.dataDetails}>BMI: {this.state.currentBMI}</h5>
+                                </div>
 
-                           <br /><br />
+                               <BarGraph data={this.props.theState.bmi_nest_all}
+                                         dataBars={styles.dataBars}
+                                         allAge={this.props.theState.bmi_nest_all}
+                                         maleAge={this.props.theState.bmi_nest_M}
+                                         femaleAge={this.props.theState.bmi_nest_F}
+                                         maleShowing={this.state.maleShowing}
+                                         femaleShowing={this.state.femaleShowing}
+                                         maleState={this.state.maleSelected}
+                                         femaleState={this.state.femaleSelected}
+                                         onDataBarHover={this.handleDataBarHover}
+                                         onDataBarOut={this.handleDataBarOut}
+                                         highlightThis={this.state.xHover}
+                                         updateDetails={this.handleBMIDetails}
+                                         chartType1="bmi"
+                                         chartType2="empty"
+                                         xLabel="Age"
+                                         yLabel="kg/m^2"
+                                         {...plotdim} />
+                           </Col>
+                       </Row>
 
-                           <Row className="show-grid">
-                               <Col xs={12} sm={6} md={4} lg={4}>
-                                   <h5>Average Blood Hemoglobin by Age</h5>
-                                   <h5 className={styles.dataDetails}>Age: {this.state.currentBHAge}</h5>
-                                   <h5 className={styles.dataDetails}>HB: {this.state.currentBH}</h5>
 
-                                   <BarGraph data={this.props.theState.bh_nest_all}
-                                             dataBars={styles.dataBars}
-                                             allAge={this.props.theState.bh_nest_all}
-                                             maleAge={this.props.theState.bh_nest_M}
-                                             femaleAge={this.props.theState.bh_nest_F}
-                                             maleShowing={this.state.maleShowing}
-                                             femaleShowing={this.state.femaleShowing}
-                                             maleState={this.state.maleSelected}
-                                             femaleState={this.state.femaleSelected}
-                                             onDataBarHover={this.handleDataBarHover}
-                                             onDataBarOut={this.handleDataBarOut}
-                                             highlightThis={this.state.xHover}
-                                             updateDetails={this.handleBHDetails}
-                                             chartType1="hb-male"
-                                             chartType2="hb-female"
-                                             xLabel="Age"
-                                             yLabel="mg/dL"
-                                             {...plotdim} />
+                       <Row className="show-grid">
+                           <Col xs={12} sm={6} md={6} lg={6}>
+                               <h5>Average Blood Hemoglobin by Age</h5>
 
-                               </Col>
+                               <div className={this.checkInfoState(this.state.currentBH)}>
+                                    <h5 className={styles.dataDetails}>Age: {this.state.currentBHAge}</h5>
+                                    <h5 className={styles.dataDetails}>HB: {this.state.currentBH}</h5>
+                                </div>
+                               <BarGraph data={this.props.theState.bh_nest_all}
+                                         dataBars={styles.dataBars}
+                                         allAge={this.props.theState.bh_nest_all}
+                                         maleAge={this.props.theState.bh_nest_M}
+                                         femaleAge={this.props.theState.bh_nest_F}
+                                         maleShowing={this.state.maleShowing}
+                                         femaleShowing={this.state.femaleShowing}
+                                         maleState={this.state.maleSelected}
+                                         femaleState={this.state.femaleSelected}
+                                         onDataBarHover={this.handleDataBarHover}
+                                         onDataBarOut={this.handleDataBarOut}
+                                         highlightThis={this.state.xHover}
+                                         updateDetails={this.handleBHDetails}
+                                         chartType1="hb-male"
+                                         chartType2="hb-female"
+                                         xLabel="Age"
+                                         yLabel="mg/dL"
+                                         {...plotdim} />
 
-                             <Col xs={12} sm={6} md={4} lg={4}>
-                                 <h5>Average Blood Pressure by Age</h5>
-                                 <h5 className={styles.dataDetails}>Age: {this.state.currentBPAge}</h5>
-                                 <h5 className={styles.dataDetails}>SYS: {this.state.currentSYS} &nbsp; &nbsp; DYS: {this.state.currentDYS}</h5>
+                           </Col>
 
-                                 <BPBarGraph data={this.props.theState.bp_nest_all}
-                                             dataBars={styles.dataBars}
-                                             allAge={this.props.theState.bp_nest_all}
-                                             maleAge={this.props.theState.bp_nest_M}
-                                             femaleAge={this.props.theState.bp_nest_F}
-                                             maleShowing={this.state.maleShowing}
-                                             femaleShowing={this.state.femaleShowing}
-                                             maleState={this.state.maleSelected}
-                                             femaleState={this.state.femaleSelected}
-                                             onDataBarHover={this.handleDataBarHover}
-                                             onDataBarOut={this.handleDataBarOut}
-                                             highlightThis={this.state.xHover}
-                                             updateDetails={this.handleBPDetails}
-                                             chartType1="bp-sys"
-                                             chartType2="bp-dys"
-                                             xLabel="Age"
-                                             yLabel="mm Hg"
-                                             {...plotdim} />
-                             </Col>
-                           </Row>
-
-                         </Grid>
+                         <Col xs={12} sm={6} md={6} lg={6}>
+                             <h5>Average Blood Pressure by Age</h5>
+                             <div className={this.checkInfoState(this.state.currentBPAge)}>
+                                    <h5 className={styles.dataDetails}>Age: {this.state.currentBPAge}</h5>
+                                    <h5 className={styles.dataDetails}>SYS: {this.state.currentSYS}</h5>
+                                     <h5 className={styles.dataDetails}>DYS: {this.state.currentDYS}</h5>
+                                </div>
+                             <BPBarGraph data={this.props.theState.bp_nest_all}
+                                         dataBars={styles.dataBars}
+                                         allAge={this.props.theState.bp_nest_all}
+                                         maleAge={this.props.theState.bp_nest_M}
+                                         femaleAge={this.props.theState.bp_nest_F}
+                                         maleShowing={this.state.maleShowing}
+                                         femaleShowing={this.state.femaleShowing}
+                                         maleState={this.state.maleSelected}
+                                         femaleState={this.state.femaleSelected}
+                                         onDataBarHover={this.handleDataBarHover}
+                                         onDataBarOut={this.handleDataBarOut}
+                                         highlightThis={this.state.xHover}
+                                         updateDetails={this.handleBPDetails}
+                                         chartType1="bp-sys"
+                                         chartType2="bp-dys"
+                                         xLabel="Age"
+                                         yLabel="mm Hg"
+                                         {...plotdim} />
+                         </Col>
+                       </Row>
 
                     </Modal.Body>
 

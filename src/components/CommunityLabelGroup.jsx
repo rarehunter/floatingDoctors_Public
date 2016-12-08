@@ -2,6 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import Label from '../components/CommunityLabel.jsx';
 import styles from '../css/main.css';
+import {MdLocationOn} from 'react-icons/lib/md';
 import * as Meta from '../Metadata.jsx';
 import ReactTransitionGroup from 'react-addons-transition-group';
 
@@ -45,9 +46,12 @@ export default class CommunityLabelGroup extends React.Component {
 		}
 		return (
 			<g>
-				<text className={styles.labelTitle} textAnchor={this.props.textAnchor} x={this.props.x+this.props.width/2} y={this.props.y}>
-					{this.props.title}
-				</text>
+				<g transform={`translate(${this.props.x+this.props.width/2}, ${this.props.y})`}>
+					<MdLocationOn x="-48" y="-12"/>
+					<text className={styles.labelTitle} textAnchor={this.props.textAnchor}>
+						{this.props.title}
+					</text>
+				</g>
 				<ReactTransitionGroup component='g'>
 				{this.props.data && this.props.data.map((d, i) => {
 					return (

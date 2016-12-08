@@ -756,8 +756,8 @@ export default class MainView extends React.Component {
 		} else {
 			return (
 				<div>
-				   <MultiviewDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.multiViewShowing} theState={this.state} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
-				   <PatientDetailsDialog isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
+				<MultiviewDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.multiViewShowing} theState={this.state} community={this.state.communityShowing} onHideModal={this.handleUserClick}/>
+			    <PatientDetailsDialog paneCenterWidth={paneCenterWidth} isDialogActive={this.state.patientDialogShowing} patient={this.state.patientRecord} onHideModal={this.handlePatientClick} />
 
 					<svg className={styles.svgWrapper} width={width} height={height} transform={`translate(${this.props.x}, ${this.props.y})`}>
 						<MainViewLayout leftX={paneLeftX} centerX={paneCenterX} rightX={paneRightX}

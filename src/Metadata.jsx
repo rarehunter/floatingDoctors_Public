@@ -1,7 +1,7 @@
 // View related metadata
 export const PANE_SPAN = 14;
 export const PANE_LEFT_SPAN = 3;
-export const PADDING = 64;
+export const PADDING = 32;
 export const PANEL_CENTER_SPAN = 8;
 export const PANEL_RIGHT_SPAN = 3;
 

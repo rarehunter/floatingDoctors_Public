@@ -18,97 +18,97 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 html, body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 body {
-	font-family: 'Roboto', 'Open Sans', sans-serif;
+  font-family: 'Roboto', 'Open Sans', sans-serif;
 
-	background-color: #f9f9f9;
-	color: #232323;
+  background-color: #f9f9f9;
+  color: #232323;
 }
 
 .svgWrapper {
-	padding: 32px;
+  padding: 32px;
 }
 
 .btn {
-	background-color: #ff5500;
-	border: 2px solid #d9d9d9;
+  background-color: #ff5500;
+  border: 2px solid #d9d9d9;
 }
 
 /* CSS For MultiviewDialog and PatientDetailsDialog */
 .largeDialogBox{
     width: 65%;
-		margin: 0px auto;
+    margin: 0px auto;
 }
 .largeDialogBox:first-child{
-		box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
 }
 .largeDialogBox div:first-child{
-		border: 0;
-		border-radius: 0px 0px 5px 5px;
-		box-shadow: none;
+    border: 0;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: none;
 }
 .smallDialogBox{
     width: 60%;
-		margin: 0px auto;
+  margin: 0px auto;
 }
 .smallDialogBox:first-child{
-		box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.01), 0 20px 20px rgba(0,0,0,0.05);
 }
 .smallDialogBox div:first-child{
-		border: 0;
-		border-radius: 0px 0px 5px 5px;
-		box-shadow: none;
+    border: 0;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: none;
 }
 .bignumbers{
     font-size: 28px;
 }
 .gray{
     color: #B8B8B8;
-		margin: 8px 0px;
+    margin: 8px 0px;
 }
 .black{
     color: black;
-	font-weight: 500;
-	margin: 8px 0px;
+    font-weight: 500;
+    margin: 8px 0px;
 }
 
 .textRight{
@@ -116,44 +116,44 @@ body {
 }
 
 .recordSquare {
-	transition: all 0.3s ease-in-out;
-	fill: rgba(254,90,90,0.2);
+  transition: all 0.3s ease-in-out;
+  fill: rgba(254,90,90,0.2);
 }
 .recordSquare.highlighted {
-	fill: rgba(254,90,90,1);
+  fill: rgba(254,90,90,1);
 }
 
 .tick line {
-	visibility: hidden;
+  visibility: hidden;
 }
 
 .axisDot {
-	fill: #999;
+  fill: #999;
 }
 .axisDot:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 .modalTitle {
-	font-weight: 500;
-	line-height: 19px;
-	padding: 32px 32px 16px 32px;
+  font-weight: 500;
+  line-height: 19px;
+  padding: 32px 32px 16px 32px;
 }
 .modalSmallBody{
-	font-size: 14px;
-	padding: 0px 16px 32px 16px;
+  font-size: 14px;
+  padding: 0px 16px 32px 16px;
 }
 .modalLargeBody{
-	font-size: 12px;
-	padding: 0px 16px 32px 16px;
+  font-size: 12px;
+  padding: 0px 16px 32px 16px;
 }
 .modalLargeBody h5{
-	font-weight: 500;
+  font-weight: 500;
 }
 .modalLargeBody Row{
-	margin-bottom: 48px;
+  margin-bottom: 48px;
 }
 .modalFab {
-	position: relative;
+  position: relative;
   display: inline-block;
   width: 56px;
   height: 56px;
@@ -163,106 +163,109 @@ body {
   transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 0.2s;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.15);
-	background-color: white;
-	border:none;
-	transition: all 0.2s ease-in-out;
-	right: 20px;
+  background-color: white;
+  border:none;
+  transition: all 0.2s ease-in-out;
+  right: 20px;
   float: right;
   top: -30px;
 }
 .modalFab:hover {
-	color: #FE5A5A;
-	fill: #FE5A5A;
+  color: #FE5A5A;
+  fill: #FE5A5A;
+}
+.modalFab:focus{
+  outline: 0;
 }
 
 /* Label Style */
 .labelTitle {
-	font-size: 12px;
-	color: #232323;
-	fill: #232323;
-	font-weight: 500;
+  font-size: 12px;
+  color: #232323;
+  fill: #232323;
+  font-weight: 500;
 }
 .label {
-	font-size: 14px;
-	color: #333;
-	fill: #333;
-	font-weight: 300;
-	transform: scale(0.8);
-	transition: all 0.5s ease-in-out;
-	cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  fill: #333;
+  font-weight: 300;
+  transform: scale(0.8);
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
 }
 
 .label:hover, .label.highlighted {
-	// font-size: 14px;
-	color: #FE5A5A;
-	fill: #FE5A5A;
-	font-weight: 500;
-	transform: scale(1.0);
+  // font-size: 14px;
+  color: #FE5A5A;
+  fill: #FE5A5A;
+  font-weight: 500;
+  transform: scale(1.0);
 }
 /* Bar Style */
 .bar {
-	fill: #FE5A5A;
-	transition: all 0.5s ease-in-out;
+  fill: #FE5A5A;
+  transition: all 0.5s ease-in-out;
 }
 
 .bar.vertical.hide {
-	/*display: none;*/
-	height: 0;
+  /*display: none;*/
+  height: 0;
 }
 
 .bar.horizontal.hide {
-	/*display: none;*/
-	width: 0;
+  /*display: none;*/
+  width: 0;
 }
 
 .bar.start {
-	/*transform: translate(-100%, 0) ;*/
+  /*transform: translate(-100%, 0) ;*/
 }
 
 
 .circle {
-	fill: #FE5A5A;
-	fill-opacity: 0.4;
-	transition: all 0.5s ease-in-out;
+  fill: #FE5A5A;
+  fill-opacity: 0.4;
+  transition: all 0.5s ease-in-out;
 }
 .circle:hover {
 	fill-opacity: 0.8;
 }
 .circle.hide {
-	opacity: 0;
+  opacity: 0;
 }
 
 /* tooltip */
 .tooltip {
-	font-size: 12px;
-	font-weight: 500;
-	color: #232323;
-	transition: all 0.2s ease-in-out;
+  font-size: 12px;
+  font-weight: 500;
+  color: #232323;
+  transition: all 0.2s ease-in-out;
 }
 
 .tooltip rect {
-	fill: #000;
-	opacity: 0.2;
+  fill: #000;
+  opacity: 0.2;
 }
 
 .tooltip text.hide {
-	// visibility: hidden;
+  // visibility: hidden;
 }
 
 .mbar {
-	opacity: 0.8;
+  opacity: 0.8;
 }
 
 .mbar:hover {
-	opacity: 1;
+  opacity: 1;
 }
 
 .fbar {
-	opacity: 0.8;
+  opacity: 0.8;
 }
 
 .fbar:hover {
-	opacity: 1;
+  opacity: 1;
 }
 
 /* loading */

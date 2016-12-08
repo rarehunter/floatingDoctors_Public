@@ -7,3 +7,11 @@ body {
 a {
   color: rgb(3,155,229);
 }
+
+
+.modal.in .modal-dialog {
+	width: 100%;
+}
+.modal.fade .modal-dialog {
+	width: 100%;
+}

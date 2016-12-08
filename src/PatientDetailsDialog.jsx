@@ -20,6 +20,15 @@ export default class PatientDetailsDialog extends React.Component {
         this.props.onHideModal(false, this.props.patient, 0);
     }
 
+    updateModalWidth()
+    {
+        var style = {
+            width: parseInt(this.props.paneCenterWidth),
+            margin: "auto"
+        };
+        return style;
+    }
+
     render() {
         var record = this.props.patient;
         var name = "-";
@@ -62,6 +71,7 @@ export default class PatientDetailsDialog extends React.Component {
                     dialogClassName={styles.smallDialogBox}
                     backdrop={false}
                     keyboard={true}
+                    style={this.updateModalWidth()}
                 >
 
                     <Modal.Header bsClass={styles.modalTitle}>

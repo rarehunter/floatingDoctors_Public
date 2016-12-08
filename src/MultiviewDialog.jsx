@@ -59,6 +59,15 @@ export default class MultiviewDialog extends React.Component {
         this.props.onHideModal(false, '');
     }
 
+    updateModalWidth()
+    {
+        var style = {
+            width: parseInt(this.props.paneCenterWidth),
+            margin: "auto"
+        };
+        return style;
+    }
+
     render() {
         return (
                 <Modal
@@ -67,6 +76,7 @@ export default class MultiviewDialog extends React.Component {
                     dialogClassName={styles.largeDialogBox}
                     backdrop={false}
                     keyboard={true}
+                    style={this.updateModalWidth()}
                 >
 
                     <Modal.Header closeButton>

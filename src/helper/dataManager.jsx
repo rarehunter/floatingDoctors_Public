@@ -419,7 +419,7 @@ export default class DataManager {
         for(var i = 0; i < nested_data.length; i++)
         {
             if(nested_data[i].key.toUpperCase() == watersourceName.toUpperCase())
-                return nested_data.values;
+                return nested_data[i].values;
         }
         return null;
     }
@@ -433,7 +433,7 @@ export default class DataManager {
         for(var i = 0; i < nested_data.length; i++)
         {
             if(nested_data[i].key.toUpperCase() == banoName.toUpperCase())
-                return nested_data.values;
+                return nested_data[i].values;
         }
         return null;
     }

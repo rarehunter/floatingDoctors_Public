@@ -4,6 +4,30 @@ import * as Meta from '../Metadata.jsx';
 import PatientDetailsDialog from '../PatientDetailsDialog.jsx';
 
 
+const recordFemaleStyle = {
+    fill: Meta.RECORD_SQUARE_FEMALE,
+};
+
+const recordFemaleStyleHighlighted = {
+    fill: Meta.RECORD_SQUARE_FEMALE_HIGHLIGHTED
+};
+
+const recordMaleStyle = {
+    fill: Meta.RECORD_SQUARE_MALE
+};
+
+const recordMaleStyleHighlighted = {
+    fill: Meta.RECORD_SQUARE_MALE_HIGHLIGHTED
+};
+
+const recordDefaultStyle = {
+    fill: Meta.RECORD_SQUARE_DEFAULT
+}
+
+const recordDefaultStyleHighlighted = {
+    fill: Meta.RECORD_SQUARE_DEFAULT_HIGHLIGHTED
+}
+
 export default class RecordSquare extends React.Component {
     constructor() {
         super();
@@ -44,6 +68,7 @@ export default class RecordSquare extends React.Component {
 
     checkSquareClass() {
         let classy = "";
+
         if (this.props.record.state == 0) {
             classy = `${styles.recordSquare}`;
         } else {
@@ -51,10 +76,27 @@ export default class RecordSquare extends React.Component {
         }
         return classy;
     }
+
+    checkSquareStyle() {
+        let style = {};
+
+        if (this.props.record.state == 0) {
+            style = recordDefaultStyle;
+            if(this.props.record.gender.toUpperCase() == 'M'){ style = recordMaleStyle; }
+            if(this.props.record.gender.toUpperCase() == 'F'){ style = recordFemaleStyle; }
+        } else {
+            style = recordDefaultStyleHighlighted;
+            if(this.props.record.gender.toUpperCase() == 'M') { style = recordMaleStyleHighlighted; }
+            if(this.props.record.gender.toUpperCase() == 'F') { style = recordFemaleStyleHighlighted; }
+        }
+        return style;
+    }
     render() {
         // console.log(this.props.record.state);
         const translateX = this.props.x;
         const translateY = this.props.y + Meta.SquareSize() / 2;
+
+
         return (
             <rect 
                 width={Meta.SquareSize()} 
@@ -62,7 +104,8 @@ export default class RecordSquare extends React.Component {
                 x={this.props.x - Meta.SquareSize() / 2} 
                 y={this.props.y}
                 transform={`translate(${translateX}, ${translateY}) scale(${this.state.scale}) translate(${-translateX}, ${-translateY})`}
-                className={this.checkSquareClass()}
+                className={`${styles.recordSquare}`}
+                style={this.checkSquareStyle()}
                 onMouseOver = {this.handleMouseOver}
                 onMouseOut = {this.handleMouseOut}
                 onClick = {this.handleOnClick}

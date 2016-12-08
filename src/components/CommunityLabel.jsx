@@ -65,10 +65,13 @@ export default class CommunityLabel extends React.Component {
 	}
 
 	handleMouseOut() {
-		this.props.onLabelInteraction(
-			this.props.id,
-			0
-		);
+		if(!this.props.isDialogActive)
+		{
+			this.props.onLabelInteraction(
+				this.props.id,
+				0
+			);
+		}
 	}
 
 	handleClick() {

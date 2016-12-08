@@ -157,6 +157,7 @@ export default class LabelGroup extends React.Component {
 								key={`${this.props.type}_${d.name}`}
 								i = {i}
 								id={d.id}
+								isDialogActive={this.props.isDialogActive}
 								state={d.state}
 								type={this.props.type}
 								x={this.props.x} y={this.props.y + (Meta.LABEL_DY_L + Meta.LABEL_DY * i)}

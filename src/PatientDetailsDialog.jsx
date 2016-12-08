@@ -115,7 +115,6 @@ export default class PatientDetailsDialog extends React.Component {
                                     <h6 className={styles.gray}>{temp}</h6>
                                 </Col>
 
-
                             </Row>
                          </Grid>
                     </Modal.Body>

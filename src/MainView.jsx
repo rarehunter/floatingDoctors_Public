@@ -573,12 +573,16 @@ export default class MainView extends React.Component {
             age_nest_F = [];
             num_records = 0;
             gender_data = [[0,0]];
-            bh_nest_all = [],
-            bh_nest_M = [],
-            bh_nest_F = [],
-            bmi_nest_all = [],
-            bmi_nest_M = [],
-            bmi_nest_F = []
+            bh_nest_all = [];
+            bh_nest_M = [];
+            bh_nest_F = [];
+            bmi_nest_all = [];
+            bmi_nest_M = [];
+            bmi_nest_F = [];
+
+            this.handleLabelInteraction("community", '', 0);
+            this.updateCommunities(this.state.records, 0);
+
         }
         else
 		{
@@ -598,7 +602,7 @@ export default class MainView extends React.Component {
 			community_records = dataManager.getCommunityRecords(full_community_name);
 			num_records = community_records.length;
 
-            console.log(community_records);
+            // console.log(community_records);
 
             // call helper function to get a data array with the right filters applied
 			var age_by_all = this.getFilteredRecords("all", "age", community_records);
@@ -741,13 +745,14 @@ export default class MainView extends React.Component {
 	render() {
 		const { width, height } = this.state;
 		const paneLeftX = 0;
-		console.log("width: "+width);
 		const paneLeftWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANE_LEFT_SPAN - Meta.PADDING;
 		const paneCenterX = paneLeftWidth + Meta.PADDING;
 		const paneCenterWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_CENTER_SPAN;
 		const paneRightX = paneLeftWidth + paneCenterWidth + Meta.PADDING * 2;
 		const paneRightWidth = (width - Meta.PADDING * 2) / Meta.PANE_SPAN * Meta.PANEL_RIGHT_SPAN - Meta.PADDING;
 		var isDialogActive = this.state.multiViewShowing || this.state.patientDialogShowing
+		console.log('in Mainview render');
+		console.log(isDialogActive);
 		
 		if (this.state.diagnosis.length === 0 || this.state.treatments.length === 0 || this.state.waterSources.length === 0 || this.state.communities.length === 0 || this.state.bano.length === 0) {
 			return (
@@ -764,6 +769,7 @@ export default class MainView extends React.Component {
 							left = {[
 								<LabelGroup key="0"
 									type="diagnosis"
+									isDialogActive={isDialogActive}
 									direction='v'
 									title="Diagnosis"
 									tooltip="true"
@@ -774,6 +780,7 @@ export default class MainView extends React.Component {
 									x={paneLeftWidth} y="0"/>,
 								<LabelGroup key="1"
 									type="watersources"
+									isDialogActive={isDialogActive}
 									direction='v'
 									title="Water Sources"
 									tooltip="true"
@@ -793,6 +800,7 @@ export default class MainView extends React.Component {
 								/>,
 								<CommunityLabelGroup key="1"
 									type="community"
+									isDialogActive={isDialogActive}
 									direction='h'
 									title="Community"
 									tooltip="true"

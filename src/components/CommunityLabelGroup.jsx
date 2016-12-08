@@ -55,6 +55,7 @@ export default class CommunityLabelGroup extends React.Component {
 							key={`${this.props.type}_${d.name}`}
 							i = {i}
 							id={d.id}
+							isDialogActive={this.props.isDialogActive}
 							state={d.state}
 							type={this.props.type}
 							x={pos[i].x} y={pos[i].y}

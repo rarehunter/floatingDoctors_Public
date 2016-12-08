@@ -115,10 +115,15 @@ export default class Label extends React.Component {
 	}
 
 	handleMouseOut() {
-		this.props.onLabelInteraction(
-			this.props.id,
-			0
-		);
+		console.log("in handle mouse out: isDialogActive");
+		console.log(this.props.isDialogActive);
+		if(!this.props.isDialogActive)
+		{
+			this.props.onLabelInteraction(
+				this.props.id,
+				0
+			);
+		}
 	}
 
 	handleClick() {

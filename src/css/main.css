@@ -107,8 +107,8 @@ body {
 }
 .black{
     color: black;
-		font-weight: 500;
-		margin: 8px 0px;
+	font-weight: 500;
+	margin: 8px 0px;
 }
 
 .textRight{
@@ -225,6 +225,9 @@ body {
 	fill-opacity: 0.4;
 	transition: all 0.5s ease-in-out;
 }
+.circle:hover {
+	fill-opacity: 0.8;
+}
 .circle.hide {
 	opacity: 0;
 }
@@ -261,3 +264,178 @@ body {
 .fbar:hover {
 	opacity: 1;
 }
+
+/* loading */
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.loaderInner {
+  transform: translateY(-50%);
+  top: 60%;
+  position: absolute;
+  width: 100%;
+  color: #FE5A5A;
+  padding: 0 100px;
+  text-align: center;
+}
+
+.loaderInnerText {
+  transform: translateY(-50%);
+  top: 30%;
+  position: absolute;
+  width: 100%;
+  color: #FE5A5A;
+  padding: 0 100px;
+  text-align: center;
+}
+
+.loaderInnerText label {
+  transform: translateY(-50%);
+  top: 50%;
+  position: absolute;
+  width: 50%;
+  left: 25%;
+  color: #232323;
+  font-weight: 300;
+  font-size: 1.6em;
+  line-height: 1.8em;
+  padding: 0 100px;
+  text-align: center;
+  opacity: 0;
+}
+
+.loaderInner label {
+  font-size: 20px;
+  opacity: 0;
+  display:inline-block;
+}
+
+@keyframes lol {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  43% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  56% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+}
+
+@-webkit-keyframes lol {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-300px);
+  }
+  43% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  56% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(300px);
+  }
+}
+
+@keyframes txt {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  60% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+}
+
+@-webkit-keyframes txt {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-300px);
+  }
+  10% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  60% {
+    opacity: 0;
+    -webkit-transform: translateX(300px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(300px);
+  }
+}
+
+.loaderInner label:nth-child(6) {
+  -webkit-animation: lol 3s infinite ease-in-out;
+  animation: lol 3s infinite ease-in-out;
+}
+
+.loaderInner label:nth-child(5) {
+  -webkit-animation: lol 3s 100ms infinite ease-in-out;
+  animation: lol 3s 100ms infinite ease-in-out;
+}
+
+.loaderInner label:nth-child(4) {
+  -webkit-animation: lol 3s 200ms infinite ease-in-out;
+  animation: lol 3s 200ms infinite ease-in-out;
+}
+
+.loaderInner label:nth-child(3) {
+  -webkit-animation: lol 3s 300ms infinite ease-in-out;
+  animation: lol 3s 300ms infinite ease-in-out;
+}
+
+.loaderInner label:nth-child(2) {
+  -webkit-animation: lol 3s 400ms infinite ease-in-out;
+  animation: lol 3s 400ms infinite ease-in-out;
+}
+
+.loaderInner label:nth-child(1) {
+  -webkit-animation: lol 3s 500ms infinite ease-in-out;
+  animation: lol 3s 500ms infinite ease-in-out;
+}
+
+.loaderInnerText label:nth-child(2) {
+  -webkit-animation: txt 10s 5s infinite ease-in-out;
+  animation: txt 10s 5s infinite ease-in-out;
+}
+
+.loaderInnerText label:nth-child(1) {
+  -webkit-animation: txt 10s infinite ease-in-out;
+  animation: txt 10s infinite ease-in-out;
+}
+

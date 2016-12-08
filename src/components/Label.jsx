@@ -35,12 +35,11 @@ export default class Label extends React.Component {
 			value: this.props.value,
 			textAnchor: this.props.textAnchor,
 			direction: this.props.direction,
+			x: this.props.x,
+       		y: this.props.y,
 		});
 	}
 
-	componentDidUpdate() {
-
-	}
 	componentWillEnter(callback) {
        const el = ReactDOM.findDOMNode(this);
        this.setState({

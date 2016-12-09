@@ -51,7 +51,7 @@ export default class LabelGroup extends React.Component {
 			}
 		});
 	}
-	handleLabelInteraction(id, state) {
+	handleLabelInteraction(id, state, toFilter) {
 		const offsetX = this.state.tooltip.offsetX;
 		const offsetY = this.state.tooltip.offsetY;
 
@@ -116,7 +116,8 @@ export default class LabelGroup extends React.Component {
 		this.props.onLabelInteraction(
 			this.props.type,
 			id,
-			state
+			state,
+			toFilter
 		);
 	}
 
@@ -171,6 +172,9 @@ export default class LabelGroup extends React.Component {
 								onUserInput={this.props.onUserInput}
 								value = {d.name}
 								direction="h"
+								isFiltering={this.props.isFiltering}
+								activeLabel={this.props.activeLabel}
+								onFilterUpdate={this.props.onFilterUpdate}
 							/>
 						) : (
 							<Label
@@ -191,6 +195,9 @@ export default class LabelGroup extends React.Component {
 								onUserInput={this.props.onUserInput}
 								value = {d.name}
 								direction="v"
+								isFiltering={this.props.isFiltering}
+								activeLabel={this.props.activeLabel}
+								onFilterUpdate={this.props.onFilterUpdate}
 							/>
 						)
 					);

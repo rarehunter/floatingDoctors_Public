@@ -47,6 +47,7 @@ export default class MainChart extends React.Component {
                                     onUserInput={this.props.onUserInput}
                                     records={this.props.visitedDate[i].value}
                                     x={scaleX(d)}
+                                    isFiltering={this.props.isFiltering}
                                     height={Meta.MainChartHeight()}/>
                     })};
                     <MainAxis {...xSettings} tooltip="true"

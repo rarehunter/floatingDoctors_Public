@@ -21,7 +21,7 @@ export const SQUARE_ACTIVE_SCALE = 1.2;
 // DB related metadata
 export const DEFAULT_START_TIME = new Date('2014', '12', '01');
 export const DEFAULT_END_TIME = new Date('2016', '02', '01');
-export const DEFAULT_VISITS = 80; // Should be 160
+export const DEFAULT_VISITS = 40; // Should be 160
 export const MAX_RECORDS = 50;
 export const BAR_SIZE = 4;
 export const MAX_BAR_SIZE = 48;

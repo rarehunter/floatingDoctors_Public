@@ -41,18 +41,31 @@ export default class RecordSquare extends React.Component {
     }
 
     handleMouseOver() {
-        this.setState({
-            scale: 1.8,
-        });
-        this.props.onUserHover(this.props.record, 1);
+        if (this.props.isFiltering) {
+            if(this.props.record.state===1) {
+                this.setState({
+                    scale: 1.8,
+                });
+            }
+        } else {
+            this.setState({
+                scale: 1.8,
+            });
+            this.props.onUserHover(this.props.record, 1);
+        }  
     }
     handleMouseOut() {
         this.setState({
             scale: 1.0,
         });
-        if(!this.props.isDialogActive)
-        {
-            this.props.onUserHover(this.props.record, 0);
+        if (this.props.isFiltering) {
+         
+        } else {
+            
+            if(!this.props.isDialogActive)
+            {
+                this.props.onUserHover(this.props.record, 0);
+            }
         }
     }
     handleOnClick(){

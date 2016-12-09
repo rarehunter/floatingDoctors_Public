@@ -108,31 +108,86 @@ export default class Label extends React.Component {
 	}
 
 	handleMouseOver() {
-		this.props.onLabelInteraction(
-			this.props.id,
-			1
-		);
+		if (this.props.isFiltering) {
+
+		} else {
+			this.props.onLabelInteraction(
+				this.props.id,
+				1,
+				false
+			);
+		}
+		
 	}
 
 	handleMouseOut() {
-		if(!this.props.isDialogActive)
-		{
+		if (this.props.isFiltering) {
+
+		} else if(!this.props.isDialogActive) {
 			this.props.onLabelInteraction(
 				this.props.id,
-				0
+				0,
+				false
 			);
 		}
 	}
 
-	handleClick() {
-		if(this.props.isDialogActive)
-		{
-			this.props.onUserInput(true, this.props.value, this.props.type, this.props.groupRecords);
+	// handleClick() {
+	// 	if(this.props.isDialogActive)
+	// 	{
+	// 		this.props.onUserInput(true, this.props.value, this.props.type, this.props.groupRecords);
+	// 	}
+	// 	else
+	// 	{
+	// }
+	handleClick(e) {
+		// if(!this.props.isDialogActive) {
+		// 	if(e.shiftKey) {
+		// 		if (this.props.isFiltering) {
+		// 			this.props.onLabelInteraction(
+		// 				this.props.id,
+		// 				0,
+		// 				false
+		// 			);
+		// 		} else {
+		// 			this.props.onLabelInteraction(
+		// 				this.props.id,
+		// 				1, //enter filtering mode
+		// 				true
+		// 			);
+		// 		}
+		// 	}
+		// }
+
+		if(e.shiftKey) {
+			if (this.props.isFiltering) {
+				this.props.onLabelInteraction(
+					this.props.id,
+					0,
+					false
+				);
+			} else {
+				this.props.onLabelInteraction(
+					this.props.id,
+					1, //enter filtering mode
+					true
+				);
+			}
+		} else {
+			if(this.props.isFiltering) {
+				if (this.props.activeLabel !== '' && this.props.activeLabel.type !== this.props.type) {
+					if (this.props.state === 1) {
+						this.props.onFilterUpdate(this.props.type, this.state.value, false);
+					} else {
+					    this.props.onFilterUpdate(this.props.type, this.state.value, true);
+					}
+				}
+			} else {
+				this.props.onUserInput(true, this.props.value, this.props.type);
+			}
 		}
-		else
-		{
-			this.props.onUserInput(true, this.props.value, this.props.type);
-		}
+		
+		
 	}
 
 	render() {

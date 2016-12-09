@@ -15,7 +15,7 @@ export default class AxisDot extends React.Component {
 
     handleMouseOver() {
         this.setState({
-            scale: 1.5
+            scale: 2
         });
         this.props.onDotInteraction(this.props.i, 1);
     }

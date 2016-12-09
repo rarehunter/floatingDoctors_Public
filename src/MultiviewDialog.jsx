@@ -8,6 +8,7 @@ import BPBarGraph from './components/bp-bar-graph.jsx';
 import GenderBars from './components/GenderBars.jsx';
 import Rebase from 're-base';
 import D3LineChart from './components/d3LineChart.jsx';
+import {MdClose} from 'react-icons/lib/md';
 
 var num_records; // test
 
@@ -164,7 +165,7 @@ export default class MultiviewDialog extends React.Component {
         const chartWidth = (this.props.paneCenterWidth - 32*3)/ 2;
         const plotdim = {
             width: chartWidth,
-            height: 300,
+            height: 240,
             padding: 24
         }
         return (
@@ -172,12 +173,12 @@ export default class MultiviewDialog extends React.Component {
                     show={this.props.isDialogActive}
                     onHide={this.hideModal}
                     dialogClassName={styles.largeDialogBox}
-                    backdrop={false}
+                    backdrop={true}
                     keyboard={true}
                     style={this.updateModalWidth()}
                 >
 
-                    <Modal.Header closeButton>
+                    <Modal.Header>
                         <Modal.Title id="contained-modal-title-lg">{this.props.groupName}</Modal.Title>
                     </Modal.Header>
 
@@ -324,7 +325,7 @@ export default class MultiviewDialog extends React.Component {
                     </Modal.Body>
 
                     <Modal.Footer bsClass=''>
-                        <Button bsClass={styles.modalFab} onClick={this.hideModal}>Close</Button>
+                        <Button bsClass={styles.modalFab} onClick={this.hideModal}><MdClose /></Button>
                     </Modal.Footer>
 
                 </Modal>

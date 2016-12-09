@@ -164,6 +164,7 @@ body {
 .modalFab:hover {
   color: #2A3242;
   fill: #2A3242;
+  box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.2);
 }
 .modalFab:focus{
   outline: 0;

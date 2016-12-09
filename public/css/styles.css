@@ -32,6 +32,9 @@ a {
 	font-size: 2em;
 	font-weight: 500;
 }
+.modal-backdrop.in {
+	opacity: 0;
+}
 
 
 .axis path{

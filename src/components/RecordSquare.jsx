@@ -42,7 +42,7 @@ export default class RecordSquare extends React.Component {
 
     handleMouseOver() {
         this.setState({
-            scale: 1.2,
+            scale: 1.8,
         });
         this.props.onUserHover(this.props.record, 1);
     }

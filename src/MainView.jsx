@@ -86,6 +86,7 @@ export default class MainView extends React.Component {
             waterSources: [],
             bano: [],
             lines: [],
+            tooltipsDisplay: false,
         };
         this.handleUserClick = this.handleUserClick.bind(this);
         this.handlePatientClick = this.handlePatientClick.bind(this);
@@ -769,6 +770,7 @@ export default class MainView extends React.Component {
         var bh_nest_all, bh_nest_M, bh_nest_F;
         var bmi_nest_all, bmi_nest_M, bmi_nest_F;
         var bp_nest_all, bp_nest_M, bp_nest_F;
+        var tooltip_display;
 
         if(groupName == '')
         {
@@ -788,6 +790,7 @@ export default class MainView extends React.Component {
             bp_nest_all = [];
             bp_nest_M = [];
             bp_nest_F = [];
+            tooltip_display = false;
 
             this.handleLabelInteraction("community", '', 0);
             this.updateCommunities(this.state.records, 0);
@@ -918,12 +921,36 @@ export default class MainView extends React.Component {
             }
 
             let updatedRecords = dataManager.records;
-            console.log("Filters:");
-            console.log(filters);
+
+            const activeLabel = this.state.activeLabel;
+            if (activeLabel.type === 'diagnosis') {
+                const diagnosis = this.state.diagnosis.find(d => {
+                    return d.id === activeLabel.value;
+                });
+                updatedRecords = dataManager.getRecordsByDiagnosis(diagnosis.name, updatedRecords);
+            } else if (activeLabel.type === 'treatment') {
+                const treatment = this.state.treatments.find(t => {
+                    return t.id === activeLabel.value;
+                });
+                updatedRecords = dataManager.getRecordsByTreatments(treatment.name, updatedRecords);
+            } else if (activeLabel.type === 'watersources') {
+                const watersource = this.state.waterSources.find(w => {
+                    return w.id === activeLabel.value;
+                });
+                updatedRecords = dataManager.getRecordsByWatersource(watersource.name, updatedRecords);
+            } else if (activeLabel.type === 'bano') {
+                const bano = this.state.bano.find(b => {
+                    return b.id === activeLabel.value;
+                });
+                updatedRecords = dataManager.getRecordsByBano(bano.name, updatedRecords);
+            } else if (activeLabel.type === 'community') {
+                const community = this.state.communities.find(c => {
+                    return c.id === activeLabel.value;
+                });
+                updatedRecords = dataManager.getRecordsByCommunity(community.name, updatedRecords);
+            }
+
             filters.map((f, i) => {
-                console.log("Before filtering: ", updatedRecords.length);
-                console.log(f);
-                console.log(isAdd);
                 if (f.type === 'community') {
                     updatedRecords = dataManager.getRecordsByCommunity(f.name, updatedRecords);
                 }
@@ -939,17 +966,10 @@ export default class MainView extends React.Component {
                 if (f.type === 'bano') {
                     updatedRecords = dataManager.getRecordsByBano(f.name, updatedRecords);
                 }
-                console.log("After filtering: " + updatedRecords.length);
             });
 
             groupRecords = updatedRecords;
-
-            
-
-
-
-
-
+        
             /* Grab community records from dataManager to be displayed in MultiviewDialog */
             // Check filtered Records
             // if(type == 'community')
@@ -1162,6 +1182,7 @@ export default class MainView extends React.Component {
             bp_nest_all: bp_nest_all,
             bp_nest_M: bp_nest_M,
             bp_nest_F: bp_nest_F,
+            tooltipsDisplay: tooltip_display
         });
     }
 
@@ -1423,6 +1444,7 @@ export default class MainView extends React.Component {
                                             direction='v'
                                             title="Diagnosis"
                                             tooltip="true"
+                                            tooltipsDisplay="false"
                                             tooltipPos="right"
                                             textAnchor="end"
                                             isFiltering={this.state.isFiltering}
@@ -1439,6 +1461,7 @@ export default class MainView extends React.Component {
                                             direction='v'
                                             title="Water Sources"
                                             tooltip="true"
+                                            tooltipsDisplay="false"
                                             tooltipPos="right"
                                             textAnchor="end"
                                             isFiltering={this.state.isFiltering}
@@ -1465,6 +1488,7 @@ export default class MainView extends React.Component {
                                             direction='h'
                                             title="Community"
                                             tooltip="true"
+                                            tooltipsDisplay="false"
                                             textAnchor="middle"
                                             isFiltering={this.state.isFiltering}
                                             activeLabel={this.state.activeLabel}
@@ -1484,6 +1508,7 @@ export default class MainView extends React.Component {
                                             title="Treatment"
                                             textAnchor="start"
                                             tooltip="true"
+                                            tooltipsDisplay="false"
                                             tooltipPos="left"
                                             isFiltering={this.state.isFiltering}
                                             activeLabel={this.state.activeLabel}

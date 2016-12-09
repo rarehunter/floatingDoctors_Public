@@ -123,6 +123,7 @@ export default class LabelGroup extends React.Component {
 
 	getTooltip() {
 
+		// this.props.tooltipsDisplay
 		if (this.props.tooltip !== "true") {
 			return "";
 		} else {

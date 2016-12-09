@@ -140,7 +140,7 @@ export default class MultiviewDialog extends React.Component {
     }
 
     hideModal() {
-        this.props.onHideModal(false, '', this.props.groupName, false);
+        this.props.onHideModal(false, '', this.props.type, false);
     }
 
     updateModalWidth()

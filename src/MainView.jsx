@@ -744,7 +744,7 @@ export default class MainView extends React.Component {
     }
 
 
-    handleUserClick(multiViewShowing, groupName, type, records = dataManager.records) {
+    handleUserClick(multiViewShowing, groupName, type, isAdd=true) {
 
         //Translate abbreviation to full community name
         var groupRecords;
@@ -786,12 +786,111 @@ export default class MainView extends React.Component {
         }
         else
         {
-            // search for community full name if type == community
-            if(type == 'community')
+            // Step 1: filter out data
+            // handling
+            const filter = {
+                'type': type,
+                'name': groupName
+            }
+            const filters = this.state.filters.slice();
+
+            let toState = 0;
+            if(isAdd)
             {
+                filters.push(filter);
+                toState = 1;
+            }
+            else{
+                if(filters.length !== 0)
+                {
+                    const index = filters.map((f, i) => {
+                        if(f.type == type && f.value == groupName)
+                        {
+                            return i;
+                        }
+                    });
+                    filters.splice(i, 1);
+                }
+            }
+
+            //  update diagnosis UI
+            if (type === "diagnosis") {
+                const diagnosis = this.state.diagnosis.slice();
+                const results = diagnosis.map((d, i) => {
+                    if (d.name === groupName) {
+                        d.state = toState;
+                    }
+                    return d;
+                });
+                this.setState({
+                    diagnosis: results,
+                    filters: filters
+                });
+            }
+
+            // update treatment UI
+            if (type === "treatment") {
+                const treatments = this.state.treatments.slice();
+                const results = treatments.map((t, i) => {
+                    if (t.name === groupName) {
+                        t.state = toState;
+                    }
+                    return t;
+                });
+                this.setState({
+                    treatment: results,
+                    filters: filters
+                });
+            }
+
+            // update water source UI
+            if (type === "watersources") {
+                const watersources = this.state.waterSources.slice();
+                const results = watersources.map((w, i) => {
+                    if (w.name === groupName) {
+                        w.state = toState;
+                    }
+                    return w;
+                });
+                this.setState({
+                    waterSources: results,
+                    filters: filters
+                });
+            }
+
+            // update bano UI
+            if (type === "bano") {
+                const bano = this.state.bano.slice();
+                const results = bano.map((b, i) => {
+                    if (b.name === groupName) {
+                        b.state = toState;
+                    }
+                    return b;
+                });
+                this.setState({
+                    bano: results,
+                    filters: filters
+                });
+            }
+
+            // update community UI
+            if (type === "community") {
+                const communities = this.state.communities.slice();
+                const results = communities.map((b, i) => {
+                    if (c.name === groupName) {
+                        c.state = toState;
+                    }
+                    return c;
+                });
+                this.setState({
+                    communities: results,
+                    filters: filters
+                });
+
+                // update community to short name
                 var dict_array = Object.entries(Meta.COMMUNITY_NAME_DICT);
 
-                // Translation from abbreviation to full name
+                // Translation from abbreviation to full name for UI purpose
                 for (var i = 0; i < dict_array.length; i++)
                 {
                     if(dict_array[i][1] === groupName)
@@ -800,34 +899,69 @@ export default class MainView extends React.Component {
                         break;
                     }
                 }
+
             }
+
+            let updatedRecords = dataManager.records;
+            console.log("Filters:");
+            console.log(filters);
+            filters.map((f, i) => {
+                console.log("Before filtering: ", updatedRecords.length);
+                console.log(f);
+                console.log(isAdd);
+                if (f.type === 'community') {
+                    updatedRecords = dataManager.getRecordsByCommunity(f.name, updatedRecords);
+                }
+                if (f.type === 'diagnosis') {
+                    updatedRecords = dataManager.getRecordsByDiagnosis(f.name, updatedRecords);
+                }
+                if (f.type === 'treatment') {
+                    updatedRecords = dataManager.getRecordsByTreatments(f.name, updatedRecords);
+                }
+                if (f.type === 'watersources') {
+                    updatedRecords = dataManager.getRecordsByWatersource(f.name, updatedRecords);
+                }
+                if (f.type === 'bano') {
+                    updatedRecords = dataManager.getRecordsByBano(f.name, updatedRecords);
+                }
+                console.log("After filtering: " + updatedRecords.length);
+            });
+
+            groupRecords = updatedRecords;
+
+            
+
+
+
+
 
             /* Grab community records from dataManager to be displayed in MultiviewDialog */
             // Check filtered Records
-            if(type == 'community')
-            {
-                groupRecords = dataManager.getRecordsByCommunity(groupName, records);
-            }
-            if(type == 'diagnosis')
-            {
-                groupRecords = dataManager.getRecordsByDiagnosis(groupName, records);
-            }
-            if(type == 'treatment')
-            {
-                groupRecords = dataManager.getRecordsByTreatments(groupName, records);
-            }
-            if(type == 'watersources')
-            {
-                groupRecords = dataManager.getRecordsByWatersource(groupName, records);
-            }
-            if(type == 'bano')
-            {
-                groupRecords = dataManager.getRecordsByBano(groupName, records);
-            }
+            // if(type == 'community')
+            // {
+            //     groupRecords = dataManager.getRecordsByCommunity(groupName, records);
+            // }
+            // if(type == 'diagnosis')
+            // {
+            //     groupRecords = dataManager.getRecordsByDiagnosis(groupName, records);
+            // }
+            // if(type == 'treatment')
+            // {
+            //     groupRecords = dataManager.getRecordsByTreatments(groupName, records);
+            // }
+            // if(type == 'watersources')
+            // {
+            //     groupRecords = dataManager.getRecordsByWatersource(groupName, records);
+            // }
+            // if(type == 'bano')
+            // {
+            //     groupRecords = dataManager.getRecordsByBano(groupName, records);
+            // }
 
             num_records = groupRecords.length;
 
 
+            // Step 2: rendering part
             // call helper function to get a data array with the right filters applied
             var age_by_all = this.getFilteredRecords("all", "age", groupRecords);
             var age_by_M = this.getFilteredRecords("M", "age", groupRecords);
@@ -1174,7 +1308,7 @@ export default class MainView extends React.Component {
             const bano = this.state.bano.find(b => {
                 return b.id === activeLabel.value;
             });
-            updatedRecords = dataManager.getRecordsByBano(bane.name, updatedRecords);
+            updatedRecords = dataManager.getRecordsByBano(bano.name, updatedRecords);
         } else if (activeLabel.type === 'community') {
             const community = this.state.communities.find(c => {
                 return c.id === activeLabel.value;
@@ -1342,6 +1476,7 @@ export default class MainView extends React.Component {
                                             data={this.state.bano}
                                             textAnchor="start"
                                             isFiltering={this.state.isFiltering}
+                                            activeLabel={this.state.activeLabel}
                                             onLabelInteraction={this.handleLabelInteraction}
                                             groupRecords={this.state.groupRecords}
                                             onUserInput={this.handleUserClick}

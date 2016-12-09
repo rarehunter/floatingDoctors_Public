@@ -132,61 +132,64 @@ export default class Label extends React.Component {
 		}
 	}
 
-	// handleClick() {
-	// 	if(this.props.isDialogActive)
-	// 	{
-	// 		this.props.onUserInput(true, this.props.value, this.props.type, this.props.groupRecords);
-	// 	}
-	// 	else
-	// 	{
-	// }
-	handleClick(e) {
-		// if(!this.props.isDialogActive) {
-		// 	if(e.shiftKey) {
-		// 		if (this.props.isFiltering) {
-		// 			this.props.onLabelInteraction(
-		// 				this.props.id,
-		// 				0,
-		// 				false
-		// 			);
-		// 		} else {
-		// 			this.props.onLabelInteraction(
-		// 				this.props.id,
-		// 				1, //enter filtering mode
-		// 				true
-		// 			);
-		// 		}
-		// 	}
-		// }
 
-		if(e.shiftKey) {
-			if (this.props.isFiltering) {
-				this.props.onLabelInteraction(
-					this.props.id,
-					0,
-					false
-				);
-			} else {
-				this.props.onLabelInteraction(
-					this.props.id,
-					1, //enter filtering mode
-					true
-				);
-			}
-		} else {
-			if(this.props.isFiltering) {
-				if (this.props.activeLabel !== '' && this.props.activeLabel.type !== this.props.type) {
-					if (this.props.state === 1) {
-						this.props.onFilterUpdate(this.props.type, this.state.value, false);
-					} else {
-					    this.props.onFilterUpdate(this.props.type, this.state.value, true);
-					}
+	handleClick(e) {
+		console.log("isDialogActive: ", this.props.isDialogActive);
+		console.log("isFiltering: ", this.props.isFiltering);
+		// when dialog is active
+		if(this.props.isDialogActive)
+		{
+			console.log("this.props.activeLabel: ", this.props.activeLabel);
+			console.log("this.props.activeLabel.type: ", this.props.activeLabel.type);
+			console.log("this.props.type", this.props.type);
+			if(this.props.activeLabel !== '' && this.props.activeLabel.type != this.props.type)
+			{
+				if(this.props.state == 1)
+				{
+					this.props.onUserInput(true, this.props.value, this.props.type, false);
 				}
-			} else {
-				this.props.onUserInput(true, this.props.value, this.props.type);
+				else
+				{
+					this.props.onUserInput(true, this.props.value, this.props.type, true);
+				}
 			}
 		}
-		
+		else
+		{
+			if(e.shiftKey) {
+				if (this.props.isFiltering) {
+					this.props.onLabelInteraction(
+						this.props.id,
+						0,
+						false
+					);
+				} else {
+					this.props.onLabelInteraction(
+						this.props.id,
+						1, //enter filtering mode
+						true
+					);
+				}
+			} else {
+				if(this.props.isFiltering) {
+					if (this.props.activeLabel !== '' && this.props.activeLabel.type !== this.props.type) {
+						if (this.props.state === 1) {
+							this.props.onFilterUpdate(this.props.type, this.state.value, false);
+						} else {
+						    this.props.onFilterUpdate(this.props.type, this.state.value, true);
+						}
+					}
+				} else {
+					this.props.onUserInput(true, this.props.value, this.props.type, true);
+					this.props.onLabelInteraction(
+						this.props.id,
+						1, //enter filtering mode
+						true
+					);
+				}
+			}
+
+		}
 		
 	}
 

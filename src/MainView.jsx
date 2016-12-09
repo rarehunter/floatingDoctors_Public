@@ -395,7 +395,7 @@ export default class MainView extends React.Component {
         });
     }
 
-    handleLabelInteraction(type, id, state, toFilter) {
+    handleLabelInteraction(type, id, state, toFilter = false) {
         let activeLabel = "";
         let toState = 0;
         let toRecordState = 0;

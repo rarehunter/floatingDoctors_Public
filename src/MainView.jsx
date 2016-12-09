@@ -42,7 +42,7 @@ var treatmentData;
 var waterSourceData;
 var banoData;
 var dataManager;
-
+var dict_array = Object.entries(Meta.COMMUNITY_NAME_DICT);
 
 export default class MainView extends React.Component {
 
@@ -498,7 +498,7 @@ export default class MainView extends React.Component {
         }
         if (type === "community") {
 
-        console.log("handleLabelInteraction: "+activeLabel.type);
+        // console.log("handleLabelInteraction: "+activeLabel.type);
             const communities = this.state.communities.slice();
             const results = communities.map((c, i) => {
                 if (c.id === id) {
@@ -908,9 +908,6 @@ export default class MainView extends React.Component {
                     filters: filters
                 });
 
-                // update community to short name
-                var dict_array = Object.entries(Meta.COMMUNITY_NAME_DICT);
-
                 // Translation from abbreviation to full name for UI purpose
                 for (var i = 0; i < dict_array.length; i++)
                 {
@@ -924,7 +921,6 @@ export default class MainView extends React.Component {
             }
 
             let updatedRecords = dataManager.records;
-
             const activeLabel = this.state.activeLabel;
             if (activeLabel.type === 'diagnosis') {
                 const diagnosis = this.state.diagnosis.find(d => {
@@ -950,12 +946,32 @@ export default class MainView extends React.Component {
                 const community = this.state.communities.find(c => {
                     return c.id === activeLabel.value;
                 });
-                updatedRecords = dataManager.getRecordsByCommunity(community.name, updatedRecords);
+
+                // Translation from abbreviation to full name for UI purpose
+                var fullCommunityName;
+                for (var i = 0; i < dict_array.length; i++)
+                {
+                    if(dict_array[i][1] === community.name)
+                    {
+                        fullCommunityName = dict_array[i][0];
+                        break;
+                    }
+                }
+                updatedRecords = dataManager.getRecordsByCommunity(fullCommunityName, updatedRecords);
             }
 
             filters.map((f, i) => {
                 if (f.type === 'community') {
-                    updatedRecords = dataManager.getRecordsByCommunity(f.name, updatedRecords);
+                    var fullCommunityName;
+                    for (var i = 0; i < dict_array.length; i++)
+                    {
+                        if(dict_array[i][1] === f.name)
+                        {
+                            fullCommunityName = dict_array[i][0];
+                            break;
+                        }
+                    }
+                    updatedRecords = dataManager.getRecordsByCommunity(fullCommunityName, updatedRecords);
                 }
                 if (f.type === 'diagnosis') {
                     updatedRecords = dataManager.getRecordsByDiagnosis(f.name, updatedRecords);
@@ -1255,8 +1271,6 @@ export default class MainView extends React.Component {
     	} else {
     		if (filters.length !== 0) {
     			const index = filters.map((d, i) => {
-    				console.log("type: "+d.type+" "+type);
-    				console.log("value: "+d.value+" "+groupName);
     				if (d.type === type && d.value === groupName) {
     					return i;
     				}
@@ -1265,7 +1279,7 @@ export default class MainView extends React.Component {
     		}
     		toState = 2;
     	}
-    	console.log(filters);
+    	// console.log(filters);
     	
         if (type === "diagnosis") {
             const diagnosis = this.state.diagnosis.slice();

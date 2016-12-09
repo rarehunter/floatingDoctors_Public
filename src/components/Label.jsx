@@ -147,7 +147,7 @@ export default class Label extends React.Component {
 			console.log("this.props.type", this.props.type);
 			if(this.props.activeLabel !== '' && this.props.activeLabel.type != this.props.type)
 			{
-				if(this.props.state == 1)
+				if(this.props.state == 3)
 				{
 					this.props.onUserInput(true, this.props.value, this.props.type, false);
 				}
@@ -217,7 +217,7 @@ export default class Label extends React.Component {
 							className={this.checkBarState(this.state.textAnchor, this.state.direction)}
 							x={this.props.barX}
 							y={this.props.barY}
-							height={this.props.barHeight}
+							height={parseFloat(this.props.barHeight)}
 							width={this.props.barWidth}
 						>
 						</rect>
@@ -239,7 +239,7 @@ export default class Label extends React.Component {
 						className={this.checkBarState(this.state.textAnchor, this.state.direction)}
 						x={this.props.barX}
 						y={this.props.barY}
-						height={this.props.barHeight}
+						height={parseFloat(this.props.barHeight)}
 						width={this.props.barWidth}
 					>
 					</rect>

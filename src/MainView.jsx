@@ -816,19 +816,21 @@ export default class MainView extends React.Component {
             if(isAdd)
             {
                 filters.push(filter);
-                toState = 1;
+                toState = 3;
             }
             else{
                 if(filters.length !== 0)
                 {
                     const index = filters.map((f, i) => {
-                        if(f.type == type && f.value == groupName)
+						if(f.type == type && f.value == groupName)
                         {
                             return i;
                         }
                     });
-                    filters.splice(i, 1);
+                   
+                    filters.splice(index, 1);
                 }
+                toState = 2;
             }
 
             //  update diagnosis UI
@@ -894,7 +896,7 @@ export default class MainView extends React.Component {
             // update community UI
             if (type === "community") {
                 const communities = this.state.communities.slice();
-                const results = communities.map((b, i) => {
+                const results = communities.map((c, i) => {
                     if (c.name === groupName) {
                         c.state = toState;
                     }

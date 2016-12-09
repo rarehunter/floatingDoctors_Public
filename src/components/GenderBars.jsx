@@ -34,25 +34,61 @@ export default (props) => {
 		female_percentage = Math.round(props.data[0][1] / total * 100);
 	}
 
-	const barPropsM = {
-		x: 15,
-		y: 15,
-		height: 10,
-		width: props.data[0][0] % 200,
-		number: props.data[0][0],
-		percentage: male_percentage,
-		fill: '#5A95FE',
-	};
+	var higher;
+	var lower;
+	var barPropsF;
+	var barPropsM;
 
-	const barPropsF = {
-		x: 15,
-		y: 30,
-		height: 10,
-		width: props.data[0][1] % 200,
-		number: props.data[0][1],
-		percentage: female_percentage,
-		fill: '#FF5858',
-	};
+	if(props.data[0][0] >= props.data[0][1])
+	{
+		higher = props.data[0][0];
+		lower = props.data[0][1];
+
+		barPropsF = {
+			x: 15,
+			y: 15,
+			height: 10,
+			width: Math.round((lower * 150) / higher),
+			number: props.data[0][0],
+			percentage: female_percentage,
+			fill: '#FF5858',
+		};
+
+		barPropsM = {
+			x: 15,
+			y: 30,
+			height: 10,
+			width: 150,
+			number: props.data[0][1],
+			percentage: male_percentage,
+			fill: '#5A95FE',
+		};
+	}
+	else
+	{
+		higher = props.data[0][1];
+		lower = props.data[0][0];
+
+		barPropsF = {
+			x: 15,
+			y: 15,
+			height: 10,
+			width: 150,
+			number: props.data[0][1],
+			percentage: female_percentage,
+			fill: '#FF5858',
+		};
+
+		barPropsM = {
+			x: 15,
+			y: 30,
+			height: 10,
+			width: Math.round((lower * 150) / higher),
+			number: props.data[0][0],
+			percentage: male_percentage,
+			fill: '#5A95FE',
+		};
+	}
 
 	return <svg height="100">
 			<GBar {...props}

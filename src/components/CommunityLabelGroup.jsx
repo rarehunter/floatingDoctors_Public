@@ -15,11 +15,12 @@ export default class CommunityLabelGroup extends React.Component {
 		this.handleLabelInteraction = this.handleLabelInteraction.bind(this);
 	}
 
-	handleLabelInteraction(id, state) {
+	handleLabelInteraction(id, state, toFilter) {
 		this.props.onLabelInteraction(
 			this.props.type,
 			id,
-			state
+			state,
+			toFilter
 		);
 	}
 
@@ -47,7 +48,6 @@ export default class CommunityLabelGroup extends React.Component {
 		return (
 			<g>
 				<g transform={`translate(${this.props.x+this.props.width/2}, ${this.props.y})`}>
-					<MdLocationOn x="-48" y="-12"/>
 					<text className={styles.labelTitle} textAnchor={this.props.textAnchor}>
 						{this.props.title}
 					</text>
@@ -69,6 +69,9 @@ export default class CommunityLabelGroup extends React.Component {
 							onUserInput={this.props.onUserInput}
 							value = {d.name}
 							fullName = {d.full_name}
+							isFiltering={this.props.isFiltering}
+							activeLabel={this.props.activeLabel}
+							onFilterUpdate={this.props.onFilterUpdate}
 						/>
 					);
 				})}

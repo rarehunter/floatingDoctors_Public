@@ -68,6 +68,8 @@ export default class Label extends React.Component {
 			classy = `${styles.label} ${styles.highlighted}`;
 		} else if (state === 2) {
 			classy = `${styles.label}`;
+		} else if (state === 3) {
+			classy = `${styles.label} ${styles.highlighted}`;
 		} else {
 			classy = `${styles.label}`;
 		}
@@ -91,6 +93,8 @@ export default class Label extends React.Component {
 		if (state === 1) {
 			classy += ` ${styles.bar} ${styles.hide}`;
 		} else if (state === 2) {
+			classy += ` ${styles.bar} ${styles.show}`;
+		} else if (state === 3) {
 			classy += ` ${styles.bar} ${styles.show}`;
 		} else {
 			classy += ` ${styles.bar} ${styles.hide}`;
@@ -116,8 +120,7 @@ export default class Label extends React.Component {
 				1,
 				false
 			);
-		}
-		
+		}	
 	}
 
 	handleMouseOut() {
@@ -173,7 +176,7 @@ export default class Label extends React.Component {
 			} else {
 				if(this.props.isFiltering) {
 					if (this.props.activeLabel !== '' && this.props.activeLabel.type !== this.props.type) {
-						if (this.props.state === 1) {
+						if (this.props.state === 3) {
 							this.props.onFilterUpdate(this.props.type, this.state.value, false);
 						} else {
 						    this.props.onFilterUpdate(this.props.type, this.state.value, true);

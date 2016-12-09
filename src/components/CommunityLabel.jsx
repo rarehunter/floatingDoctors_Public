@@ -26,6 +26,8 @@ export default class CommunityLabel extends React.Component {
 			classy = `${styles.label} ${styles.highlighted}`;
 		} else if (state === 2) {
 			classy = `${styles.label}`;
+		} else if (state === 3) {
+			classy = `${styles.label} ${styles.highlighted}`;
 		} else {
 			classy = `${styles.label}`;
 		}
@@ -51,6 +53,8 @@ export default class CommunityLabel extends React.Component {
 			classy += ` ${styles.circle} ${styles.hide}`;
 		} else if (state === 2) {
 			classy += ` ${styles.circle} ${styles.show}`;
+		} else if (state === 3) {
+			classy += ` ${styles.circle} ${styles.show}`;
 		} else {
 			classy += ` ${styles.circle} ${styles.hide}`;
 		}
@@ -58,15 +62,21 @@ export default class CommunityLabel extends React.Component {
 	}
 
 	handleMouseOver() {
-		this.props.onLabelInteraction(
-			this.props.id,
-			1
-		);
+		if (this.props.isFiltering) {
+
+		} else {
+			this.props.onLabelInteraction(
+				this.props.id,
+				1,
+				false
+			);
+		}
 	}
 
 	handleMouseOut() {
-		if(!this.props.isDialogActive)
-		{
+		if (this.props.isFiltering) {
+
+		} else if(!this.props.isDialogActive) {
 			this.props.onLabelInteraction(
 				this.props.id,
 				0
@@ -74,8 +84,34 @@ export default class CommunityLabel extends React.Component {
 		}
 	}
 
-	handleClick() {
-		this.props.onUserInput(true, this.props.value, this.props.type);
+	handleClick(e) {
+		if(e.shiftKey) {
+			if (this.props.isFiltering) {
+				this.props.onLabelInteraction(
+					this.props.id,
+					0,
+					false
+				);
+			} else {
+				this.props.onLabelInteraction(
+					this.props.id,
+					1, 
+					true 
+				);
+			}
+		} else {
+			if(this.props.isFiltering) {
+				if (this.props.activeLabel !== '' && this.props.activeLabel.type !== this.props.type) {
+					if (this.props.state === 3) {
+						this.props.onFilterUpdate(this.props.type, this.props.fullName, false);
+					} else {
+					    this.props.onFilterUpdate(this.props.type, this.props.fullName, true);
+					}
+				}
+			} else {
+				this.props.onUserInput(true, this.props.value, this.props.type);
+			}
+		}
 	}
 
 	render() {

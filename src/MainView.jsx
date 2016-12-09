@@ -128,19 +128,21 @@ export default class MainView extends React.Component {
 
             });
         });
-        window.addEventListener("resize", this.updateSize);
+        document.addEventListener("resize", this.updateSize);
+        document.addEventListener('keydown', this.handleKeyDown(this));
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateSize);
+        document.removeEventListener("resize", this.updateSize);
+        document.removeEventListener('keydown', this.handleKeyDown);
     }
 
     updateSize() {
-        // console.log("Window resized");
-        // this.setState({
-        //  width: window.innerWidth,
-        //  height: window.innerHeight
-        // });
+        console.log("Window resized");
+        this.setState({
+         width: window.innerWidth,
+         height: window.innerHeight
+        });
     }
 
     filterRecords(activeLabel) {
@@ -396,14 +398,20 @@ export default class MainView extends React.Component {
     }
 
     handleLabelInteraction(type, id, state, toFilter = false) {
-        let activeLabel = "";
+    	let activeLabel = "";
         let toState = 0;
         let toRecordState = 0;
+        let filters = this.state.filters;
+        if (toFilter) {
+        	filters = [];
+        	activeLabel = {'type':type, 'value':id};
+        }
         if (state === 1) {
             activeLabel = {'type':type, 'value':id};
             toState = 2;
             toRecordState = 1;
         }
+
         if (type === "diagnosis") {
             const diagnosis = this.state.diagnosis.slice();
             const results = diagnosis.map((d, i) => {
@@ -415,7 +423,8 @@ export default class MainView extends React.Component {
             this.setState({
                 diagnosis: results,
                 activeLabel: activeLabel,
-                isFiltering: toFilter
+                isFiltering: toFilter,
+                filters: filters
             });
 
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
@@ -435,7 +444,8 @@ export default class MainView extends React.Component {
             this.setState({
                 treatments: results,
                 activeLabel: activeLabel,
-                isFiltering: toFilter
+                isFiltering: toFilter,
+                filters: filters
             });
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateWaterSources(this.state.records.filter(this.filterRecords(activeLabel)), toState);
@@ -455,7 +465,8 @@ export default class MainView extends React.Component {
             this.setState({
                 waterSources: results,
                 activeLabel: activeLabel,
-                isFiltering: toFilter
+                isFiltering: toFilter,
+                filters: filters
             });
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateDiagnosis(this.state.records.filter(this.filterRecords(activeLabel)), toState);
@@ -474,7 +485,8 @@ export default class MainView extends React.Component {
             this.setState({
                 bano: results,
                 activeLabel: activeLabel,
-                isFiltering: toFilter
+                isFiltering: toFilter,
+                filters: filters
             });
             this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateDiagnosis(this.state.records.filter(this.filterRecords(activeLabel)), toState);
@@ -483,6 +495,8 @@ export default class MainView extends React.Component {
             this.updateVisitedDates(this.state.records.filter(this.filterRecords(activeLabel)), toRecordState);
         }
         if (type === "community") {
+
+        console.log("handleLabelInteraction: "+activeLabel.type);
             const communities = this.state.communities.slice();
             const results = communities.map((c, i) => {
                 if (c.id === id) {
@@ -493,7 +507,8 @@ export default class MainView extends React.Component {
             this.setState({
                 communities: results,
                 activeLabel: activeLabel,
-                isFiltering: toFilter
+                isFiltering: toFilter,
+                filters: filters
             });
             // this.updateCommunities(this.state.records.filter(this.filterRecords(activeLabel)), toState);
             this.updateDiagnosis(this.state.records.filter(this.filterRecords(activeLabel)), toState);
@@ -1152,6 +1167,9 @@ export default class MainView extends React.Component {
 
 
     handlePatientClick(patientDialogShowing, patientRecord, state) {
+    	 if(this.state.isFiltering) {
+        	this.handleLabelInteraction(this.state.activeLabel.type, this.state.activeLabel.value, 0);
+        }
         this.handleUserHover(patientRecord, state);
         this.setState({
             patientDialogShowing: patientDialogShowing,
@@ -1205,22 +1223,26 @@ export default class MainView extends React.Component {
     handleFilterUpdate(type, groupName, toAdd) {
     	const filter = {'type':type, 'value': groupName};
     	const filters = this.state.filters.slice();
+    	const activeLabel = this.state.activeLabel;
     	let toState = 0;
     	if (toAdd) {
     		filters.push(filter);
-    		toState = 1;
+    		toState = 3;
     	} else {
     		if (filters.length !== 0) {
     			const index = filters.map((d, i) => {
+    				console.log("type: "+d.type+" "+type);
+    				console.log("value: "+d.value+" "+groupName);
     				if (d.type === type && d.value === groupName) {
     					return i;
     				}
 	    		});
 	    		filters.splice(index, 1);
     		}
-    		toState = 0;
+    		toState = 2;
     	}
     	console.log(filters);
+    	
         if (type === "diagnosis") {
             const diagnosis = this.state.diagnosis.slice();
             const results = diagnosis.map((d, i) => {
@@ -1276,7 +1298,7 @@ export default class MainView extends React.Component {
         if (type === "community") {
             const communities = this.state.communities.slice();
             const results = communities.map((c, i) => {
-                if (c.name === groupName) {
+                if (c.full_name === groupName) {
                     c.state = toState;
                 }
                 return c;
@@ -1287,8 +1309,7 @@ export default class MainView extends React.Component {
             });
         }
         let updatedRecords = dataManager.records;
-        const activeLabel = this.state.activeLabel;
-        console.log(activeLabel);
+        
         if (activeLabel.type === 'diagnosis') {
             const diagnosis = this.state.diagnosis.find(d => {
                 return d.id === activeLabel.value;
@@ -1313,11 +1334,10 @@ export default class MainView extends React.Component {
             const community = this.state.communities.find(c => {
                 return c.id === activeLabel.value;
             });
-            updatedRecords = dataManager.getRecordsByCommunity(community.name, updatedRecords);
+           updatedRecords = dataManager.getRecordsByCommunity(community.full_name, updatedRecords);
         }
         filters.map((f, i) => {
-        	console.log(f);
-        	console.log("Before filtering: " + updatedRecords.length);
+        	
         	if (f.type === 'community') {
         		updatedRecords = dataManager.getRecordsByCommunity(f.value, updatedRecords);
         	}
@@ -1333,12 +1353,20 @@ export default class MainView extends React.Component {
         	if (f.type === 'bano') {
         		updatedRecords = dataManager.getRecordsByBano(f.value, updatedRecords);
         	}
-        	console.log("After filtering: " + updatedRecords.length);
+        	
         });
+
         this.updateVisitedDates(dataManager.records, 0);
         this.updateVisitedDates(updatedRecords, 1);
     }
 
+    handleKeyDown(t) {
+    	return ((e) =>  {
+    		if (e.key === 'Escape' && t.state.isFiltering) {
+    			t.handleLabelInteraction(t.state.activeLabel.type, t.state.activeLabel.value, 0);
+    		}
+    	});
+    }
     render() {
         const { width, height } = this.state;
         const paneLeftX = 0;

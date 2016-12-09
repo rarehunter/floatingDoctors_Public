@@ -6,26 +6,32 @@ import PatientDetailsDialog from '../PatientDetailsDialog.jsx';
 
 const recordFemaleStyle = {
     fill: Meta.RECORD_SQUARE_FEMALE,
+    opacity: 0.2
 };
 
 const recordFemaleStyleHighlighted = {
-    fill: Meta.RECORD_SQUARE_FEMALE_HIGHLIGHTED
+    fill: Meta.RECORD_SQUARE_FEMALE,
+    opacity: 1
 };
 
 const recordMaleStyle = {
-    fill: Meta.RECORD_SQUARE_MALE
+    fill: Meta.RECORD_SQUARE_MALE,
+    opacity: 0.2
 };
 
 const recordMaleStyleHighlighted = {
-    fill: Meta.RECORD_SQUARE_MALE_HIGHLIGHTED
+    fill: Meta.RECORD_SQUARE_MALE,
+    opacity: 1
 };
 
 const recordDefaultStyle = {
-    fill: Meta.RECORD_SQUARE_DEFAULT
+    fill: Meta.RECORD_SQUARE_DEFAULT,
+    opacity: 0.2
 }
 
 const recordDefaultStyleHighlighted = {
-    fill: Meta.RECORD_SQUARE_DEFAULT_HIGHLIGHTED
+    fill: Meta.RECORD_SQUARE_DEFAULT,
+    opacity: 1
 }
 
 export default class RecordSquare extends React.Component {

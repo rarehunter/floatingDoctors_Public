@@ -198,7 +198,7 @@ body {
 }
 /* Bar Style */
 .bar {
-  fill: #445572;
+  fill: #bbb;
   transition: all 0.5s ease-in-out;
 }
 
@@ -569,4 +569,60 @@ body {
 
 .chartInfo.hide{
 	opacity: 0;
+}
+
+.infoPanel {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 0 6px rgba(0,0,0,0.1);
+
+  transition: all 0.2s linear;
+  
+  visibility: hidden;
+}
+.hintPanel {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
+.infoPanel p {
+  font-size: 0.6em;
+  color: #666;
+}
+.infoPanel .infoTitle {
+  font-size: 0.8em;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #232323;
+}
+.infoPanel.show {
+   -webkit-animation: enter 1s ease-in-out;
+  animation: enter 1s ease-in-out;
+  visibility: visible;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+    bottom: -96px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 16px
+  }
+}
+
+@-webkit-keyframes enter {
+   0% {
+    opacity: 0;
+    bottom: -96px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 16px
+  }
 }

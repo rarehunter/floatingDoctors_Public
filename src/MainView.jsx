@@ -94,6 +94,7 @@ export default class MainView extends React.Component {
         this.handleRecordInteraction = this.handleRecordInteraction.bind(this);
         this.handleUserHover = this.handleUserHover.bind(this);
         this.handleFilterUpdate = this.handleFilterUpdate.bind(this);
+        this.checkInfoPanelState = this.checkInfoPanelState.bind(this);
     }
 
     componentWillmount(){
@@ -1390,6 +1391,17 @@ export default class MainView extends React.Component {
     		}
     	});
     }
+
+    checkInfoPanelState() {
+    	const isFiltering = this.state.isFiltering;
+		let classy = "";
+		if (isFiltering) {
+			classy = `${styles.infoPanel} ${styles.show}`;
+		} else {
+			classy = `${styles.infoPanel}`;
+		}
+		return classy;
+    }
     render() {
         const { width, height } = this.state;
         const paneLeftX = 0;
@@ -1541,6 +1553,14 @@ export default class MainView extends React.Component {
                                 />
                                 <LinkGroup />
                             </svg>
+                            <div className={styles.hintPanel}>
+                            	<img src="./img/info.svg" />
+                            </div>
+                            <div className={this.checkInfoPanelState()}>
+                            	<p className={styles.infoTitle}>Filtering Mode</p>
+                            	<p>Select more labels to filter</p>
+                            	<p>Press ESC to exit</p>
+                            </div>
                         </Section>
                     </SectionsContainer>
 

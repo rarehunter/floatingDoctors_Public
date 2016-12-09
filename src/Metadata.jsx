@@ -23,7 +23,7 @@ export const DEFAULT_START_TIME = new Date('2014', '12', '01');
 export const DEFAULT_END_TIME = new Date('2016', '02', '01');
 export const DEFAULT_VISITS = 80; // Should be 160
 export const MAX_RECORDS = 50;
-export const BAR_SIZE = 4;
+export const BAR_SIZE = 2;
 export const MAX_BAR_SIZE = 48;
 export const BAR_MARGIN = 4;
 
@@ -35,14 +35,17 @@ export const LABEL_ROW_OFFSET = 32;
 
 export const DEFAULT_COLOR_SCHEMA = "rgba(255, 143, 34, 1)";
 
-export const RECORD_SQUARE_FEMALE = "rgba(254, 90, 90, 0.2)";
+// export const RECORD_SQUARE_FEMALE = "rgba(254, 90, 90, 0.2)";
+export const RECORD_SQUARE_FEMALE = "rgba(254, 90, 90, 1)";
 export const RECORD_SQUARE_FEMALE_HIGHLIGHTED = "rgba(254, 90, 90, 1)";
 
-export const RECORD_SQUARE_MALE = "rgba(33, 150, 243, 0.2)";
+export const RECORD_SQUARE_MALE = "rgba(33, 150, 243, 1)";
 export const RECORD_SQUARE_MALE_HIGHLIGHTED = "rgba(33, 150, 243, 1)";
 
-export const RECORD_SQUARE_DEFAULT = "rgba(90, 90, 90, 0.2)";
+export const RECORD_SQUARE_DEFAULT = "rgba(90, 90, 90, 1)";
 export const RECORD_SQUARE_DEFAULT_HIGHLIGHTED = "rgba(90, 90, 90, 1)";
+
+
 
 // export const RECORD_SQUARE_DEFAULT = "rgba(254, 90, 90, 0.2)";
 // export const RECORD_SQUARE_DEFAULT_HIGHLIGHTED = "rgba(254, 90, 90, 1)";

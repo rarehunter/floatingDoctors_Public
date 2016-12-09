@@ -84,25 +84,6 @@ export default class DataManager {
                 }
             }
 
-            // for (var i = Object.keys(data).length - 1; i >= 0; i--)
-            // {
-            //     var date = data[i]['consultTime'];
-            //     if (visitedDate.indexOf(date) == -1)
-            //     {
-            //         visitedDate.push(date);
-            //     }
-
-            //     if(visitedDate.length == this.numOfVisits)
-            //         break;
-            // }
-
-            // for (var i = 0; i < visitedDate.length; i++)
-            // {
-            //     var date = new Date(visitedDate[i]);
-            //     date.setMonth(date.getMonth() - 1);
-            //     visitedDate[i] = date;
-            // }
-
             this.visitedDate = visitedDate;
             return callback(nested_data);
         });
@@ -178,7 +159,7 @@ export default class DataManager {
         // Step 3: formating data to required format
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '' || nested_data[i].key == 'undefined') continue;
             diagnosisData.push({
                 "id": i,
                 "name": nested_data[i].key,
@@ -205,7 +186,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '' || nested_data[i].key == 'undefined') continue;
             var communityName = nested_data[i].key;
             communitiesData.push({
                 "id": i,
@@ -254,7 +235,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '' || nested_data[i].key == 'undefined') continue;
             var treatment = nested_data[i].key;
             treatmentData.push({
                 "id": i,
@@ -263,7 +244,7 @@ export default class DataManager {
                 "state": 0
             });
         }
-
+        console.log(treatmentData);
         return treatmentData;
 
     }
@@ -283,7 +264,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(!nested_data[i].key == undefined || nested_data[i].key == '') continue;
+            if(!nested_data[i].key == undefined || nested_data[i].key == '' || nested_data[i].key == 'undefined') continue;
             waterSourceData.push({
                 "id": i,
                 "name": nested_data[i].key,
@@ -310,7 +291,7 @@ export default class DataManager {
 
         for (var i = 0; i < nested_data.length; i++)
         {
-            if(nested_data[i].key == undefined || nested_data[i].key == '') continue;
+            if(nested_data[i].key == undefined || nested_data[i].key == '' || nested_data[i].key == 'undefined') continue;
             banoData.push({
                 "id": i,
                 "name": nested_data[i].key,

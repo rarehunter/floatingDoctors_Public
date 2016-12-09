@@ -102,7 +102,6 @@ export default class MainView extends React.Component {
         dataManager = new DataManager(Meta.DEFAULT_END_TIME);
         var that = this;
         dataManager.getVisits(function(visitedDate){
-
             dataManager.getVisitedRecords(function(data){
                 visitedDate = dataManager.visitedDate;
                 records = dataManager.records;
@@ -736,14 +735,10 @@ export default class MainView extends React.Component {
     }
 
 
-    handleUserClick(multiViewShowing, groupName, type) {
+    handleUserClick(multiViewShowing, groupName, type, records = dataManager.records) {
 
         //Translate abbreviation to full community name
         var groupRecords;
-
-        var full_community_name;
-		var community_records;
-
         var num_records = 0, num_females = 0, num_males = 0, num_other = 0;
         var age_nest, age_nest_M, age_nest_F;
         var gender_data;
@@ -799,29 +794,30 @@ export default class MainView extends React.Component {
             }
 
             /* Grab community records from dataManager to be displayed in MultiviewDialog */
+            // Check filtered Records
             if(type == 'community')
             {
-                groupRecords = dataManager.getRecordsByCommunity(groupName);
+                groupRecords = dataManager.getRecordsByCommunity(groupName, records);
             }
             if(type == 'diagnosis')
             {
-                groupRecords = dataManager.getRecordsByDiagnosis(groupName);
+                groupRecords = dataManager.getRecordsByDiagnosis(groupName, records);
             }
             if(type == 'treatment')
             {
-                groupRecords = dataManager.getRecordsByTreatments(groupName);
+                groupRecords = dataManager.getRecordsByTreatments(groupName, records);
             }
             if(type == 'watersources')
             {
-                groupRecords = dataManager.getRecordsByWatersource(groupName);
+                groupRecords = dataManager.getRecordsByWatersource(groupName, records);
             }
             if(type == 'bano')
             {
-                groupRecords = dataManager.getRecordsByBano(groupName);
+                groupRecords = dataManager.getRecordsByBano(groupName, records);
             }
+
             num_records = groupRecords.length;
 
-            // console.log(community_records);
 
             // call helper function to get a data array with the right filters applied
             var age_by_all = this.getFilteredRecords("all", "age", groupRecords);
@@ -836,6 +832,7 @@ export default class MainView extends React.Component {
             var bp_by_all = this.getFilteredRecords("all", "bp", groupRecords);
             var bp_by_M = this.getFilteredRecords("M", "bp", groupRecords);
             var bp_by_F = this.getFilteredRecords("F", "bp", groupRecords);
+
 
             // gender_nest is used to show gender distribution (M, F)
             var gender_nest =  d3.nest().key(function(d){ return d.gender; })
@@ -1122,6 +1119,7 @@ export default class MainView extends React.Component {
                                             textAnchor="end"
                                             data={this.state.diagnosis.slice(0,16)}
                                             onLabelInteraction={this.handleLabelInteraction}
+                                            groupRecords={this.state.groupRecords}
                                             onUserInput={this.handleUserClick}
                                             x={paneLeftWidth} y="0"/>,
                                         <LabelGroup key="1"
@@ -1134,6 +1132,7 @@ export default class MainView extends React.Component {
                                             textAnchor="end"
                                             data={this.state.waterSources}
                                             onLabelInteraction={this.handleLabelInteraction}
+                                            groupRecords={this.state.groupRecords}
                                             onUserInput={this.handleUserClick}
                                             x={paneLeftWidth} y={height/2}/>
                                     ]}
@@ -1155,12 +1154,14 @@ export default class MainView extends React.Component {
                                             width={paneCenterWidth}
                                             data={this.state.communities}
                                             onLabelInteraction={this.handleLabelInteraction}
+                                            groupRecords={this.state.groupRecords}
                                             onUserInput={this.handleUserClick}
                                             x="0" y={Meta.MainChartHeight() + Meta.PADDING}/>
                                     ]}
                                     right = {[
                                         <LabelGroup key="0"
                                             type="treatment"
+                                            isDialogActive={isDialogActive}
                                             direction='v'
                                             title="Treatment"
                                             textAnchor="start"
@@ -1168,10 +1169,12 @@ export default class MainView extends React.Component {
                                             tooltipPos="left"
                                             data={this.state.treatments.slice(0,16)}
                                             onLabelInteraction={this.handleLabelInteraction}
+                                            groupRecords={this.state.groupRecords}
                                             onUserInput={this.handleUserClick}
                                             x="0" y="0"/>,
                                         <LabelGroup key="1"
                                             type="bano"
+                                            isDialogActive={isDialogActive}
                                             direction='v'
                                             title="Bano"
                                             tooltip="true"
@@ -1180,6 +1183,7 @@ export default class MainView extends React.Component {
                                             data={this.state.bano}
                                             textAnchor="start"
                                             onLabelInteraction={this.handleLabelInteraction}
+                                            groupRecords={this.state.groupRecords}
                                             onUserInput={this.handleUserClick}
                                             x="0" y={height/2}/>
                                     ]}

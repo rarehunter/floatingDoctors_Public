@@ -167,6 +167,7 @@ export default class LabelGroup extends React.Component {
 								barWidth={barScale(this.props)(d.count)}
 								textAnchor={this.props.textAnchor}
 								onLabelInteraction={this.handleLabelInteraction}
+								groupRecords={this.props.groupRecords}
 								onUserInput={this.props.onUserInput}
 								value = {d.name}
 								direction="h"
@@ -186,6 +187,7 @@ export default class LabelGroup extends React.Component {
 								barWidth={Meta.BAR_SIZE}
 								textAnchor={this.props.textAnchor}
 								onLabelInteraction={this.handleLabelInteraction}
+								groupRecords={this.state.groupRecords}
 								onUserInput={this.props.onUserInput}
 								value = {d.name}
 								direction="v"

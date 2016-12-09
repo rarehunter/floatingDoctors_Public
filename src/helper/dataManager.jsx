@@ -244,7 +244,6 @@ export default class DataManager {
                 "state": 0
             });
         }
-        console.log(treatmentData);
         return treatmentData;
 
     }
@@ -316,18 +315,16 @@ export default class DataManager {
             if(nested_data[i].key.toUpperCase() == communityName.toUpperCase())
                 return nested_data[i].values;
         }
-        return null;
+        return [];
     }
 
     getRecordsByDiagnosis(diagnosisName, data = this.records)
     {
         // Step 1: expand record data
-        console.log('in dataManager getRecordsByDiagnosis');
-        console.log('diagnosisName', diagnosisName);
         var expand_data = [];
         for(var i = 0; i < data.length; i++)
         {
-            if(data[i].hasOwnProperty("diagnosis") && data[i].diagnosis.length > 0)
+            if(data[i].hasOwnProperty("diagnosis") && Array.isArray(data[i].diagnosis) && data[i].diagnosis.length > 0)
             {
                 for (var j = 0; j < data[i].diagnosis.length; j++)
                 {
@@ -346,14 +343,13 @@ export default class DataManager {
         var nested_data = d3.nest()
             .key(function(d){return d.diagnosis})
             .entries(expand_data);
-        console.log(nested_data);
 
         for(var i = 0; i < nested_data.length; i++)
         {
             if(nested_data[i].key.toUpperCase() == diagnosisName.toUpperCase())
                 return nested_data[i].values;
         }
-        return null;
+        return [];
     }
 
     getRecordsByTreatments(treatmentName, data = this.records)
@@ -362,7 +358,7 @@ export default class DataManager {
         var expand_data = [];
         for(var i = 0; i < data.length; i++)
         {
-            if(data[i].hasOwnProperty("treatment") && data[i].treatment.length > 0)
+            if(data[i].hasOwnProperty("treatment") && Array.isArray(data[i].treatment) && data[i].treatment.length > 0)
             {
                 for (var j = 0; j < data[i].treatment.length; j++)
                 {
@@ -388,7 +384,7 @@ export default class DataManager {
             if(nested_data[i].key.toUpperCase() == treatmentName.toUpperCase())
                 return nested_data[i].values;
         }
-        return null;
+        return [];
     }
 
     getRecordsByWatersource(watersourceName, data = this.records)
@@ -402,7 +398,7 @@ export default class DataManager {
             if(nested_data[i].key.toUpperCase() == watersourceName.toUpperCase())
                 return nested_data[i].values;
         }
-        return null;
+        return [];
     }
 
     getRecordsByBano(banoName, data = this.records)
@@ -416,7 +412,7 @@ export default class DataManager {
             if(nested_data[i].key.toUpperCase() == banoName.toUpperCase())
                 return nested_data[i].values;
         }
-        return null;
+        return [];
     }
 
 

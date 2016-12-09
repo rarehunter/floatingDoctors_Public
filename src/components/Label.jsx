@@ -125,7 +125,14 @@ export default class Label extends React.Component {
 	}
 
 	handleClick() {
-		this.props.onUserInput(true, this.props.value, this.props.type);
+		if(this.props.isDialogActive)
+		{
+			this.props.onUserInput(true, this.props.value, this.props.type, this.props.groupRecords);
+		}
+		else
+		{
+			this.props.onUserInput(true, this.props.value, this.props.type);
+		}
 	}
 
 	render() {

@@ -173,12 +173,12 @@ export default class MultiviewDialog extends React.Component {
                     show={this.props.isDialogActive}
                     onHide={this.hideModal}
                     dialogClassName={styles.largeDialogBox}
-                    backdrop={true}
+                    backdrop={false}
                     keyboard={true}
                     style={this.updateModalWidth()}
                 >
 
-                    <Modal.Header>
+                    <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-lg">{this.props.groupName}</Modal.Title>
                     </Modal.Header>
 
